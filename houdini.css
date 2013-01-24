@@ -1,0 +1,72 @@
+/*
+
+    HOUDINI.CSS v1.0
+    A simple collapse and expand widget by Chris Ferdinandi.
+    http://gomakethings.com
+
+
+    Licensed under WTFPL.
+    http://www.wtfpl.net/
+    
+
+*/
+
+/*  RESPONSIVE RESET */
+/*  Replace with your own */
+
+@-webkit-viewport { width: device-width; zoom: 1.0; }
+   @-moz-viewport { width: device-width; zoom: 1.0; }
+    @-ms-viewport { width: device-width; zoom: 1.0; }
+     @-o-viewport { width: device-width; zoom: 1.0; }
+        @viewport { width: device-width; zoom: 1.0; }
+
+html { overflow-y: auto; }
+
+img, audio, video, canvas { max-width: 100%; }
+
+/*  Sets Body Width */
+.container { 
+    max-width: 640px;
+    width: 88%;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+
+
+
+
+/*  HOUDINI COLLAPSE & EXPAND */
+/*  The widget styling */
+
+/*  Hide the collapase and expand link or button by default */
+.collapse-toggle {
+    display: none;
+    visibility: hidden;
+}
+
+/*  If JavaScript is enabled, show the collapse and expand link or button */
+.js .collapse-toggle {
+    display: inline;
+    visibility: visible;
+    cursor: pointer;
+}
+
+/* If JavaScript is enabled, hide the collapsed element */
+.js .collapse {
+    max-height: 0;
+    overflow: hidden;
+    /*  Add animation when content expands and collapses */
+    -webkit-transition: all 0.35s ease;
+       -moz-transition: all 0.35s ease;
+        -ms-transition: all 0.35s ease;
+         -o-transition: all 0.35s ease;
+            transition: all 0.35s ease;
+}
+
+/*  When collapsed element has the .active class, show it 
+ *  Uses max-height instead of display: none to allow for 
+ *  CSS3 animations, which don't work on display values. */
+.js .collapse.active {
+    max-height: 9999px;
+}
