@@ -9,4 +9,4 @@ Getting started with Houdini is really easy. [View the online tutorial](http://c
   * Initial release.
 
 ## License
-Tabby is licensed under the [WTFPL](http://www.wtfpl.net/).
+Houdini is licensed under [WTFPL](http://www.wtfpl.net/).
