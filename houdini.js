@@ -14,7 +14,7 @@ $(function () {
         var hrefID = $(this).attr('href'); // hrefID is the href value
 
         // Toggle the Active Class
-        if ($(this).attr('data-target'))  { // If the clicked element has a data-target
+        if (dataID)  { // If the clicked element has a data-target
             $(dataID).toggleClass('active'); // Add or remove the .active class from the element whose ID matches the data-target value
         }
         else { // Otherwise
