@@ -57,11 +57,11 @@ img, audio, video, canvas { max-width: 100%; }
     max-height: 0;
     overflow: hidden;
     /*  Add animation when content expands and collapses */
-    -webkit-transition: all 0.35s ease;
-       -moz-transition: all 0.35s ease;
-        -ms-transition: all 0.35s ease;
-         -o-transition: all 0.35s ease;
-            transition: all 0.35s ease;
+    -webkit-transition: all 0.35s ease-in;
+       -moz-transition: all 0.35s ease-in;
+        -ms-transition: all 0.35s ease-in;
+         -o-transition: all 0.35s ease-in;
+            transition: all 0.35s ease-in;
 }
 
 /*  When collapsed element has the .active class, show it 
