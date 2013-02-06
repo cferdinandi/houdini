@@ -26,7 +26,7 @@ img, audio, video, canvas { max-width: 100%; }
 
 /*  Sets Body Width */
 .container { 
-    max-width: 640px;
+    max-width: 40em;
     width: 88%;
     margin-left: auto; 
     margin-right: auto;
@@ -68,5 +68,5 @@ img, audio, video, canvas { max-width: 100%; }
  *  Uses max-height instead of display: none to allow for 
  *  CSS3 animations, which don't work on display values. */
 .js .collapse.active {
-    max-height: 9999px;
+    max-height: 600em;
 }
