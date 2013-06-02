@@ -58,7 +58,7 @@ img, audio, video, canvas { max-width: 100%; }
     overflow: hidden;
     opacity: 0;
     /*  Add animation when content expands and collapses */
-    -webkit-transition: height 0.35s ease, opacity 0.35s ease;
+    -webkit-transition: opacity 0.35s ease;
        -moz-transition: opacity 0.35s ease;
         -ms-transition: opacity 0.35s ease;
          -o-transition: opacity 0.35s ease;
