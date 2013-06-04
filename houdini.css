@@ -1,6 +1,6 @@
-/*
+/* =============================================================
 
-    HOUDINI.CSS v1.0
+    Houdini v2.0
     A simple collapse and expand widget by Chris Ferdinandi.
     http://gomakethings.com
 
@@ -8,11 +8,13 @@
     Licensed under WTFPL.
     http://www.wtfpl.net/
     
+ * ============================================================= */
 
-*/
 
-/*  RESPONSIVE RESET */
-/*  Replace with your own */
+/* =============================================================
+    RESPONSIVE RESET
+    Replace with your own.
+ * ============================================================= */
 
 @-webkit-viewport { width: device-width; zoom: 1.0; }
    @-moz-viewport { width: device-width; zoom: 1.0; }
@@ -36,8 +38,10 @@ img, audio, video, canvas { max-width: 100%; }
 
 
 
-/*  HOUDINI COLLAPSE & EXPAND */
-/*  The widget styling */
+/* =============================================================
+    HOUDINI COLLAPSE & EXPAND
+    The widget styling.
+ * ============================================================= */
 
 /*  Hide the collapase and expand link or button by default */
 .collapse-toggle {
