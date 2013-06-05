@@ -1,8 +1,12 @@
 /* =============================================================
+
     Houdini v2.0
-    A simple collapse and expand widget.
-    Script by Chris Ferdinandi - http://gomakethings.com
-    Licensed under WTFPL - http://www.wtfpl.net/
+    A simple collapse and expand widget by Chris Ferdinandi.
+    http://gomakethings.com
+
+    Licensed under WTFPL.
+    http://www.wtfpl.net/
+    
  * ============================================================= */
 
 (function($) {
@@ -20,10 +24,16 @@
 
 
 /* =============================================================
-    js-accessibility.js
+
+    Progressively Enhanced JS v1.0
     Adds .js class to <body> for progressive enhancement.
-    Script by Chris Ferdinandi - http://gomakethings.com
-    Licensed under WTFPL - http://www.wtfpl.net
+
+    Script by Chris Ferdinandi.
+    http://gomakethings.com
+
+    Licensed under WTFPL.
+    http://www.wtfpl.net
+    
  * ============================================================= */
 
 (function($) {

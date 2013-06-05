@@ -5,14 +5,14 @@ Houdini is a lightweight and progressively enhanced expand-and-collapse widget.
 Getting started with Houdini is really easy. [View the online tutorial](http://cferdinandi.github.com/houdini/) or dig through the `index.html` file.
 
 ## Changelog
-* Version 2.0 (June 3, 2013)
+* v2.0 (June 3, 2013)
   * Removed `href` as element selector. Just `data-target` supported now.
-* Version 1.2 (February 13, 2013)
+* v1.2 (February 13, 2013)
   * Renamed `example.html` to `index.html`.
   * Removed "Convert to Vanilla JS" from the roadmap.
-* Version 1.1 (February 5, 2013)
+* v1.1 (February 5, 2013)
   * Switched to relative sizing.
-* Version 1.0 (January 24, 2013)
+* v1.0 (January 24, 2013)
   * Initial release.
 
 ## License
