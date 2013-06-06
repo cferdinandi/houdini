@@ -19,40 +19,27 @@
 	    <h1 style="text-align: center; font-size: 3em;">Houdini</h1>
 	    <p style="text-align: center; font-size: 1.5em;">A simple collapse-and-expand widget.</p>
 
-        <p>You can use either an <code>&lt;a&gt;</code> or a <code>&lt;button&gt;</code> element to toggle to the collapse-and-expand.</p>
+        <p>Hide content with the <code>.collapse</code> class.</p>
 
-        <p class="text-small">A little snippet of jQuery matches the <code>href</code> or <code>data-target</code> value to the ID of the collapsed element. Then, it adds or removes the <code>.active</code> class from the collapsed element.</p>
-
-        <p class="text-small">CSS shows or hides the content based on the presence of that class.</p>
-
-        <hr>
+        <p>Use any <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> element to show and hide collapsed content by adding the <code>.collapse-toggle</code> class. You also need to include a <code>data-target</code> attribute that matches the ID of the collapsed content.</p>
 
 
-        <h2>Example 1</h2>
-
-        <p>Toggled with a link and collapsed by default.</p>
-
-        <p><a class="collapse-toggle" href="#collapse1">Toggle 1</a></p>
+        <p><a class="collapse-toggle" data-target="#collapse1" href="#">Click to Show</a></p>
 
         <div class="collapse" id="collapse1">
-            <p>Now you see me, now you don't.</p>
+            Now you see me, now you don't.
         </div>
 
-        <hr>
 
 
-        <h2>Example 2</h2>
+        <h2>Show Content</h2>
 
-        <p>Toggled with a button and expanded by default.</p>
+        <p>If you'd prefer to show content by default, include the <code>.active</code> class along with the .collapse class.</p>
 
-        <p>For <code>&lt;button&gt;</code> elements, use the CSS3 <code>data-target</code> attribute. The use of <code>href</code> with <code>&lt;button&gt;</code> element is not valid HTML.</p>
+        <p><button class="collapse-toggle" data-target="#hide-me">Click to Hide</button></p>
 
-        <p>To show content by default, add the <code>.active</code> class to the collapsed content. </p>
-
-        <p><button class="collapse-toggle" data-target="#collapse2">A button this time</button></p>
-
-        <div class="collapse active" id="collapse2">
-            <p>Viola!</p>
+        <div class="collapse active" id="hide-me">
+            Hide me!
         </div>
 
 	</section>
