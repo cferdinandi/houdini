@@ -55,6 +55,20 @@ img, audio, video, canvas { max-width: 100%; }
     cursor: pointer;
 }
 
+/*  When expanded, hide "show" text. 
+ *  When collapsed, hide "hide" text. */
+.active .collapse-show-text,
+.collapse-hide-text {
+    display: none;
+    visibility: hidden;
+}
+
+/*  When expanded, show "hide" text. */
+.active .collapse-hide-text {
+    display: inline;
+    visibility: visible;
+}
+
 /* If JavaScript is enabled, hide the collapsed element */
 .js .collapse {
     max-height: 0;
