@@ -57,14 +57,14 @@ img, audio, video, canvas { max-width: 100%; }
 
 /*  When expanded, hide "show" text. 
  *  When collapsed, hide "hide" text. */
-.active .collapse-show-text,
-.collapse-hide-text {
+.active .collapse-text-show,
+.collapse-text-hide {
     display: none;
     visibility: hidden;
 }
 
 /*  When expanded, show "hide" text. */
-.active .collapse-hide-text {
+.active .collapse-text-hide {
     display: inline;
     visibility: visible;
 }

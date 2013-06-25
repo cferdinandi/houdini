@@ -23,20 +23,29 @@
 
         <p>Use any <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> element to show and hide collapsed content by adding the <code>.collapse-toggle</code> class. You also need to include a <code>data-target</code> attribute that matches the ID of the collapsed content.</p>
 
-
-        <p><a class="collapse-toggle" data-target="#collapse1" href="#">Click to Show</a></p>
-
-        <div class="collapse" id="collapse1">
+        <div class="collapse" id="show-me">
             Now you see me, now you don't.
         </div>
+
+        <p>
+            <a class="collapse-toggle" data-target="#show-me" href="#">
+                <span class="collapse-text-show">Show +</span>
+                <span class="collapse-text-hide">Hide -</span>
+            </a>
+        </p>
 
 
 
         <h2>Show Content</h2>
 
-        <p>If you'd prefer to show content by default, include the <code>.active</code> class along with the .collapse class.</p>
+        <p>If you'd prefer to show content by default, include the <code>.active</code> class along with the <code>.collapse</code> and <code>.collapse-toggle</code> classes.</p>
 
-        <p><button class="collapse-toggle" data-target="#hide-me">Click to Hide</button></p>
+        <p>
+            <button class="collapse-toggle active" data-target="#hide-me">
+                <span class="collapse-text-show">Show</span>
+                <span class="collapse-text-hide">Hide</span>
+            </button>
+        </p>
 
         <div class="collapse active" id="hide-me">
             Hide me!
