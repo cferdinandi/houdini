@@ -1,6 +1,6 @@
 /* =============================================================
 
-    Houdini v2.0
+    Houdini v2.1
     A simple collapse and expand widget by Chris Ferdinandi.
     http://gomakethings.com
 
@@ -13,9 +13,9 @@
     $(function () {
         $('.collapse-toggle').click(function(e) { // When a link or button with the .collapse-toggle class is clicked
             e.preventDefault(); // Prevent the default action from occurring
-            var this = $(this);
-            var dataID = this.attr('data-target'); // Get the ID of the target element
-            this.toggleClass('active'); // Add or remove the '.active' class from the toggle element
+            var toggle = $(this);
+            var dataID = toggle.attr('data-target'); // Get the ID of the target element
+            toggle.toggleClass('active'); // Add or remove the '.active' class from the toggle element
             $(dataID).toggleClass('active'); // Add or remove the '.active' class from the target element
         });
     });
