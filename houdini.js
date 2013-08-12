@@ -1,6 +1,6 @@
 /* =============================================================
 
-    Houdini v3.0
+    Houdini v3.1
     A simple collapse and expand widget by Chris Ferdinandi.
     http://gomakethings.com
 
@@ -70,7 +70,7 @@ if ( 'querySelector' in document && 'addEventListener' in window ) {
             e.preventDefault();
 
             // Define the content container
-            var dataID = this.dataset.target;
+            var dataID = this.getAttribute('data-target');
             var dataTarget = document.querySelector(dataID);
 
             // Toggle the '.active' class on the toggle and container elements
