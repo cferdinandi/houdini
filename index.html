@@ -4,8 +4,16 @@
     <meta charset="utf-8">
     <title>Houdini - A simple collapse-and-expand widget</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <!-- stylesheets -->
     <link rel="stylesheet" href="houdini.css" type="text/css">
+
+    <!-- Feature Test -->
+    <script>
+        if ( 'querySelector' in document && 'addEventListener' in window ) {
+            document.documentElement.className += 'js';
+        }
+    </script>
 
     <!-- HTML5 Shim for IE -->
     <!--[if IE]>
@@ -55,7 +63,6 @@
 
 
     <!-- Javascript -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="houdini.js"></script>
 
 </body>

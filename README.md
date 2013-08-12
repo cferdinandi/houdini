@@ -5,6 +5,9 @@ Houdini is a lightweight and progressively enhanced expand-and-collapse widget.
 Getting started with Houdini is really easy. [View the online tutorial](http://cferdinandi.github.com/houdini/) or dig through the `index.html` file.
 
 ## Changelog
+* v3.0 (August 11, 2013)
+  * Converted to vanilla JS.
+  * Removed jQuery dependency.
 * v2.2 (August 5, 2013)
   * Added variable for `$(this)` (better for performance).
 * v2.1 (June 24,2013)
