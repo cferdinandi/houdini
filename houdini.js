@@ -1,6 +1,6 @@
 /* =============================================================
 
-    Houdini v3.1
+    Houdini v3.2
     A simple collapse and expand widget by Chris Ferdinandi.
     http://gomakethings.com
 
@@ -57,6 +57,19 @@ var toggleClass = function (elem, className) {
 // Feature Test
 if ( 'querySelector' in document && 'addEventListener' in window ) {
 
+    // Function to toggle collapse/expand widget
+    var toggleCollapse = function (toggle) {
+
+            // Define the content container
+            var dataID = toggle.getAttribute('data-target');
+            var dataTarget = document.querySelector(dataID);
+
+            // Toggle the '.active' class on the toggle and container elements
+            toggleClass(toggle, 'active');
+            toggleClass(dataTarget, 'active');
+
+    }
+
     // Define collapse toggle
     var collapseToggle = document.querySelectorAll('.collapse-toggle');
 
@@ -69,13 +82,8 @@ if ( 'querySelector' in document && 'addEventListener' in window ) {
             // Prevent default link behavior
             e.preventDefault();
 
-            // Define the content container
-            var dataID = this.getAttribute('data-target');
-            var dataTarget = document.querySelector(dataID);
-
-            // Toggle the '.active' class on the toggle and container elements
-            toggleClass(this, 'active');
-            toggleClass(dataTarget, 'active');
+            // Toggle the collapse/expand widget
+            toggleCollapse(toggle);
          
         }, false);
 
