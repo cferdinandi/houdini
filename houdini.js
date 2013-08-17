@@ -55,7 +55,7 @@ var toggleClass = function (elem, className) {
  * ============================================================= */
 
 // Feature Test
-if ( 'querySelector' in document && 'addEventListener' in window ) {
+if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
     // Function to toggle collapse/expand widget
     var toggleCollapse = function (toggle) {
