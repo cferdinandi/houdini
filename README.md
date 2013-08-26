@@ -5,6 +5,9 @@ Houdini is a lightweight and progressively enhanced expand-and-collapse widget.
 Getting started with Houdini is really easy. [View the online tutorial](http://cferdinandi.github.com/houdini/) or dig through the `index.html` file.
 
 ## Changelog
+* v3.3 (August 26,2013)
+  * Converted to IIFE pattern.
+  * Added Buoy vanilla JS micro-library.
 * v3.2 (August 14, 2013)
   * Added toggleCollapse function for better performance.
 * v3.1 (August 12, 2013)
