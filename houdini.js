@@ -84,7 +84,7 @@ if ( 'querySelector' in document && 'addEventListener' in window && Array.protot
 
             // Toggle the collapse/expand widget
             toggleCollapse(toggle);
-         
+            
         }, false);
 
     });
