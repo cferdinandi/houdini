@@ -7,6 +7,7 @@ Getting started with Houdini is really easy. [View the online tutorial](http://c
 ## Changelog
 * v3.4 (August 27, 2013)
     * Added missing semicolon.
+    * Activated strict mode.
 * v3.3 (August 26,2013)
   * Converted to IIFE pattern.
   * Added Buoy vanilla JS micro-library.
