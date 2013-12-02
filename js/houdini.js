@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Houdini v3.4
+	Houdini v3.5
 	A simple collapse and expand widget by Chris Ferdinandi.
 	http://gomakethings.com
 
