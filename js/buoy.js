@@ -1,11 +1,11 @@
 /* =============================================================
 
-	Buoy v1.1
+	Buoy v1.2
 	A simple vanilla JS micro-library by Chris Ferdinandi.
 	http://gomakethings.com
 
 	Class handlers by Todd Motto.
-	http://toddmotto.com/
+	https://github.com/toddmotto/apollo
 
 	Module pattern by Keith Rousseau.
 	https://twitter.com/keithtri
@@ -15,7 +15,7 @@
 
  * ============================================================= */
 
-window.buoy = (function(){
+window.buoy = (function (window, document, undefined) {
 
 	'use strict';
 
@@ -89,4 +89,4 @@ window.buoy = (function(){
 		getSiblings: getSiblings
 	};
 
-})();
+})(window, document);
