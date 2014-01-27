@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Houdini v4.0
+	Houdini v4.1
 	A simple collapse and expand widget by Chris Ferdinandi.
 	http://gomakethings.com
 
@@ -9,30 +9,31 @@
 
  * ============================================================= */
 
-;window.houdini = (function (window, document, undefined) {
+window.houdini = (function (window, document, undefined) {
 
 	'use strict';
 
 	// Feature Test
-	if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
+	if ( 'querySelector' in document && 'addEventListener' in window ) {
 
 		// SELECTORS
 
-		// Collapse toggle
-		var collapseToggle = document.querySelectorAll('[data-collapse]');
+		// Get all collapse toggles
+		var toggles = document.querySelectorAll('[data-collapse]');
 
 
 		// METHODS
 
-		// Toggle collapse/expand widget
-		var toggleCollapse = function (toggle) {
+		// Toggle the collapse/expand widget
+		var toggleCollapse = function (event) {
 
 			// Define the content container
-			var dataID = toggle.getAttribute('data-target');
+			var dataID = this.getAttribute('data-target');
 			var dataTarget = document.querySelector(dataID);
 
-			// Toggle the '.active' class on the toggle and container elements
-			buoy.toggleClass(toggle, 'active');
+			// Prevent default link behavior, and toggle the '.active' class on the toggle and container elements
+			event.preventDefault();
+			buoy.toggleClass(this, 'active');
 			buoy.toggleClass(dataTarget, 'active');
 
 		};
@@ -40,13 +41,14 @@
 
 		// EVENTS, LISTENERS, AND INITS
 
+		// Add class to HTML element to activate conditional CSS
+		buoy.addClass(document.documentElement, 'js-houdini');
+
 		// Whenever a toggle is clicked, run the expand/collapse function
-		[].forEach.call(collapseToggle, function (toggle) {
-			toggle.addEventListener('click', function(e) {
-				e.preventDefault();
-				toggleCollapse(toggle);
-			}, false);
-		});
+		for (var i = toggles.length; i--;) {
+			var toggle = toggles[i];
+			toggle.addEventListener('click', toggleCollapse, false);
+		}
 
 	}
 

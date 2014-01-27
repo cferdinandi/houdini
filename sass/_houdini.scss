@@ -16,7 +16,7 @@
 }
 
 /*  If JavaScript is enabled, show the collapse and expand link or button */
-.js .collapse-toggle {
+.js-houdini .collapse-toggle {
 	display: inline;
 	visibility: visible;
 	cursor: pointer;
@@ -37,7 +37,7 @@
 }
 
 /* If JavaScript is enabled, hide the collapsed element */
-.js .collapse {
+.js-houdini .collapse {
 	max-height: 0;
 	overflow: hidden;
 	opacity: 0;
@@ -48,7 +48,7 @@
 /*  When collapsed element has the .active class, show it
  *  Uses max-height instead of display: none to allow for
  *  CSS3 animations, which don't work on display values. */
-.js .collapse.active {
+.js-houdini .collapse.active {
 	max-height: 9999em;
 	opacity: 1;
 }
