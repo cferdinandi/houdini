@@ -5,6 +5,10 @@ Houdini is a lightweight and progressively enhanced expand-and-collapse widget.
 Getting started with Houdini is really easy. [View the online tutorial](http://cferdinandi.github.com/houdini/) or dig through the `index.html` file.
 
 ## Changelog
+* v4.0 (January 27, 2014)
+  * Switched to a data attribute for the toggle selector (separates scripts from styles).
+  * Prefixed script with a `;` to prevent errors if other scripts are incorrectly closed.
+  * Added namespacing to IIFE.
 * v3.5 (December 2, 2013)
   * Added Sass support
 * v3.4 (August 27, 2013)
