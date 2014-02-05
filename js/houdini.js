@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Houdini v4.1
+	Houdini v4.2
 	A simple collapse and expand widget by Chris Ferdinandi.
 	http://gomakethings.com
 
@@ -14,7 +14,7 @@ window.houdini = (function (window, document, undefined) {
 	'use strict';
 
 	// Feature Test
-	if ( 'querySelector' in document && 'addEventListener' in window ) {
+	if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
 		// SELECTORS
 
@@ -45,10 +45,9 @@ window.houdini = (function (window, document, undefined) {
 		buoy.addClass(document.documentElement, 'js-houdini');
 
 		// Whenever a toggle is clicked, run the expand/collapse function
-		for (var i = toggles.length; i--;) {
-			var toggle = toggles[i];
+		Array.prototype.forEach.call(toggles, function (toggle, index) {
 			toggle.addEventListener('click', toggleCollapse, false);
-		}
+		});
 
 	}
 
