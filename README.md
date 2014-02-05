@@ -6,7 +6,7 @@ Getting started with Houdini is really easy. [View the online tutorial](http://c
 
 ## Changelog
 * v4.2 (February 4, 2014)
-  * Reverted to `Array.prototype.foreach` loops.
+  * Reverted to `Array.prototype.forEach` loops.
 * v4.1 (January 27, 2014)
   * Updated `addEventListener` to be more object oriented.
   * Moved feature test to script itself.
