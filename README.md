@@ -5,6 +5,8 @@ Houdini is a lightweight and progressively enhanced expand-and-collapse widget.
 Getting started with Houdini is really easy. [View the online tutorial](http://cferdinandi.github.com/houdini/) or dig through the `index.html` file.
 
 ## Changelog
+* v4.3 (February 19, 2014)
+  * Added method to stop playing videos (YouTube, Vimeo, HTML5) when collapse content is closed.
 * v4.2 (February 4, 2014)
   * Reverted to `Array.prototype.forEach` loops.
 * v4.1 (January 27, 2014)

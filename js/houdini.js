@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Houdini v4.2
+	Houdini v4.3
 	A simple collapse and expand widget by Chris Ferdinandi.
 	http://gomakethings.com
 
@@ -24,17 +24,33 @@ window.houdini = (function (window, document, undefined) {
 
 		// METHODS
 
+		// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
+		var stopVideo = function (content) {
+			if ( !buoy.hasClass(content, 'active') ) {
+				var iframe = content.querySelector( 'iframe');
+				var video = content.querySelector( 'video' );
+				if ( iframe !== null ) {
+					var iframeSrc = iframe.src;
+					iframe.src = iframeSrc;
+				}
+				if ( video !== null ) {
+					video.pause();
+				}
+			}
+		};
+
 		// Toggle the collapse/expand widget
 		var toggleCollapse = function (event) {
 
-			// Define the content container
+			// SELECTORS
 			var dataID = this.getAttribute('data-target');
 			var dataTarget = document.querySelector(dataID);
 
-			// Prevent default link behavior, and toggle the '.active' class on the toggle and container elements
-			event.preventDefault();
-			buoy.toggleClass(this, 'active');
-			buoy.toggleClass(dataTarget, 'active');
+			// EVENTS, LISTENERS, AND INITS
+			event.preventDefault(); // Prevent default behavior
+			buoy.toggleClass(this, 'active'); // Change text on collapse toggle
+			buoy.toggleClass(dataTarget, 'active'); // Collapse or expand content area
+			stopVideo(dataTarget); // If content area is closed, stop playing any videos
 
 		};
 
