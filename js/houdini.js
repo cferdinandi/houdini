@@ -14,6 +14,7 @@ window.houdini = (function (window, document, undefined) {
 	'use strict';
 
 	// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
+	// Private method
 	var _stopVideo = function (content) {
 		if ( !buoy.hasClass(content, 'active') ) {
 			var iframe = content.querySelector( 'iframe');
@@ -29,6 +30,7 @@ window.houdini = (function (window, document, undefined) {
 	};
 
 	// Toggle the collapse/expand widget
+	// Private method
 	var _toggleCollapse = function (event) {
 
 		// Selectors and variables
@@ -44,6 +46,7 @@ window.houdini = (function (window, document, undefined) {
 	};
 
 	// Initialize Houdini
+	// Public method
 	var init = function () {
 
 		// Feature test before initilizing
