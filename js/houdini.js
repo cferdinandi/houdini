@@ -39,10 +39,14 @@ window.houdini = (function (window, document, undefined) {
 		var dataID = this.getAttribute('data-collapse');
 		var dataTarget = document.querySelector(dataID);
 
-		// Events, listeners, and inits
-		if ( this !== undefined && this.tagName == 'A' ) {
-			event.preventDefault(); // Prevent default behavior
+		// If a link, prevent default click event
+		if ( this!== null && this !== undefined && this.tagName == 'A' ) {
+			if ( event !== undefined && event !== null ) {
+				event.preventDefault();
+			}
 		}
+
+		// Toggle collapse element
 		buoy.toggleClass(this, 'active'); // Change text on collapse toggle
 		buoy.toggleClass(dataTarget, 'active'); // Collapse or expand content area
 		_stopVideo(dataTarget); // If content area is closed, stop playing any videos
@@ -57,6 +61,7 @@ window.houdini = (function (window, document, undefined) {
 		// Feature test before initilizing
 		if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
+			// Selectors and variables
 			var toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles
 			buoy.addClass(document.documentElement, 'js-houdini'); // Add class to HTML element to activate conditional CSS
 
@@ -71,8 +76,7 @@ window.houdini = (function (window, document, undefined) {
 
 	// Return public methods
 	return {
-		init: init,
-		toggleCollapse: _toggleCollapse
+		init: init
 	};
 
 })(window, document);
