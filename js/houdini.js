@@ -13,6 +13,29 @@ window.houdini = (function (window, document, undefined) {
 
 	'use strict';
 
+	// Default settings
+	// Private method
+	// Returns an {object}
+	var _defaults = function () {
+		return {
+			toggleActiveClass: 'active',
+			contentActiveClass: 'active',
+			initClass: 'js-houdini',
+			callbackBefore: function () {},
+			callbackAfter: function () {}
+		};
+	};
+
+	// Merge default settings with user options
+	// Private method
+	// Returns an {object}
+	var _mergeObjects = function ( original, updates ) {
+		for (var key in updates) {
+			original[key] = updates[key];
+		}
+		return original;
+	};
+
 	// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
 	// Private method
 	// Runs functions
@@ -33,21 +56,24 @@ window.houdini = (function (window, document, undefined) {
 	// Toggle the collapse/expand widget
 	// Public method
 	// Runs functions
-	var _toggleCollapse = function (toggle, contentID, event) {
+	var toggleContent = function (toggle, contentID, options, event) {
 
+		options = _mergeObjects( _defaults(), options || {} ); // Merge user options with defaults
 		var content = document.querySelector(contentID); // Get content area
 
-		// If a link, prevent default click event
-		if ( toggle !== null && toggle !== undefined && toggle.tagName == 'A' ) {
-			if ( event !== undefined && event !== null ) {
-				event.preventDefault();
-			}
+		// If toggle is a link, prevent default click event
+		if ( toggle && toggle.tagName === 'A' && event ) {
+			event.preventDefault();
 		}
 
+		options.callbackBefore(); // Run callbacks before toggling content
+
 		// Toggle collapse element
-		buoy.toggleClass(toggle, 'active'); // Change text on collapse toggle
-		buoy.toggleClass(content, 'active'); // Collapse or expand content area
+		buoy.toggleClass(toggle, options.toggleActiveClass); // Change text on collapse toggle
+		buoy.toggleClass(content, options.contentActiveClass); // Collapse or expand content area
 		_stopVideos(content); // If content area is closed, stop playing any videos
+
+		options.callbackAfter(); // Run callbacks after toggling content
 
 	};
 
@@ -60,14 +86,15 @@ window.houdini = (function (window, document, undefined) {
 		if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
 			// Selectors and variables
+			options = _mergeObjects( _defaults(), options || {} ); // Merge user options with defaults
 			var toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles
 
 			// Add class to HTML element to activate conditional CSS
-			buoy.addClass(document.documentElement, 'js-houdini');
+			buoy.addClass(document.documentElement, options.initClass);
 
 			// Whenever a toggle is clicked, run the expand/collapse function
 			Array.prototype.forEach.call(toggles, function (toggle, index) {
-				toggle.addEventListener('click', _toggleCollapse.bind( null, toggle, toggle.getAttribute('data-collapse') ), false);
+				toggle.addEventListener('click', toggleContent.bind( null, toggle, toggle.getAttribute('data-collapse'), options ), false);
 			});
 
 		}
@@ -77,7 +104,7 @@ window.houdini = (function (window, document, undefined) {
 	// Return public methods
 	return {
 		init: init,
-		toggleCollapse: _toggleCollapse
+		toggleContent: toggleContent
 	};
 
 })(window, document);

@@ -50,7 +50,7 @@
 		</div>
 
 		<p>
-			<a class="collapse-toggle" data-collapse="#show-me" href="#">
+			<a class="collapse-toggle" data-collapse="#show-me" href="#" id="test">
 				<span class="collapse-text-show">Show +</span>
 				<span class="collapse-text-hide">Hide -</span>
 			</a>
@@ -80,7 +80,13 @@
 	<script src="js/buoy.js"></script>
 	<script src="js/houdini.js"></script>
 	<script>
-		houdini.init();
+		houdini.init({
+			toggleActiveClass: 'active',
+			contentActiveClass: 'active',
+			initClass: 'js-houdini',
+			callbackBefore: function () {},
+			callbackAfter: function () {}
+		});
 	</script>
 
 </body>
