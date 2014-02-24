@@ -20,9 +20,11 @@ window.buoy = (function (window, document, undefined) {
 	'use strict';
 
 	// Check for classList support
+	// Returns Object
 	var classList = document.documentElement.classList;
 
 	// Check if an element has a class
+	// Boolean: Returns true if element has class
 	var hasClass = function (elem, className) {
 		if ( classList ) {
 			return elem.classList.contains(className);
@@ -68,6 +70,7 @@ window.buoy = (function (window, document, undefined) {
 	};
 
 	// Get siblings of an element
+	// Returns array of nodes
 	var getSiblings = function (elem) {
 		var siblings = [];
 		var sibling = elem.parentNode.firstChild;
@@ -80,7 +83,7 @@ window.buoy = (function (window, document, undefined) {
 		return siblings;
 	};
 
-	// Return functions
+	// Return public functions
 	return {
 		toggleClass: toggleClass,
 		removeClass: removeClass,

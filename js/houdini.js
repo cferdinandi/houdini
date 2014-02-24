@@ -33,7 +33,7 @@ window.houdini = (function (window, document, undefined) {
 	// Toggle the collapse/expand widget
 	// Public method
 	// Runs functions
-	var toggleCollapse = function (toggle, contentID, event) {
+	var _toggleCollapse = function (toggle, contentID, event) {
 
 		var content = document.querySelector(contentID); // Get content area
 
@@ -77,7 +77,7 @@ window.houdini = (function (window, document, undefined) {
 	// Return public methods
 	return {
 		init: init,
-		toggleCollapse: toggleCollapse
+		toggleCollapse: _toggleCollapse
 	};
 
 })(window, document);
