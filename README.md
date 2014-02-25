@@ -77,9 +77,9 @@ You can pass options and callsbacks into Houdini through the `init()` function:
 You can also call the Houdini toggle event in your own scripts:
 
 	houdini.toggleContent(
-		toggle, // Node that toggles the expand and collapse action. ex. `querySelector('#toggle')`
-		contentID, // The ID of the content area to expand or collapse. ex. `'#content'`
-		options, // Classes and callbacks. Same options as those passed into the `init()` function.
+		toggle, // Node that toggles the expand and collapse action. ex. querySelector('#toggle')
+		contentID, // The ID of the content area to expand or collapse. ex. '#content'
+		options, // Classes and callbacks. Same options as those passed into the init() function.
 		event // Optional, if a DOM event was triggered.
 	);
 
