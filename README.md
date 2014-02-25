@@ -85,7 +85,7 @@ You can also call the Houdini toggle event in your own scripts:
 
 
 
-## Brower Compatability
+## Browser Compatability
 
 Houdini works in all modern browsers, and IE 9 and above.
 
