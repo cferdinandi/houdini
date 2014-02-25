@@ -20,7 +20,7 @@ Houdini is a simple collapse-and-expand script by [Chris Ferdinandi](http://goma
 
 Houdini is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
 
-The `_config.scss` and `_mixins.scss` files are the same ones used in Kraken, so you can drop the `_houdini.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
+The `_config.scss` and `_mixins.scss` files are the same ones used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_houdini.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
 
 Houdini also requires [Buoy](http://cferdinandi.github.io/buoy/), a vanilla JS micro-library that contains simple helper functions used by Houdini.
 
