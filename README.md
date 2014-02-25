@@ -62,7 +62,7 @@ Houdini includes smart defaults and works right out of the box. But if you want 
 
 ### Global Settings
 
-You can pass options and callsbacks into Houdini through the `init()` function:
+You can pass options and callbacks into Houdini through the `init()` function:
 
 	houdini.init({
 		toggleActiveClass: 'active', // Class added to active toggle elements
