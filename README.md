@@ -16,7 +16,7 @@ A simple collapse-and-expand script. [View the Demo](http://cferdinandi.github.i
 
 ### 1. Include Houdini on your site.
 
-```Markup
+```html
 <link rel="stylesheet" href="css/houdini-css.css">
 <script src="js/houdini.js"></script>
 <script src="buoy.js"></script>
