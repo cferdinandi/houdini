@@ -1,12 +1,16 @@
 # Houdini
-Houdini is a simple collapse-and-expand script by [Chris Ferdinandi](http://gomakethings.com). [View the Demo](http://cferdinandi.github.io/houdini/)
+A simple collapse-and-expand script by [Chris Ferdinandi](http://gomakethings.com).
+
+**In This Documentation**
 
 1. [Getting Started](#getting-started)
-2. [Browser Compatability](#browser-compatability)
-3. [Options & Settings](#options-and-settings)
-4. [Changelog](#changelog)
-5. [License](#license)
+2. [Options & Settings](#options-and-settings)
+3. [Browser Compatability](#browser-compatability)
+4. [License](#license)
+5. [Changelog](#changelog)
 6. [Older Docs](#older-docs)
+
+[View the Demo](http://cferdinandi.github.io/houdini/)
 
 
 
@@ -85,7 +89,12 @@ You can also call the Houdini toggle event in your own scripts:
 
 
 
-## Browser Compatability
+## License
+Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
+
+
+
+## Browser Compatibility
 
 Houdini works in all modern browsers, and IE 9 and above.
 
@@ -94,57 +103,52 @@ Houdini is built with modern JavaScript APIs, and uses progressive enhancement. 
 
 
 ## Changelog
-* v5.0 (February 24, 2014)
+* v5.0 - February 24, 2014
   * Better public/private method namespacing.
   * Require `init()` call to run.
   * New API exposes additional methods for use in your own scripts.
   * Better documentation (noting what's returned on functions).
-* v4.3 (February 19, 2014)
+* v4.3 - February 19, 2014
   * Added method to stop playing videos (YouTube, Vimeo, HTML5) when collapse content is closed.
-* v4.2 (February 4, 2014)
+* v4.2 - February 4, 2014
   * Reverted to `Array.prototype.forEach` loops.
-* v4.1 (January 27, 2014)
+* v4.1 - January 27, 2014
   * Updated `addEventListener` to be more object oriented.
   * Moved feature test to script itself.
-* v4.0 (January 27, 2014)
+* v4.0 - January 27, 2014
   * Switched to a data attribute for the toggle selector (separates scripts from styles).
   * Prefixed script with a `;` to prevent errors if other scripts are incorrectly closed.
   * Added namespacing to IIFE.
-* v3.5 (December 2, 2013)
+* v3.5 - December 2, 2013
   * Added Sass support
-* v3.4 (August 27, 2013)
+* v3.4 - August 27, 2013
   * Added missing semicolon.
   * Activated strict mode.
-* v3.3 (August 26,2013)
+* v3.3 - August 26,2013
   * Converted to IIFE pattern.
   * Added Buoy vanilla JS micro-library.
-* v3.2 (August 14, 2013)
+* v3.2 - August 14, 2013
   * Added toggleCollapse function for better performance.
-* v3.1 (August 12, 2013)
+* v3.1 - August 12, 2013
   * IE Bugfix.
-* v3.0 (August 11, 2013)
+* v3.0 - August 11, 2013
   * Converted to vanilla JS.
   * Removed jQuery dependency.
-* v2.2 (August 5, 2013)
+* v2.2 - August 5, 2013
   * Added variable for `$(this)` (better for performance).
-* v2.1 (June 24,2013)
+* v2.1 - June 24,2013
   * Added alternating "show/hide" text to toggle buttons.
-* v2.0 (June 7, 2013)
+* v2.0 - June 7, 2013
   * Switched to MIT license.
-* v2.0 (June 3, 2013)
+* v2.0 - June 3, 2013
   * Removed `href` as element selector. Just `data-target` supported now.
-* v1.2 (February 13, 2013)
+* v1.2 - February 13, 2013
   * Renamed `example.html` to `index.html`.
   * Removed "Convert to Vanilla JS" from the roadmap.
-* v1.1 (February 5, 2013)
+* v1.1 - February 5, 2013
   * Switched to relative sizing.
-* v1.0 (January 24, 2013)
+* v1.0 - January 24, 2013
   * Initial release.
-
-
-
-## License
-Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 
 
