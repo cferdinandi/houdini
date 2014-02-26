@@ -1,16 +1,14 @@
 # Houdini
-A simple collapse-and-expand script by [Chris Ferdinandi](http://gomakethings.com).
+A simple collapse-and-expand script. [View the Demo](http://cferdinandi.github.io/houdini/).
 
 **In This Documentation**
 
 1. [Getting Started](#getting-started)
 2. [Options & Settings](#options-and-settings)
-3. [Browser Compatability](#browser-compatability)
+3. [Browser Compatability](#browser-compatibility)
 4. [License](#license)
 5. [Changelog](#changelog)
 6. [Older Docs](#older-docs)
-
-[View the Demo](http://cferdinandi.github.io/houdini/)
 
 
 
