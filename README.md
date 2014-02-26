@@ -30,31 +30,37 @@ Houdini also requires [Buoy](http://cferdinandi.github.io/buoy/), a vanilla JS m
 
 ### 2. Add the markup to your HTML.
 
-	<div class="collapse" id="show-me">
-		<p>Now you see me, now you don't.</p>
-	</div>
+```html
+<div class="collapse" id="show-me">
+	<p>Now you see me, now you don't.</p>
+</div>
 
-	<a class="collapse-toggle" data-collapse="#show-me" href="#">
-		<span class="collapse-text-show">Show +</span>
-		<span class="collapse-text-hide">Hide -</span>
-	</a>
+<a class="collapse-toggle" data-collapse="#show-me" href="#">
+	<span class="collapse-text-show">Show +</span>
+	<span class="collapse-text-hide">Hide -</span>
+</a>
+```
 
 If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
 
-	<button class="collapse-toggle active" data-collapse data-target="#hide-me">
-		<span class="collapse-text-show">Show</span>
-		<span class="collapse-text-hide">Hide</span>
-	</button>
+```html
+<button class="collapse-toggle active" data-collapse data-target="#hide-me">
+	<span class="collapse-text-show">Show</span>
+	<span class="collapse-text-hide">Hide</span>
+</button>
 
-	<div class="collapse active" id="hide-me">
-		<p>Hide me!</p>
-	</div>
+<div class="collapse active" id="hide-me">
+	<p>Hide me!</p>
+</div>
+```
 
 ### 3. Initialize Houdini.
 
-	<script>
-		houdini.init();
-	</script>
+```html
+<script>
+	houdini.init();
+</script>
+```
 
 In the footer of your page, after the content, initialize Houdini. And that's it, you're done. Nice work!
 
@@ -68,24 +74,28 @@ Houdini includes smart defaults and works right out of the box. But if you want 
 
 You can pass options and callbacks into Houdini through the `init()` function:
 
-	houdini.init({
-		toggleActiveClass: 'active', // Class added to active toggle elements
-		contentActiveClass: 'active', // Class added to active content elements
-		initClass: 'js-houdini', // Class added to `<html>` element when initiated
-		callbackBefore: function () {}, // Function that's run before content is expanded or collapsed
-		callbackAfter: function () {} // Function that's run after content is expanded or collapsed
-	});
+```javascript
+houdini.init({
+	toggleActiveClass: 'active', // Class added to active toggle elements
+	contentActiveClass: 'active', // Class added to active content elements
+	initClass: 'js-houdini', // Class added to `<html>` element when initiated
+	callbackBefore: function () {}, // Function that's run before content is expanded or collapsed
+	callbackAfter: function () {} // Function that's run after content is expanded or collapsed
+});
+```
 
 ### Use Houdini events in your own scripts
 
 You can also call the Houdini toggle event in your own scripts:
 
-	houdini.toggleContent(
-		toggle, // Node that toggles the expand and collapse action. ex. document.querySelector('#toggle')
-		contentID, // The ID of the content area to expand or collapse. ex. '#content'
-		options, // Classes and callbacks. Same options as those passed into the init() function.
-		event // Optional, if a DOM event was triggered.
-	);
+```javascript
+houdini.toggleContent(
+	toggle, // Node that toggles the expand and collapse action. ex. document.querySelector('#toggle')
+	contentID, // The ID of the content area to expand or collapse. ex. '#content'
+	options, // Classes and callbacks. Same options as those passed into the init() function.
+	event // Optional, if a DOM event was triggered.
+);
+```
 
 
 
