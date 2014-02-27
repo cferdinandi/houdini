@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Houdini v5.0
+	Houdini v5.1
 	A simple collapse and expand widget by Chris Ferdinandi.
 	http://gomakethings.com
 
@@ -14,16 +14,13 @@ window.houdini = (function (window, document, undefined) {
 	'use strict';
 
 	// Default settings
-	// Private method
-	// Returns an {object}
-	var _defaults = function () {
-		return {
-			toggleActiveClass: 'active',
-			contentActiveClass: 'active',
-			initClass: 'js-houdini',
-			callbackBefore: function () {},
-			callbackAfter: function () {}
-		};
+	// Private {object} variable
+	var _defaults = {
+		toggleActiveClass: 'active',
+		contentActiveClass: 'active',
+		initClass: 'js-houdini',
+		callbackBefore: function () {},
+		callbackAfter: function () {}
 	};
 
 	// Merge default settings with user options
@@ -58,7 +55,7 @@ window.houdini = (function (window, document, undefined) {
 	// Runs functions
 	var toggleContent = function (toggle, contentID, options, event) {
 
-		options = _mergeObjects( _defaults(), options || {} ); // Merge user options with defaults
+		options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
 		var content = document.querySelector(contentID); // Get content area
 
 		// If toggle is a link, prevent default click event
@@ -86,7 +83,7 @@ window.houdini = (function (window, document, undefined) {
 		if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
 			// Selectors and variables
-			options = _mergeObjects( _defaults(), options || {} ); // Merge user options with defaults
+			options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
 			var toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles
 
 			// Add class to HTML element to activate conditional CSS

@@ -120,6 +120,8 @@ Houdini is built with modern JavaScript APIs, and uses progressive enhancement. 
 
 
 ## Changelog
+* v5.1 - February 27, 2014
+	* Converted `defaults` to a literal object
 * v5.0 - February 24, 2014
 	* Better public/private method namespacing.
 	* Require `init()` call to run.
