@@ -97,6 +97,13 @@ houdini.toggleContent(
 );
 ```
 
+**Example**
+
+```javascript
+var toggle = document.querySelector('#toggle');
+houdini.toggleContent( toggle, '#content' );
+```
+
 
 
 ## License
