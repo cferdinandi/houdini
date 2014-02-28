@@ -31,14 +31,13 @@ Houdini also requires [Buoy](http://cferdinandi.github.io/buoy/), a vanilla JS m
 ### 2. Add the markup to your HTML.
 
 ```html
-<div class="collapse" id="show-me">
-	<p>Now you see me, now you don't.</p>
-</div>
-
 <a class="collapse-toggle" data-collapse="#show-me" href="#">
 	<span class="collapse-text-show">Show +</span>
 	<span class="collapse-text-hide">Hide -</span>
 </a>
+<div class="collapse" id="show-me">
+	<p>Now you see me, now you don't.</p>
+</div>
 ```
 
 If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
@@ -100,8 +99,8 @@ houdini.toggleContent(
 **Example**
 
 ```javascript
-var toggle = document.querySelector('#toggle');
-houdini.toggleContent( toggle, '#content' );
+var toggle = document.querySelector('[data-collapse="#show-me"]');
+houdini.toggleContent( toggle, '#show-me' );
 ```
 
 
