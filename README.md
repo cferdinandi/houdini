@@ -60,12 +60,12 @@ If you'd prefer to show content by default, include the `.active` class along wi
 Houdini now supports expand and collapse accordion groups. Add a `data-group` data attribute to every toggle in the accordion, and make sure they all have the same name. Houdini will sort out the rest.
 
 ```html
-<a class="collapse-toggle" data-collapse="#section1" data-group="accordion" href="#">
+<a class="collapse-toggle active" data-collapse="#section1" data-group="accordion" href="#">
 	Section 1
 	<span class="collapse-text-show">+</span>
 	<span class="collapse-text-hide">-</span>
 </a>
-<div class="collapse" id="section1">
+<div class="collapse active" id="section1">
 	<h3>Section 1</h3>
 	<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.</p>
 </div>
