@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Houdini v5.1
+	Houdini v5.2
 	A simple collapse and expand widget by Chris Ferdinandi.
 	http://gomakethings.com
 
@@ -50,6 +50,26 @@ window.houdini = (function (window, document, undefined) {
 		}
 	};
 
+	// Close all content areas in an expand/collapse group
+	// Private method
+	// Runs functions
+	var _closeCollapseGroup = function ( toggle, options ) {
+		if ( !buoy.hasClass(toggle, options.toggleActiveClass) && toggle.hasAttribute('data-group') ) {
+
+			// Get all toggles in the group
+			var groupName = toggle.getAttribute('data-group');
+			var group = document.querySelectorAll('[data-group="' + groupName + '"]');
+
+			// Deactivate each toggle and it's content area
+			Array.prototype.forEach.call(group, function (item, index) {
+				var content = document.querySelector( item.getAttribute('data-collapse') );
+				buoy.removeClass(item, options.toggleActiveClass);
+				buoy.removeClass(content, options.contentActiveClass);
+			});
+
+		}
+	};
+
 	// Toggle the collapse/expand widget
 	// Public method
 	// Runs functions
@@ -66,6 +86,7 @@ window.houdini = (function (window, document, undefined) {
 		options.callbackBefore(); // Run callbacks before toggling content
 
 		// Toggle collapse element
+		_closeCollapseGroup(toggle, options); // Close collapse group items
 		buoy.toggleClass(toggle, options.toggleActiveClass); // Change text on collapse toggle
 		buoy.toggleClass(content, options.contentActiveClass); // Collapse or expand content area
 		_stopVideos(content); // If content area is closed, stop playing any videos

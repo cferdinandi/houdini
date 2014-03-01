@@ -40,6 +40,8 @@ Houdini also requires [Buoy](http://cferdinandi.github.io/buoy/), a vanilla JS m
 </div>
 ```
 
+#### Expanded by Default
+
 If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
 
 ```html
@@ -50,6 +52,40 @@ If you'd prefer to show content by default, include the `.active` class along wi
 
 <div class="collapse active" id="hide-me">
 	<p>Hide me!</p>
+</div>
+```
+
+#### [NEW] Accordions
+
+Houdini now supports expand and collapse accordion groups. Add a `data-group` data attribute to every toggle in the accordion, and make sure they all have the same name. Houdini will sort out the rest.
+
+```html
+<a class="collapse-toggle" data-collapse="#section1" data-group="accordion" href="#">
+	Section 1
+	<span class="collapse-text-show">+</span>
+	<span class="collapse-text-hide">-</span>
+</a>
+<div class="collapse" id="section1">
+	<h3>Section 1</h3>
+	<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.</p>
+</div>
+<a class="collapse-toggle" data-collapse="#section2" data-group="accordion" href="#">
+	Section 2
+	<span class="collapse-text-show">+</span>
+	<span class="collapse-text-hide">-</span>
+</a>
+<div class="collapse" id="section2">
+	<h3>Section 2</h3>
+	<p>Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz.</p>
+</div>
+<a class="collapse-toggle" data-collapse="#section3" data-group="accordion" href="#">
+	Section 3
+	<span class="collapse-text-show">+</span>
+	<span class="collapse-text-hide">-</span>
+</a>
+<div class="collapse" id="section3">
+	<h3>Section 3</h3>
+	<p>Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack!" my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls.</p>
 </div>
 ```
 
@@ -119,8 +155,10 @@ Houdini is built with modern JavaScript APIs, and uses progressive enhancement. 
 
 
 ## Changelog
+* v5.2 - March 1, 2014
+	* Added accordion support.
 * v5.1 - February 27, 2014
-	* Converted `defaults` to a literal object
+	* Converted `defaults` to a literal object.
 * v5.0 - February 24, 2014
 	* Better public/private method namespacing.
 	* Require `init()` call to run.
