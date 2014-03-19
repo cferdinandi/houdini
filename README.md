@@ -5,7 +5,7 @@ A simple collapse-and-expand script. [View the Demo](http://cferdinandi.github.i
 
 1. [Getting Started](#getting-started)
 2. [Options & Settings](#options-and-settings)
-3. [Browser Compatability](#browser-compatibility)
+3. [Browser Compatibility](#browser-compatibility)
 4. [License](#license)
 5. [Changelog](#changelog)
 6. [Older Docs](#older-docs)
