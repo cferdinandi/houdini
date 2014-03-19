@@ -45,7 +45,7 @@ Houdini also requires [Buoy](http://cferdinandi.github.io/buoy/), a vanilla JS m
 If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
 
 ```html
-<button class="collapse-toggle active" data-collapse data-target="#hide-me">
+<button class="collapse-toggle active" data-collapse="#hide-me">
 	<span class="collapse-text-show">Show</span>
 	<span class="collapse-text-hide">Hide</span>
 </button>
