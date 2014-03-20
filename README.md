@@ -114,8 +114,8 @@ houdini.init({
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active content elements
 	initClass: 'js-houdini', // Class added to `<html>` element when initiated
-	callbackBefore: function () {}, // Function that's run before content is expanded or collapsed
-	callbackAfter: function () {} // Function that's run after content is expanded or collapsed
+	callbackBefore: function ( toggle, contentID ) {}, // Function that's run before content is expanded or collapsed
+	callbackAfter: function ( toggle, contentID ) {} // Function that's run after content is expanded or collapsed
 });
 ```
 
@@ -155,6 +155,9 @@ Houdini is built with modern JavaScript APIs, and uses progressive enhancement. 
 
 
 ## Changelog
+
+* v5.3 - March 19, 2014
+	* Passed arguments into callback functions.
 * v5.2 - March 1, 2014
 	* Added accordion support.
 * v5.1 - February 27, 2014

@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Houdini v5.2
+	Houdini v5.3
 	A simple collapse and expand widget by Chris Ferdinandi.
 	http://gomakethings.com
 
@@ -83,7 +83,7 @@ window.houdini = (function (window, document, undefined) {
 			event.preventDefault();
 		}
 
-		options.callbackBefore(); // Run callbacks before toggling content
+		options.callbackBefore( toggle, contentID ); // Run callbacks before toggling content
 
 		// Toggle collapse element
 		_closeCollapseGroup(toggle, options); // Close collapse group items
@@ -91,7 +91,7 @@ window.houdini = (function (window, document, undefined) {
 		buoy.toggleClass(content, options.contentActiveClass); // Collapse or expand content area
 		_stopVideos(content); // If content area is closed, stop playing any videos
 
-		options.callbackAfter(); // Run callbacks after toggling content
+		options.callbackAfter( toggle, contentID ); // Run callbacks after toggling content
 
 	};
 
