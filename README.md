@@ -6,9 +6,10 @@ A simple collapse-and-expand script. [View the Demo](http://cferdinandi.github.i
 1. [Getting Started](#getting-started)
 2. [Options & Settings](#options-and-settings)
 3. [Browser Compatibility](#browser-compatibility)
-4. [License](#license)
-5. [Changelog](#changelog)
-6. [Older Docs](#older-docs)
+4. [How to Contribute](#how-to-contribute)
+5. [License](#license)
+6. [Changelog](#changelog)
+7. [Older Docs](#older-docs)
 
 
 
@@ -141,16 +142,23 @@ houdini.toggleContent( toggle, '#show-me' );
 
 
 
-## License
-Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
-
-
-
 ## Browser Compatibility
 
 Houdini works in all modern browsers, and IE 9 and above.
 
 Houdini is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default. If you need to support older browsers, you can still download the [jQuery version of Houdini on GitHub](https://github.com/cferdinandi/houdini/tree/archive-v2).
+
+
+
+## How to Contribute
+
+In lieu of a formal style guide, take care to maintain the existing coding style. Don't forget to update the version number, the changelog (in the `readme.md` file), and when applicable, the documentation.
+
+
+
+## License
+
+Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 
 
