@@ -164,6 +164,8 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v6.0 - April 3, 2014
+	* Converted from Buoy class helpers to `classList` with polyfill.
 * v5.3 - March 19, 2014
 	* Passed arguments into callback functions.
 * v5.2 - March 1, 2014
@@ -221,5 +223,6 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Older Docs
 
+* [Version 5](https://github.com/cferdinandi/houdini/tree/archive-v5)
 * [Version 4](http://cferdinandi.github.io/houdini/archive/v4/)
 * [Version 2](https://github.com/cferdinandi/houdini/tree/archive-v2)
