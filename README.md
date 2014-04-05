@@ -1,5 +1,7 @@
 # Houdini
-A simple collapse-and-expand script. [View the Demo](http://cferdinandi.github.io/houdini/).
+A simple collapse-and-expand script.
+
+[Download Houdini 6](https://github.com/cferdinandi/houdini/archive/master.zip) / [View the Demo](http://cferdinandi.github.io/houdini/).
 
 **In This Documentation**
 
