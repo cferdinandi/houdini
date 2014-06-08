@@ -6,12 +6,13 @@ A simple collapse-and-expand script.
 **In This Documentation**
 
 1. [Getting Started](#getting-started)
-2. [Options & Settings](#options-and-settings)
-3. [Browser Compatibility](#browser-compatibility)
-4. [How to Contribute](#how-to-contribute)
-5. [License](#license)
-6. [Changelog](#changelog)
-7. [Older Docs](#older-docs)
+2. [Installing with Package Managers](#installing-with-package-managers)
+3. [Options & Settings](#options-and-settings)
+4. [Browser Compatibility](#browser-compatibility)
+5. [How to Contribute](#how-to-contribute)
+6. [License](#license)
+7. [Changelog](#changelog)
+8. [Older Docs](#older-docs)
 
 
 
@@ -21,15 +22,15 @@ A simple collapse-and-expand script.
 
 ```html
 <link rel="stylesheet" href="css/houdini-css.css">
+<script src="classList.js"></script>
 <script src="js/houdini.js"></script>
-<script src="buoy.js"></script>
 ```
 
 Houdini is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
 
 The `_config.scss` and `_mixins.scss` files are the same ones used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_houdini.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
 
-Houdini also requires [Buoy](http://cferdinandi.github.io/buoy/), a simple `classList` polyfill that makes working with classes in vanilla JS a little bit easier.
+Houdini also requires [classList.js](https://github.com/eligrey/classList.js), a `classList` polyfill that extends `classList` support back to IE8.
 
 ### 2. Add the markup to your HTML.
 
@@ -104,6 +105,16 @@ In the footer of your page, after the content, initialize Houdini. And that's it
 
 
 
+## Installing with Package Managers
+
+You can install Houdini with your favorite package manager.
+
+* **NPM:** `npm install cferdinandi/houdini`
+* **Bower:** `bower install https://github.com/cferdinandi/houdini.git`
+* **Component:** `component install install cferdinandi/houdini`
+
+
+
 ## Options and Settings
 
 Houdini includes smart defaults and works right out of the box. But if you want to customize things, it also has a robust API that provides multiple ways for you to adjust the default options and settings.
@@ -166,6 +177,17 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v6.1.0 - June 7, 2014
+	* Converted to UMD module.
+	* Replaced `Buoy` with `classList.js` polyfill.
+	* Moved public APIs to `exports` variable.
+	* Improved feature test.
+	* Replaced `Array.prototype.forEach` hack with proper `forEach` function.
+	* Added a more well supported trim function.
+	* General code optimizations for better minification and performance.
+	* Updated to JSDoc documentation (sort of).
+	* Updated to three number versioning system.
+	* Added package manager installation info.
 * v6.0 - April 3, 2014
 	* Converted from Buoy class helpers to `classList` with polyfill.
 * v5.3 - March 19, 2014
