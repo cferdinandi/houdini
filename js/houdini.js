@@ -136,7 +136,7 @@
 		var content = document.querySelector(contentID); // Get content area
 
 		// If toggle is a link, prevent default click event
-		if ( toggle && toggle.tagName === 'A' && event ) {
+		if ( toggle && toggle.tagName.toLowerCase() === 'a' && event ) {
 			event.preventDefault();
 		}
 
@@ -153,7 +153,7 @@
 	};
 
 	/**
-	 * Initialize Smooth Scroll
+	 * Initialize Houdini
 	 * @public
 	 * @param {Object} options User settings
 	 */
