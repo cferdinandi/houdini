@@ -111,7 +111,7 @@ You can install Houdini with your favorite package manager.
 
 * **NPM:** `npm install cferdinandi/houdini`
 * **Bower:** `bower install https://github.com/cferdinandi/houdini.git`
-* **Component:** `component install install cferdinandi/houdini`
+* **Component:** `component install cferdinandi/houdini`
 
 
 
@@ -177,6 +177,8 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v6.1.1 - June 19, 2014
+	* Fixed factory/root/UMD definition.
 * v6.1.0 - June 7, 2014
 	* Converted to UMD module.
 	* Replaced `Buoy` with `classList.js` polyfill.

@@ -1,6 +1,6 @@
 /**
  *
- * Houdini v6.1.0
+ * Houdini v6.1.1
  * A simple collapse and expand widget by Chris Ferdinandi.
  * http://gomakethings.com
  *
@@ -11,9 +11,9 @@
 
 (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
-		define(factory);
+		define('houdini', factory(root));
 	} else if ( typeof exports === 'object' ) {
-		module.exports = factory;
+		module.exports = factory(root);
 	} else {
 		root.houdini = factory(root);
 	}
