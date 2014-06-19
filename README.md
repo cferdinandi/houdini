@@ -20,90 +20,90 @@ A simple collapse-and-expand script.
 
 Compiled and production-ready code can be found in the `dist` directory. The `src` directory contains development code. Unit tests are located in the `test` directory.
 
-1. **Include Houdini on your site.**
+### 1. Include Houdini on your site.
 
-	```html
-	<link rel="stylesheet" href="dist/css/houdini.css">
-	<script src="dist/js/classList.js"></script>
-	<script src="dist/js/houdini.js"></script>
-	```
+```html
+<link rel="stylesheet" href="dist/css/houdini.css">
+<script src="dist/js/classList.js"></script>
+<script src="dist/js/houdini.js"></script>
+```
 
-	Houdini is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
+Houdini is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
 
-	The `_config.scss` file the same one used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_houdini.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
+The `_config.scss` file the same one used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_houdini.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
 
-	Houdini also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends `classList` support back to IE8.
+Houdini also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends `classList` support back to IE8.
 
-2. **Add the markup to your HTML.**
+### 2. Add the markup to your HTML.
 
-	```html
-	<a class="collapse-toggle" data-collapse="#show-me" href="#">
-		<span class="collapse-text-show">Show +</span>
-		<span class="collapse-text-hide">Hide -</span>
-	</a>
-	<div class="collapse" id="show-me">
-		<p>Now you see me, now you don't.</p>
-	</div>
-	```
+```html
+<a class="collapse-toggle" data-collapse="#show-me" href="#">
+	<span class="collapse-text-show">Show +</span>
+	<span class="collapse-text-hide">Hide -</span>
+</a>
+<div class="collapse" id="show-me">
+	<p>Now you see me, now you don't.</p>
+</div>
+```
 
-	*Expanded by Default*
+**Expanded by Default**
 
-	If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
+If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
 
-	```html
-	<button class="collapse-toggle active" data-collapse="#hide-me">
-		<span class="collapse-text-show">Show</span>
-		<span class="collapse-text-hide">Hide</span>
-	</button>
+```html
+<button class="collapse-toggle active" data-collapse="#hide-me">
+	<span class="collapse-text-show">Show</span>
+	<span class="collapse-text-hide">Hide</span>
+</button>
 
-	<div class="collapse active" id="hide-me">
-		<p>Hide me!</p>
-	</div>
-	```
+<div class="collapse active" id="hide-me">
+	<p>Hide me!</p>
+</div>
+```
 
-	*[NEW] Accordions*
+**[NEW] Accordions**
 
-	Houdini now supports expand and collapse accordion groups. Add a `data-group` data attribute to every toggle in the accordion, and make sure they all have the same name. Houdini will sort out the rest.
+Houdini now supports expand and collapse accordion groups. Add a `data-group` data attribute to every toggle in the accordion, and make sure they all have the same name. Houdini will sort out the rest.
 
-	```html
-	<a class="collapse-toggle active" data-collapse="#section1" data-group="accordion" href="#">
-		Section 1
-		<span class="collapse-text-show">+</span>
-		<span class="collapse-text-hide">-</span>
-	</a>
-	<div class="collapse active" id="section1">
-		<h3>Section 1</h3>
-		<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.</p>
-	</div>
-	<a class="collapse-toggle" data-collapse="#section2" data-group="accordion" href="#">
-		Section 2
-		<span class="collapse-text-show">+</span>
-		<span class="collapse-text-hide">-</span>
-	</a>
-	<div class="collapse" id="section2">
-		<h3>Section 2</h3>
-		<p>Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz.</p>
-	</div>
-	<a class="collapse-toggle" data-collapse="#section3" data-group="accordion" href="#">
-		Section 3
-		<span class="collapse-text-show">+</span>
-		<span class="collapse-text-hide">-</span>
-	</a>
-	<div class="collapse" id="section3">
-		<h3>Section 3</h3>
-		<p>Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack!" my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls.</p>
-	</div>
-	```
+```html
+<a class="collapse-toggle active" data-collapse="#section1" data-group="accordion" href="#">
+	Section 1
+	<span class="collapse-text-show">+</span>
+	<span class="collapse-text-hide">-</span>
+</a>
+<div class="collapse active" id="section1">
+	<h3>Section 1</h3>
+	<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.</p>
+</div>
+<a class="collapse-toggle" data-collapse="#section2" data-group="accordion" href="#">
+	Section 2
+	<span class="collapse-text-show">+</span>
+	<span class="collapse-text-hide">-</span>
+</a>
+<div class="collapse" id="section2">
+	<h3>Section 2</h3>
+	<p>Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz.</p>
+</div>
+<a class="collapse-toggle" data-collapse="#section3" data-group="accordion" href="#">
+	Section 3
+	<span class="collapse-text-show">+</span>
+	<span class="collapse-text-hide">-</span>
+</a>
+<div class="collapse" id="section3">
+	<h3>Section 3</h3>
+	<p>Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack!" my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls.</p>
+</div>
+```
 
-3. **Initialize Houdini.**
+### 3. Initialize Houdini.
 
-	```html
-	<script>
-		houdini.init();
-	</script>
-	```
+```html
+<script>
+	houdini.init();
+</script>
+```
 
-	In the footer of your page, after the content, initialize Houdini. And that's it, you're done. Nice work!
+In the footer of your page, after the content, initialize Houdini. And that's it, you're done. Nice work!
 
 
 
