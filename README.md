@@ -20,7 +20,7 @@ A simple collapse-and-expand script.
 
 Compiled and production-ready code can be found in the `dist` directory. The `src` directory contains development code. Unit tests are located in the `test` directory.
 
-1. Include Houdini on your site.
+1. **Include Houdini on your site.**
 
 	```html
 	<link rel="stylesheet" href="dist/css/houdini.css">
@@ -34,7 +34,7 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 
 	Houdini also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends `classList` support back to IE8.
 
-2. Add the markup to your HTML.
+2. **Add the markup to your HTML.**
 
 	```html
 	<a class="collapse-toggle" data-collapse="#show-me" href="#">
@@ -46,7 +46,7 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 	</div>
 	```
 
-	**Expanded by Default**
+	*Expanded by Default*
 
 	If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
 
@@ -61,7 +61,7 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 	</div>
 	```
 
-	**[NEW] Accordions**
+	*[NEW] Accordions*
 
 	Houdini now supports expand and collapse accordion groups. Add a `data-group` data attribute to every toggle in the accordion, and make sure they all have the same name. Houdini will sort out the rest.
 
@@ -95,7 +95,7 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 	</div>
 	```
 
-3. Initialize Houdini.
+3. **Initialize Houdini.**
 
 	```html
 	<script>
