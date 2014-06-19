@@ -1,12 +1,3 @@
-/**
- * Houdini v6.2.1
- * A simple collapse-and-expand script., by Chris Ferdinandi.
- * http://github.com/cferdinandi/houdini
- * 
- * Free to use under the MIT License.
- * http://gomakethings.com/mit/
- */
-
 /*
  * classList.js: Cross-browser full element.classList implementation.
  * 2014-01-31
