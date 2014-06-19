@@ -1,12 +1,10 @@
 /**
- *
- * Houdini v6.1.1
- * A simple collapse and expand widget by Chris Ferdinandi.
- * http://gomakethings.com
- *
+ * Houdini v6.2.1
+ * A simple collapse-and-expand script., by Chris Ferdinandi.
+ * http://github.com/cferdinandi/houdini
+ * 
  * Free to use under the MIT License.
  * http://gomakethings.com/mit/
- *
  */
 
 (function (root, factory) {
