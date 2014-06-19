@@ -4,7 +4,6 @@ var clean = require('gulp-clean');
 var rename = require('gulp-rename');
 var flatten = require('gulp-flatten');
 var tap = require('gulp-tap');
-var filter = require('gulp-filter');
 var header = require('gulp-header');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
@@ -53,11 +52,10 @@ var banner = {
 };
 
 gulp.task('scripts', ['clean'], function() {
-	var js = filter('**/*.js');
-	var dirs = filter('/');
 	return gulp.src(paths.scripts.input)
 		.pipe(plumber())
 		.pipe(flatten())
+
 		.pipe(tap(function (file, t) {
 			if ( file.stat.isDirectory() ) {
 				var name = file.relative + '.js';
