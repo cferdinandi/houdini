@@ -1,5 +1,5 @@
 /**
- * Houdini v6.2.1
+ * Houdini v6.3.0
  * A simple collapse-and-expand script., by Chris Ferdinandi.
  * http://github.com/cferdinandi/houdini
  * 
@@ -25,6 +25,8 @@
 
 	var exports = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
+	var toggles; // Set up toggle nodes list
+	var eventListeners = []; // Set up listeners array
 
 	// Default settings
 	var defaults = {
@@ -150,6 +152,16 @@
 
 	};
 
+
+	exports.destroy = function () {
+		if ( toggles ) {
+			forEach( toggles, function ( toggle, index ) {
+				toggle.removeEventListener( 'click', eventListeners[index], false );
+			});
+			eventListeners = [];
+		}
+	};
+
 	/**
 	 * Initialize Houdini
 	 * @public
@@ -162,14 +174,18 @@
 
 		// Selectors and variables
 		var settings = extend( defaults, options || {} ); // Merge user options with defaults
-		var toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles
 
 		// Add class to HTML element to activate conditional CSS
 		document.documentElement.classList.add( settings.initClass );
 
+		// Destroy any existing initializations
+		exports.destroy();
+
 		// Whenever a toggle is clicked, run the expand/collapse function
-		forEach(toggles, function (toggle) {
-			toggle.addEventListener('click', exports.toggleContent.bind( null, toggle, toggle.getAttribute('data-collapse'), settings ), false);
+		toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles
+		forEach(toggles, function (toggle, index) {
+			eventListeners[index] = exports.toggleContent.bind( null, toggle, toggle.getAttribute('data-collapse'), settings );
+			toggle.addEventListener('click', eventListeners[index], false);
 		});
 
 	};

@@ -137,7 +137,10 @@ houdini.init({
 
 ### Use Houdini events in your own scripts
 
-You can also call the Houdini toggle event in your own scripts:
+You can also call the Houdini toggle event in your own scripts.
+
+#### toggleContent()
+Expand or collapse a content area.
 
 ```javascript
 houdini.toggleContent(
@@ -153,6 +156,13 @@ houdini.toggleContent(
 ```javascript
 var toggle = document.querySelector('[data-collapse="#show-me"]');
 houdini.toggleContent( toggle, '#show-me' );
+```
+
+#### destroy()
+Destroy the current `houdini.init()`.
+
+```javascript
+houdini.destroy();
 ```
 
 
@@ -179,6 +189,9 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v6.3.0 - June 26, 2014
+	* Added a public `destroy` method.
+	* Updated unit tests.
 * v6.2.1 - June 19, 2014
 	* Converted to gulp.js workflow.
 	* Added unit testing.

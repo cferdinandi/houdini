@@ -1,5 +1,12 @@
 describe('Houdini', function () {
 
+	//
+	// Helper Functions
+	//
+
+	/**
+	 * Inserts Houdini markup into DOM
+	 */
 	var injectElem = function () {
 		var elem =
 			'<a class="collapse-toggle" data-collapse="#content1" data-group="accordion" href="#">' +
@@ -19,6 +26,12 @@ describe('Houdini', function () {
 		document.body.innerHTML = elem;
 	};
 
+	/**
+	 * Triggers an event
+	 * @param  {String} type Type of event (ex. 'click')
+	 * @param  {Element} elem The element that triggered the event
+	 * @link http://stackoverflow.com/a/2490876
+	 */
 	var trigger = function (type, elem) {
 		var event; // The custom event that will be created
 
@@ -39,7 +52,10 @@ describe('Houdini', function () {
 		}
 	};
 
-	// .bind polyfill for PhantomJS
+	/**
+	 * Bind polyfill for PhantomJS
+	 * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#Compatibility
+	 */
 	if (!Function.prototype.bind) {
 		Function.prototype.bind = function (oThis) {
 			if (typeof this !== "function") {
@@ -62,12 +78,17 @@ describe('Houdini', function () {
 		};
 	}
 
-	injectElem();
-	houdini.init();
-	var toggles = document.querySelectorAll('[data-collapse]');
-	var content = document.querySelectorAll('.collapse');
 
-	describe('init', function () {
+	//
+	// Init
+	//
+
+	describe('init()', function () {
+
+		beforeEach(function () {
+			houdini.init();
+		});
+
 		it('Document should include the houdini module', function () {
 			expect(!!houdini).toBe(true);
 		});
@@ -75,40 +96,73 @@ describe('Houdini', function () {
 		it('Document should contain init class', function () {
 			expect(document.documentElement.classList.contains('js-houdini')).toBe(true);
 		});
+
 	});
 
-	describe('toggleContent', function () {
-		it('Toggle content should have an active class on click', function () {
+
+	//
+	// Events
+	//
+
+	describe('toggleCollapse()', function () {
+
+		var toggle, content;
+
+		beforeEach(function () {
+			injectElem();
+			houdini.init();
+			toggle = document.querySelector('[data-collapse]');
+			content = document.querySelector( toggle.getAttribute('data-collapse') );
+		});
+
+		it('Content should have an active class on click', function () {
+			trigger('click', document.querySelector('[data-collapse]'));
+			expect(content.classList.contains('active')).toBe(true);
+		});
+
+		it('Content should not have an active class if toggle is clicked again', function () {
+			trigger('click', toggle);
+			expect(content.classList.contains('active')).toBe(true);
+			trigger('click', toggle);
+			expect(content.classList.contains('active')).toBe(false);
+		});
+
+	});
+
+	describe('closeCollapseGroup()', function () {
+
+		var toggles, content;
+
+		beforeEach(function () {
+			injectElem();
+			houdini.init();
+			toggles = document.querySelectorAll('[data-collapse]');
+			content = document.querySelectorAll('.collapse');
+		});
+
+		it('First content section should be open on click', function () {
 			trigger('click', toggles[0]);
 			expect(content[0].classList.contains('active')).toBe(true);
 		});
 
-		it('Toggle content should not have an active class on click again', function () {
-			trigger('click', toggles[0]);
-			expect(content[0].classList.contains('active')).toBe(false);
-		});
-	});
-
-	describe('Accordion functionality', function () {
-		it('First toggle content should be open on click', function () {
+		it('First content section should be closed when second toggle is clicked', function () {
 			trigger('click', toggles[0]);
 			expect(content[0].classList.contains('active')).toBe(true);
-		});
-
-		it('First toggle content should be closed when second toggle is clicked', function () {
 			trigger('click', toggles[1]);
 			expect(content[1].classList.contains('active')).toBe(true);
 			expect(content[0].classList.contains('active')).toBe(false);
 		});
 
-		it('Second toggle content should be closed when first toggle is clicked', function () {
+		it('Second content section should be closed when first toggle is clicked', function () {
+			trigger('click', toggles[1]);
+			expect(content[1].classList.contains('active')).toBe(true);
 			trigger('click', toggles[0]);
 			expect(content[0].classList.contains('active')).toBe(true);
 			expect(content[1].classList.contains('active')).toBe(false);
 		});
+
 	});
 
-	// @todo Add destroy functionality to houdini
 	// @todo Test init with options
 	// @todo Add tests for public APIs
 
