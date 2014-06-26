@@ -192,6 +192,7 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 * v6.3.0 - June 26, 2014
 	* Added a public `destroy` method.
 	* Updated unit tests.
+	* Fixed `extend` function.
 * v6.2.1 - June 19, 2014
 	* Converted to gulp.js workflow.
 	* Added unit testing.

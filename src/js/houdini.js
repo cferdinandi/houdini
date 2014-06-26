@@ -16,8 +16,9 @@
 
 	var exports = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var toggles; // Set up toggle nodes list
-	var eventListeners = []; // Set up listeners array
+	var settings; // Script settings
+	var toggles; // Toggle nodes list
+	var eventListeners = []; //Listeners array
 
 	// Default settings
 	var defaults = {
@@ -32,22 +33,6 @@
 	//
 	// Methods
 	//
-
-	/**
-	 * Merge defaults with user options
-	 * @private
-	 * @param {Object} defaults Default settings
-	 * @param {Object} options User options
-	 * @returns {Object} Merged values of defaults and options
-	 */
-	var extend = function ( defaults, options ) {
-		for ( var key in options ) {
-			if (Object.prototype.hasOwnProperty.call(options, key)) {
-				defaults[key] = options[key];
-			}
-		}
-		return defaults;
-	};
 
 	/**
 	 * A simple forEach() implementation for Arrays, Objects and NodeLists
@@ -68,6 +53,24 @@
 				callback.call(scope, collection[i], i, collection);
 			}
 		}
+	};
+
+	/**
+	 * Merge defaults with user options
+	 * @private
+	 * @param {Object} defaults Default settings
+	 * @param {Object} options User options
+	 * @returns {Object} Merged values of defaults and options
+	 */
+	var extend = function ( defaults, options ) {
+		var extended = {};
+		forEach(defaults, function (value, prop) {
+			extended[prop] = defaults[prop];
+		});
+		forEach(options, function (value, prop) {
+			extended[prop] = options[prop];
+		});
+		return extended;
 	};
 
 	/**
@@ -123,7 +126,7 @@
 	 */
 	exports.toggleContent = function (toggle, contentID, options, event) {
 
-		var settings = extend( defaults, options || {} ); // Merge user options with defaults
+		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var content = document.querySelector(contentID); // Get content area
 
 		// If toggle is a link, prevent default click event
@@ -143,14 +146,20 @@
 
 	};
 
-
+	/**
+	 * Destroy the current initialization.
+	 */
 	exports.destroy = function () {
+		if ( !settings ) return;
+		document.documentElement.classList.remove( settings.initClass );
 		if ( toggles ) {
 			forEach( toggles, function ( toggle, index ) {
 				toggle.removeEventListener( 'click', eventListeners[index], false );
 			});
 			eventListeners = [];
 		}
+		settings = null;
+		toggles = null;
 	};
 
 	/**
@@ -163,14 +172,14 @@
 		// feature test
 		if ( !supports ) return;
 
+		// Destroy any existing initializations
+		exports.destroy();
+
 		// Selectors and variables
-		var settings = extend( defaults, options || {} ); // Merge user options with defaults
+		settings = extend( defaults, options || {} ); // Merge user options with defaults
 
 		// Add class to HTML element to activate conditional CSS
 		document.documentElement.classList.add( settings.initClass );
-
-		// Destroy any existing initializations
-		exports.destroy();
 
 		// Whenever a toggle is clicked, run the expand/collapse function
 		toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles

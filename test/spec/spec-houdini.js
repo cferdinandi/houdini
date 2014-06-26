@@ -83,7 +83,7 @@ describe('Houdini', function () {
 	// Init
 	//
 
-	describe('init()', function () {
+	describe('Should initialize plugin', function () {
 
 		beforeEach(function () {
 			houdini.init();
@@ -99,12 +99,43 @@ describe('Houdini', function () {
 
 	});
 
+	describe('Should merge user options into defaults', function () {
+
+		var toggle, content, doc;
+
+		beforeEach(function () {
+			injectElem();
+			houdini.init({
+				toggleActiveClass: 'toggle-active',
+				contentActiveClass: 'content-active',
+				initClass: 'js-test',
+				callbackBefore: function () { document.documentElement.classList.add('callback-before'); },
+				callbackAfter: function () { document.documentElement.classList.add('callback-after'); }
+			});
+			toggle = document.querySelector('[data-collapse]');
+			content = document.querySelector( toggle.getAttribute('data-collapse') );
+			doc = document.documentElement;
+		});
+
+		it('User options should be merged into defaults', function () {
+			trigger('click', toggle);
+			expect(toggle.classList.contains('toggle-active')).toBe(true);
+			expect(content.classList.contains('content-active')).toBe(true);
+			expect(doc.classList.contains('js-test')).toBe(true);
+			expect(doc.classList.contains('callback-before')).toBe(true);
+			expect(doc.classList.contains('callback-after')).toBe(true);
+			trigger('click', toggle);
+			houdini.destroy();
+		});
+
+	});
+
 
 	//
 	// Events
 	//
 
-	describe('toggleCollapse()', function () {
+	describe('Should toggle expand and collapse on click', function () {
 
 		var toggle, content;
 
@@ -115,21 +146,24 @@ describe('Houdini', function () {
 			content = document.querySelector( toggle.getAttribute('data-collapse') );
 		});
 
-		it('Content should have an active class on click', function () {
-			trigger('click', document.querySelector('[data-collapse]'));
+		it('Toggle and content should have ".active" class on click', function () {
+			trigger('click', toggle);
+			expect(toggle.classList.contains('active')).toBe(true);
 			expect(content.classList.contains('active')).toBe(true);
 		});
 
-		it('Content should not have an active class if toggle is clicked again', function () {
+		it('Toggle and content should not have ".active" class if toggle is clicked again', function () {
 			trigger('click', toggle);
+			expect(toggle.classList.contains('active')).toBe(true);
 			expect(content.classList.contains('active')).toBe(true);
 			trigger('click', toggle);
+			expect(toggle.classList.contains('active')).toBe(false);
 			expect(content.classList.contains('active')).toBe(false);
 		});
 
 	});
 
-	describe('closeCollapseGroup()', function () {
+	describe('Should toggle accordion content on click', function () {
 
 		var toggles, content;
 
@@ -142,28 +176,93 @@ describe('Houdini', function () {
 
 		it('First content section should be open on click', function () {
 			trigger('click', toggles[0]);
+			expect(toggles[0].classList.contains('active')).toBe(true);
 			expect(content[0].classList.contains('active')).toBe(true);
 		});
 
 		it('First content section should be closed when second toggle is clicked', function () {
 			trigger('click', toggles[0]);
+			expect(toggles[0].classList.contains('active')).toBe(true);
 			expect(content[0].classList.contains('active')).toBe(true);
 			trigger('click', toggles[1]);
+			expect(toggles[1].classList.contains('active')).toBe(true);
 			expect(content[1].classList.contains('active')).toBe(true);
+			expect(toggles[0].classList.contains('active')).toBe(false);
 			expect(content[0].classList.contains('active')).toBe(false);
 		});
 
 		it('Second content section should be closed when first toggle is clicked', function () {
 			trigger('click', toggles[1]);
+			expect(toggles[1].classList.contains('active')).toBe(true);
 			expect(content[1].classList.contains('active')).toBe(true);
 			trigger('click', toggles[0]);
+			expect(toggles[0].classList.contains('active')).toBe(true);
 			expect(content[0].classList.contains('active')).toBe(true);
+			expect(toggles[1].classList.contains('active')).toBe(false);
 			expect(content[1].classList.contains('active')).toBe(false);
 		});
 
 	});
 
-	// @todo Test init with options
-	// @todo Add tests for public APIs
+
+	//
+	// APIs
+	//
+
+	describe('Should toggle from public API', function () {
+
+		var toggle, contentID, content;
+
+		beforeEach(function () {
+			injectElem();
+			toggle = document.querySelector('[data-collapse]');
+			contentID = toggle.getAttribute('data-collapse');
+			content = document.querySelector( contentID );
+			houdini.toggleContent(toggle, contentID, null, null);
+		});
+
+		it('Toggle and content should have an active class', function () {
+			expect(toggle.classList.contains('active')).toBe(true);
+			expect(content.classList.contains('active')).toBe(true);
+		});
+
+		it('Toggle and content should not have an active class if toggled again', function () {
+			expect(toggle.classList.contains('active')).toBe(true);
+			expect(content.classList.contains('active')).toBe(true);
+			houdini.toggleContent(toggle, contentID, null, null);
+			expect(toggle.classList.contains('active')).toBe(false);
+			expect(content.classList.contains('active')).toBe(false);
+		});
+
+	});
+
+	describe('Should remove initialized plugin', function () {
+
+		var toggle, content, doc;
+
+		beforeEach(function () {
+			injectElem();
+			houdini.init();
+			toggle = document.querySelector('[data-collapse]');
+			content = document.querySelector( toggle.getAttribute('data-collapse') );
+			doc = document.documentElement;
+		});
+
+		it('Houdini should be uninitialized', function () {
+			trigger('click', toggle);
+			expect(toggle.classList.contains('active')).toBe(true);
+			expect(content.classList.contains('active')).toBe(true);
+			expect(doc.classList.contains('js-houdini')).toBe(true);
+			trigger('click', toggle);
+			expect(toggle.classList.contains('active')).toBe(false);
+			expect(content.classList.contains('active')).toBe(false);
+			houdini.destroy();
+			trigger('click', toggle);
+			expect(toggle.classList.contains('active')).toBe(false);
+			expect(content.classList.contains('active')).toBe(false);
+			expect(doc.classList.contains('js-houdini')).toBe(false);
+		});
+
+	});
 
 });
