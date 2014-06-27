@@ -155,7 +155,9 @@
 
 	};
 
-
+	/**
+	 * Destroy the current initialization.
+	 */
 	exports.destroy = function () {
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
