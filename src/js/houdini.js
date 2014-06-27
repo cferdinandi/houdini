@@ -148,6 +148,7 @@
 
 	/**
 	 * Destroy the current initialization.
+	 * @public
 	 */
 	exports.destroy = function () {
 		if ( !settings ) return;
