@@ -16,9 +16,8 @@
 
 	var exports = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var settings; // Script settings
-	var toggles; // Toggle nodes list
 	var eventListeners = []; //Listeners array
+	var settings, toggles;
 
 	// Default settings
 	var defaults = {
