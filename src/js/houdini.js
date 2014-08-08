@@ -177,12 +177,12 @@
 
 		// Selectors and variables
 		settings = extend( defaults, options || {} ); // Merge user options with defaults
+		toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles
 
 		// Add class to HTML element to activate conditional CSS
 		document.documentElement.classList.add( settings.initClass );
 
 		// Whenever a toggle is clicked, run the expand/collapse function
-		toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles
 		forEach(toggles, function (toggle, index) {
 			eventListeners[index] = exports.toggleContent.bind( null, toggle, toggle.getAttribute('data-collapse'), settings );
 			toggle.addEventListener('click', eventListeners[index], false);

@@ -1,7 +1,7 @@
 # Houdini [![Build Status](https://travis-ci.org/cferdinandi/houdini.svg)](https://travis-ci.org/cferdinandi/houdini)
 A simple collapse-and-expand script.
 
-[Download Houdini 6](https://github.com/cferdinandi/houdini/archive/master.zip) / [View the Demo](http://cferdinandi.github.io/houdini/).
+[Download Houdini](https://github.com/cferdinandi/houdini/archive/master.zip) / [View the Demo](http://cferdinandi.github.io/houdini/).
 
 **In This Documentation**
 
@@ -25,6 +25,7 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 ```html
 <link rel="stylesheet" href="dist/css/houdini.css">
 <script src="dist/js/classList.js"></script>
+<script src="dist/js/bind-polyfill.js"></script>
 <script src="dist/js/houdini.js"></script>
 ```
 
@@ -32,7 +33,7 @@ Houdini is [built with Sass](http://sass-lang.com/) for easy customization. If y
 
 The `_config.scss` file the same one used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_houdini.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
 
-Houdini also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends `classList` support back to IE8.
+Houdini also requires [classList.js](https://github.com/eligrey/classList.js) and `bind-polyfill.js`, polyfills that extend ECMAScript 5 API support to more browsers.
 
 ### 2. Add the markup to your HTML.
 
@@ -189,6 +190,9 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v6.3.1 - August 8, 2014
+	* Added polyfill for `Functions.prototype.bind`.
+	* Removed Sass paths from `gulpfile.js`.
 * v6.3.0 - June 26, 2014
 	* Added a public `destroy` method.
 	* Updated unit tests.
