@@ -14,7 +14,7 @@
 	// Variables
 	//
 
-	var exports = {}; // Object for public APIs
+	var houdini = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
 	var eventListeners = []; //Listeners array
 	var settings, toggles;
@@ -123,7 +123,7 @@
 	 * @param  {Object} options
 	 * @param  {Event} event
 	 */
-	exports.toggleContent = function (toggle, contentID, options, event) {
+	houdini.toggleContent = function (toggle, contentID, options, event) {
 
 		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var content = document.querySelector(contentID); // Get content area
@@ -149,7 +149,7 @@
 	 * Destroy the current initialization.
 	 * @public
 	 */
-	exports.destroy = function () {
+	houdini.destroy = function () {
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
 		if ( toggles ) {
@@ -167,13 +167,13 @@
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	exports.init = function ( options ) {
+	houdini.init = function ( options ) {
 
 		// feature test
 		if ( !supports ) return;
 
 		// Destroy any existing initializations
-		exports.destroy();
+		houdini.destroy();
 
 		// Selectors and variables
 		settings = extend( defaults, options || {} ); // Merge user options with defaults
@@ -184,7 +184,7 @@
 
 		// Whenever a toggle is clicked, run the expand/collapse function
 		forEach(toggles, function (toggle, index) {
-			eventListeners[index] = exports.toggleContent.bind( null, toggle, toggle.getAttribute('data-collapse'), settings );
+			eventListeners[index] = houdini.toggleContent.bind( null, toggle, toggle.getAttribute('data-collapse'), settings );
 			toggle.addEventListener('click', eventListeners[index], false);
 		});
 
@@ -195,6 +195,6 @@
 	// Public APIs
 	//
 
-	return exports;
+	return houdini;
 
 });
