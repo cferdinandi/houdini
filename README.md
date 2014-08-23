@@ -192,6 +192,10 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 Houdini uses [semantic versioning](http://semver.org/).
 
+* v6.4.0 - August 22, 2014
+	* Added event bubbling for better performance.
+	* Converted to Ruby Sass.
+	* Fixed test path for unit tests.
 * v6.3.2 - August 15, 2014
 	* Added fix for UMD structure.
 * v6.3.1 - August 8, 2014
