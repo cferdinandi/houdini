@@ -16,8 +16,7 @@
 
 	var houdini = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var eventListeners = []; //Listeners array
-	var settings, toggles;
+	var settings;
 
 	// Default settings
 	var defaults = {
@@ -123,15 +122,10 @@
 	 * @param  {Object} options
 	 * @param  {Event} event
 	 */
-	houdini.toggleContent = function (toggle, contentID, options, event) {
+	houdini.toggleContent = function (toggle, contentID, options) {
 
 		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var content = document.querySelector(contentID); // Get content area
-
-		// If toggle is a link, prevent default click event
-		if ( toggle && toggle.tagName.toLowerCase() === 'a' && event ) {
-			event.preventDefault();
-		}
 
 		settings.callbackBefore( toggle, contentID ); // Run callbacks before toggling content
 
@@ -146,20 +140,27 @@
 	};
 
 	/**
+	 * Handle toggle click events
+	 * @private
+	 */
+	var eventHandler = function (event) {
+		var toggle = event.target;
+		if ( toggle.hasAttribute('data-collapse') || toggle.parentNode.hasAttribute('data-collapse') ) {
+			event.preventDefault();
+			var contentID = toggle.hasAttribute('data-collapse') ? toggle.getAttribute('data-collapse') : toggle.parentNode.getAttribute('data-collapse');
+			houdini.toggleContent( toggle, contentID, settings );
+		}
+	};
+
+	/**
 	 * Destroy the current initialization.
 	 * @public
 	 */
 	houdini.destroy = function () {
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
-		if ( toggles ) {
-			forEach( toggles, function ( toggle, index ) {
-				toggle.removeEventListener( 'click', eventListeners[index], false );
-			});
-			eventListeners = [];
-		}
+		document.removeEventListener('click', eventHandler, false);
 		settings = null;
-		toggles = null;
 	};
 
 	/**
@@ -175,18 +176,14 @@
 		// Destroy any existing initializations
 		houdini.destroy();
 
-		// Selectors and variables
-		settings = extend( defaults, options || {} ); // Merge user options with defaults
-		toggles = document.querySelectorAll('[data-collapse]'); // Get all collapse toggles
+		// Merge user options with defaults
+		settings = extend( defaults, options || {} );
 
 		// Add class to HTML element to activate conditional CSS
 		document.documentElement.classList.add( settings.initClass );
 
-		// Whenever a toggle is clicked, run the expand/collapse function
-		forEach(toggles, function (toggle, index) {
-			eventListeners[index] = houdini.toggleContent.bind( null, toggle, toggle.getAttribute('data-collapse'), settings );
-			toggle.addEventListener('click', eventListeners[index], false);
-		});
+		// Listen for all click events
+		document.addEventListener('click', eventHandler, false);
 
 	};
 
