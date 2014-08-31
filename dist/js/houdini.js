@@ -1,5 +1,5 @@
 /**
- * Houdini v6.4.0
+ * Houdini v6.4.1
  * A simple collapse-and-expand script., by Chris Ferdinandi.
  * http://github.com/cferdinandi/houdini
  * 
@@ -81,6 +81,32 @@
 	};
 
 	/**
+	 * Get the closest matching element up the DOM tree
+	 * @param {Element} elem Starting element
+	 * @param {String} selector Selector to match against (class, ID, or data attribute)
+	 * @return {Boolean|Element} Returns false if not match found
+	 */
+	var getClosest = function (elem, selector) {
+		var firstChar = selector.charAt(0);
+		for ( ; elem && elem !== document; elem = elem.parentNode ) {
+			if ( firstChar === '.' ) {
+				if ( elem.classList.contains( selector.substr(1) ) ) {
+					return elem;
+				}
+			} else if ( firstChar === '#' ) {
+				if ( elem.id === selector.substr(1) ) {
+					return elem;
+				}
+			} else if ( firstChar === '[' ) {
+				if ( elem.hasAttribute( selector.substr(1, selector.length - 2) ) ) {
+					return elem;
+				}
+			}
+		}
+		return false;
+	};
+
+	/**
 	 * Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
 	 * @private
 	 * @param  {Element} content The content container the video is in
@@ -153,8 +179,8 @@
 	 * @private
 	 */
 	var eventHandler = function (event) {
-		var toggle = event.target;
-		if ( toggle.hasAttribute('data-collapse') || toggle.parentNode.hasAttribute('data-collapse') ) {
+		var toggle = getClosest(event.target, '[data-collapse]');
+		if ( toggle ) {
 			event.preventDefault();
 			var contentID = toggle.hasAttribute('data-collapse') ? toggle.getAttribute('data-collapse') : toggle.parentNode.getAttribute('data-collapse');
 			houdini.toggleContent( toggle, contentID, settings );
