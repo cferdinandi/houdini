@@ -6,7 +6,10 @@
 
 html { overflow-y: auto; }
 
-img, audio, video, canvas { max-width: 100%; }
+img, audio, video, canvas {
+	max-width: 100%;
+	height: auto;
+}
 
 /*  Sets body width */
 .container {
