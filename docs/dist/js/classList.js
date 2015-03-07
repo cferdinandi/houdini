@@ -1,5 +1,5 @@
 /**
- * Houdini v6.4.3
+ * Houdini v6.4.4
  * A simple collapse-and-expand script., by Chris Ferdinandi.
  * http://github.com/cferdinandi/houdini
  * 
