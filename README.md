@@ -213,6 +213,8 @@ Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 Houdini uses [semantic versioning](http://semver.org/).
 
+* v6.4.4 - March 6, 2015
+	* Fixed AMD wrapper window variable.
 * v6.4.3 - October 17, 2014
 	* Removed `.bind` dependency and polyfill.
 	* Updated `gulpfile.js` tasks and namespacing.
