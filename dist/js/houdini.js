@@ -1,5 +1,5 @@
 /**
- * Houdini v6.4.4
+ * Houdini v6.4.5
  * A simple collapse-and-expand script., by Chris Ferdinandi.
  * http://github.com/cferdinandi/houdini
  * 
@@ -9,13 +9,13 @@
 
 (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
-		define([], factory);
+		define([], factory(root));
 	} else if ( typeof exports === 'object' ) {
-		module.exports = factory;
+		module.exports = factory(root);
 	} else {
 		root.houdini = factory(root);
 	}
-})(this, function (window) {
+})(this, function (root) {
 
 	'use strict';
 
@@ -24,7 +24,7 @@
 	//
 
 	var houdini = {}; // Object for public APIs
-	var supports = !!document.querySelector && !!window.addEventListener; // Feature test
+	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
 	var settings;
 
 	// Default settings
