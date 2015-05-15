@@ -12,8 +12,7 @@ A simple collapse-and-expand script.
 4. [Browser Compatibility](#browser-compatibility)
 5. [How to Contribute](#how-to-contribute)
 6. [License](#license)
-7. [Changelog](#changelog)
-8. [Older Docs](#older-docs)
+7. [Older Docs](#older-docs)
 
 
 
@@ -206,113 +205,6 @@ In lieu of a formal style guide, take care to maintain the existing coding style
 ## License
 
 Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
-
-
-
-## Changelog
-
-Houdini uses [semantic versioning](http://semver.org/).
-
-* v6.4.6 - May 13, 2015
-	* Fixed Browserify `window` bug.
-* v6.4.5 - March 9, 2015
-	* REALLY fixed UMD wrapper.
-* v6.4.4 - March 6, 2015
-	* Fixed AMD wrapper window variable.
-* v6.4.3 - October 17, 2014
-	* Removed `.bind` dependency and polyfill.
-	* Updated `gulpfile.js` tasks and namespacing.
-* v6.4.2 - October 2, 2014
-	* Fixed CommonJS bug.
-	* Added lazypipe to gulpJS.
-* v6.4.1 - August 31, 2014
-	* Fixed event listener filter to account for sub elements.
-* v6.4.0 - August 22, 2014
-	* Added event bubbling for better performance.
-	* Converted to Ruby Sass.
-	* Fixed test path for unit tests.
-* v6.3.2 - August 15, 2014
-	* Added fix for UMD structure.
-* v6.3.1 - August 8, 2014
-	* Added polyfill for `Functions.prototype.bind`.
-	* Removed Sass paths from `gulpfile.js`.
-* v6.3.0 - June 26, 2014
-	* Added a public `destroy` method.
-	* Updated unit tests.
-	* Fixed `extend` function.
-* v6.2.1 - June 19, 2014
-	* Converted to gulp.js workflow.
-	* Added unit testing.
-	* Updated naming conventions.
-	* Removed unused `_mixins.scss` file.
-	* Added minified versions of files.
-* v6.1.1 - June 19, 2014
-	* Fixed factory/root/UMD definition.
-* v6.1.0 - June 7, 2014
-	* Converted to UMD module.
-	* Replaced `Buoy` with `classList.js` polyfill.
-	* Moved public APIs to `exports` variable.
-	* Improved feature test.
-	* Replaced `Array.prototype.forEach` hack with proper `forEach` function.
-	* Added a more well supported trim function.
-	* General code optimizations for better minification and performance.
-	* Updated to JSDoc documentation (sort of).
-	* Updated to three number versioning system.
-	* Added package manager installation info.
-* v6.0 - April 3, 2014
-	* Converted from Buoy class helpers to `classList` with polyfill.
-* v5.3 - March 19, 2014
-	* Passed arguments into callback functions.
-* v5.2 - March 1, 2014
-	* Added accordion support.
-* v5.1 - February 27, 2014
-	* Converted `defaults` to a literal object.
-* v5.0 - February 24, 2014
-	* Better public/private method namespacing.
-	* Require `init()` call to run.
-	* New API exposes additional methods for use in your own scripts.
-	* Better documentation (noting what's returned on functions).
-* v4.3 - February 19, 2014
-	* Added method to stop playing videos (YouTube, Vimeo, HTML5) when collapse content is closed.
-* v4.2 - February 4, 2014
-	* Reverted to `Array.prototype.forEach` loops.
-* v4.1 - January 27, 2014
-	* Updated `addEventListener` to be more object oriented.
-	* Moved feature test to script itself.
-* v4.0 - January 27, 2014
-	* Switched to a data attribute for the toggle selector (separates scripts from styles).
-	* Prefixed script with a `;` to prevent errors if other scripts are incorrectly closed.
-	* Added namespacing to IIFE.
-* v3.5 - December 2, 2013
-	* Added Sass support
-* v3.4 - August 27, 2013
-	* Added missing semicolon.
-	* Activated strict mode.
-* v3.3 - August 26,2013
-	* Converted to IIFE pattern.
-	* Added Buoy vanilla JS micro-library.
-* v3.2 - August 14, 2013
-	* Added toggleCollapse function for better performance.
-* v3.1 - August 12, 2013
-	* IE Bugfix.
-* v3.0 - August 11, 2013
-	* Converted to vanilla JS.
-	* Removed jQuery dependency.
-* v2.2 - August 5, 2013
-	* Added variable for `$(this)` (better for performance).
-* v2.1 - June 24,2013
-	* Added alternating "show/hide" text to toggle buttons.
-* v2.0 - June 7, 2013
-	* Switched to MIT license.
-* v2.0 - June 3, 2013
-	* Removed `href` as element selector. Just `data-target` supported now.
-* v1.2 - February 13, 2013
-	* Renamed `example.html` to `index.html`.
-	* Removed "Convert to Vanilla JS" from the roadmap.
-* v1.1 - February 5, 2013
-	* Switched to relative sizing.
-* v1.0 - January 24, 2013
-	* Initial release.
 
 
 
