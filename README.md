@@ -61,7 +61,22 @@ If you'd prefer to show content by default, include the `.active` class along wi
 </div>
 ```
 
-**[NEW] Accordions**
+**[NEW] Using a Checkbox**
+
+```html
+<form>
+	<label>
+		<input type="checkbox" data-collapse="#checkbox-content">
+		Reveal the content
+	</label>
+</form>
+
+<div class="collapse" id="checkbox-content">
+	All is revealed!
+</div>
+```
+
+**Accordions**
 
 Houdini now supports expand and collapse accordion groups. Add a `data-group` data attribute to every toggle in the accordion, and make sure they all have the same name. Houdini will sort out the rest.
 

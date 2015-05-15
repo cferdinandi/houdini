@@ -1,4 +1,4 @@
-	<h2>Collapsed by Default</h2>
+	<h2>Collapsed by Default with a Link</h2>
 
 	<div class="collapse" id="show-me">
 		Now you see me, now you don't.
@@ -11,7 +11,7 @@
 		</a>
 	</p>
 
-	<h2>Expanded by Default</h2>
+	<h2>Expanded by Default with a Button</h2>
 
 	<p>
 		<button class="collapse-toggle active" data-collapse="#hide-me">
@@ -22,6 +22,19 @@
 
 	<div class="collapse active" id="hide-me">
 		Hide me!
+	</div>
+
+	<h2>With a Checkbox</h2>
+
+	<form>
+		<label>
+			<input type="checkbox" data-collapse="#checkbox-content">
+			Reveal the content
+		</label>
+	</form>
+
+	<div class="collapse" id="checkbox-content">
+		All is revealed!
 	</div>
 
 	<h2>Accordions</h2>
