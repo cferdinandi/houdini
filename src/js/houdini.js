@@ -172,7 +172,9 @@
 	var eventHandler = function (event) {
 		var toggle = getClosest(event.target, '[data-collapse]');
 		if ( toggle ) {
-			event.preventDefault();
+			if ( toggle.tagName.toLowerCase() === 'a' || toggle.tagName.toLowerCase() === 'button' ) {
+				event.preventDefault();
+			}
 			var contentID = toggle.hasAttribute('data-collapse') ? toggle.getAttribute('data-collapse') : toggle.parentNode.getAttribute('data-collapse');
 			houdini.toggleContent( toggle, contentID, settings );
 		}

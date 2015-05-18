@@ -12,7 +12,6 @@ A simple collapse-and-expand script.
 4. [Browser Compatibility](#browser-compatibility)
 5. [How to Contribute](#how-to-contribute)
 6. [License](#license)
-7. [Older Docs](#older-docs)
 
 
 
@@ -61,7 +60,22 @@ If you'd prefer to show content by default, include the `.active` class along wi
 </div>
 ```
 
-**[NEW] Accordions**
+**[NEW] Using a Checkbox**
+
+```html
+<form>
+	<label>
+		<input type="checkbox" data-collapse="#checkbox-content">
+		Reveal the content
+	</label>
+</form>
+
+<div class="collapse" id="checkbox-content">
+	All is revealed!
+</div>
+```
+
+**Accordions**
 
 Houdini now supports expand and collapse accordion groups. Add a `data-group` data attribute to every toggle in the accordion, and make sure they all have the same name. Houdini will sort out the rest.
 
@@ -204,12 +218,4 @@ In lieu of a formal style guide, take care to maintain the existing coding style
 
 ## License
 
-Houdini is licensed under the [MIT License](http://gomakethings.com/mit/).
-
-
-
-## Older Docs
-
-* [Version 5](https://github.com/cferdinandi/houdini/tree/archive-v5)
-* [Version 4](http://cferdinandi.github.io/houdini/archive/v4/)
-* [Version 2](https://github.com/cferdinandi/houdini/tree/archive-v2)
+The code is available under the [MIT License](LICENSE.md).
