@@ -139,7 +139,6 @@ If you would prefer, you can work with the development code in the `src` directo
 Make sure these are installed first.
 
 * [Node.js](http://nodejs.org)
-* [Ruby Sass](http://sass-lang.com/install)
 * [Gulp](http://gulpjs.com) `sudo npm install -g gulp`
 
 ### Quick Start
@@ -165,8 +164,7 @@ houdini.init({
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active content elements
 	initClass: 'js-houdini', // Class added to `<html>` element when initiated
-	callbackBefore: function ( toggle, contentID ) {}, // Function that's run before content is expanded or collapsed
-	callbackAfter: function ( toggle, contentID ) {} // Function that's run after content is expanded or collapsed
+	callback: function ( toggle, contentID ) {} // Function that's run after content is expanded or collapsed
 });
 ```
 

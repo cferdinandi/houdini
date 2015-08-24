@@ -1,5 +1,5 @@
 /**
- * Houdini v6.5.0
+ * Houdini v7.0.0
  * A simple collapse-and-expand script., by Chris Ferdinandi.
  * http://github.com/cferdinandi/houdini
  * 
@@ -32,8 +32,7 @@
 		toggleActiveClass: 'active',
 		contentActiveClass: 'active',
 		initClass: 'js-houdini',
-		callbackBefore: function () {},
-		callbackAfter: function () {}
+		callback: function () {}
 	};
 
 
@@ -69,15 +68,42 @@
 	 * @param {Object} options User options
 	 * @returns {Object} Merged values of defaults and options
 	 */
-	var extend = function ( defaults, options ) {
+	var extend = function () {
+
+		// Variables
 		var extended = {};
-		forEach(defaults, function (value, prop) {
-			extended[prop] = defaults[prop];
-		});
-		forEach(options, function (value, prop) {
-			extended[prop] = options[prop];
-		});
+		var deep = false;
+		var i = 0;
+		var length = arguments.length;
+
+		// Check if a deep merge
+		if ( Object.prototype.toString.call( arguments[0] ) === '[object Boolean]' ) {
+			deep = arguments[0];
+			i++;
+		}
+
+		// Merge the object into the extended object
+		var merge = function (obj) {
+			for ( var prop in obj ) {
+				if ( Object.prototype.hasOwnProperty.call( obj, prop ) ) {
+					// If deep merge and property is an object, merge properties
+					if ( deep && Object.prototype.toString.call(obj[prop]) === '[object Object]' ) {
+						extended[prop] = extend( true, extended[prop], obj[prop] );
+					} else {
+						extended[prop] = obj[prop];
+					}
+				}
+			}
+		};
+
+		// Loop through each object and conduct a merge
+		for ( ; i < length; i++ ) {
+			var obj = arguments[i];
+			merge(obj);
+		}
+
 		return extended;
+
 	};
 
 	/**
@@ -86,24 +112,69 @@
 	 * @param {String} selector Selector to match against (class, ID, or data attribute)
 	 * @return {Boolean|Element} Returns false if not match found
 	 */
-	var getClosest = function (elem, selector) {
+	var getClosest = function ( elem, selector ) {
+
+		// Variables
 		var firstChar = selector.charAt(0);
+		var supports = 'classList' in document.documentElement;
+		var attribute, value;
+
+		// If selector is a data attribute, split attribute from value
+		if ( firstChar === '[' ) {
+			selector = selector.substr(1, selector.length - 2);
+			attribute = selector.split( '=' );
+
+			if ( attribute.length > 1 ) {
+				value = true;
+				attribute[1] = attribute[1].replace( /"/g, '' ).replace( /'/g, '' );
+			}
+		}
+
+		// Get closest match
 		for ( ; elem && elem !== document; elem = elem.parentNode ) {
+
+			// If selector is a class
 			if ( firstChar === '.' ) {
-				if ( elem.classList.contains( selector.substr(1) ) ) {
-					return elem;
+				if ( supports ) {
+					if ( elem.classList.contains( selector.substr(1) ) ) {
+						return elem;
+					}
+				} else {
+					if ( new RegExp('(^|\\s)' + selector.substr(1) + '(\\s|$)').test( elem.className ) ) {
+						return elem;
+					}
 				}
-			} else if ( firstChar === '#' ) {
+			}
+
+			// If selector is an ID
+			if ( firstChar === '#' ) {
 				if ( elem.id === selector.substr(1) ) {
 					return elem;
 				}
-			} else if ( firstChar === '[' ) {
-				if ( elem.hasAttribute( selector.substr(1, selector.length - 2) ) ) {
-					return elem;
+			}
+
+			// If selector is a data attribute
+			if ( firstChar === '[' ) {
+				if ( elem.hasAttribute( attribute[0] ) ) {
+					if ( value ) {
+						if ( elem.getAttribute( attribute[0] ) === attribute[1] ) {
+							return elem;
+						}
+					} else {
+						return elem;
+					}
 				}
 			}
+
+			// If selector is a tag
+			if ( elem.tagName.toLowerCase() === selector ) {
+				return elem;
+			}
+
 		}
-		return false;
+
+		return null;
+
 	};
 
 	/**
@@ -162,15 +233,13 @@
 		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var content = document.querySelector(contentID); // Get content area
 
-		settings.callbackBefore( toggle, contentID ); // Run callbacks before toggling content
-
 		// Toggle collapse element
 		closeCollapseGroup(toggle, settings); // Close collapse group items
 		toggle.classList.toggle( settings.toggleActiveClass );// Change text on collapse toggle
 		content.classList.toggle( settings.contentActiveClass ); // Collapse or expand content area
 		stopVideos( content, settings.contentActiveClass ); // If content area is closed, stop playing any videos
 
-		settings.callbackAfter( toggle, contentID ); // Run callbacks after toggling content
+		settings.callback( toggle, contentID ); // Run callbacks after toggling content
 
 	};
 

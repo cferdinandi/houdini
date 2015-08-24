@@ -109,8 +109,7 @@ describe('Houdini', function () {
 				toggleActiveClass: 'toggle-active',
 				contentActiveClass: 'content-active',
 				initClass: 'js-test',
-				callbackBefore: function () { document.documentElement.classList.add('callback-before'); },
-				callbackAfter: function () { document.documentElement.classList.add('callback-after'); }
+				callback: function () { document.documentElement.classList.add('callback'); }
 			});
 			toggle = document.querySelector('[data-collapse]');
 			content = document.querySelector( toggle.getAttribute('data-collapse') );
@@ -122,8 +121,7 @@ describe('Houdini', function () {
 			expect(toggle.classList.contains('toggle-active')).toBe(true);
 			expect(content.classList.contains('content-active')).toBe(true);
 			expect(doc.classList.contains('js-test')).toBe(true);
-			expect(doc.classList.contains('callback-before')).toBe(true);
-			expect(doc.classList.contains('callback-after')).toBe(true);
+			expect(doc.classList.contains('callback')).toBe(true);
 			trigger('click', toggle);
 			houdini.destroy();
 		});

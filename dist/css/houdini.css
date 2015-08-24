@@ -1,5 +1,5 @@
 /**
- * Houdini v6.5.0
+ * Houdini v7.0.0
  * A simple collapse-and-expand script., by Chris Ferdinandi.
  * http://github.com/cferdinandi/houdini
  * 
@@ -8,14 +8,14 @@
  */
 
 /*  Hide the collapse and expand link or button by default */
-/* line 2, ../components/_houdini.scss */
+/* line 2, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .collapse-toggle {
   display: none;
   visibility: hidden;
 }
 
 /*  If JavaScript is enabled, show the collapse and expand link or button */
-/* line 8, ../components/_houdini.scss */
+/* line 8, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .js-houdini .collapse-toggle {
   display: inline;
   visibility: visible;
@@ -24,7 +24,7 @@
 
 /*  When expanded, hide "show" text.
  *  When collapsed, hide "hide" text. */
-/* line 16, ../components/_houdini.scss */
+/* line 17, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .active .collapse-text-show,
 .collapse-text-hide {
   display: none;
@@ -32,27 +32,27 @@
 }
 
 /*  When expanded, show "hide" text. */
-/* line 23, ../components/_houdini.scss */
+/* line 23, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .active .collapse-text-hide {
   display: inline;
   visibility: visible;
 }
 
 /* If JavaScript is enabled, hide the collapsed element */
-/* line 29, ../components/_houdini.scss */
+/* line 29, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .js-houdini .collapse {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
   /*  Add animation when content expands and collapses */
   -webkit-transition: opacity 0.35s ease;
-  transition: opacity 0.35s ease;
+          transition: opacity 0.35s ease;
 }
 
 /*  When collapsed element has the .active class, show it
  *  Uses max-height instead of display: none to allow for
  *  CSS3 animations, which don't work on display values. */
-/* line 40, ../components/_houdini.scss */
+/* line 40, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .js-houdini .collapse.active {
   max-height: 9999em;
   opacity: 1;
