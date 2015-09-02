@@ -100,13 +100,7 @@ In the footer of your page, after the content, initialize Houdini. And that's it
 
 ```html
 <script>
-	if (
-		'querySelector' in document &&
-		'addEventListener' in window &&
-		'classList' in document.createElement('_')
-	) {
-		houdini.init();
-	}
+	houdini.init();
 </script>
 ```
 
@@ -200,20 +194,6 @@ houdini.destroy();
 Houdini works in all modern browsers, and IE 10 and above. You can push browser support back to IE 9 with the [classList.js polyfill](https://github.com/eligrey/classList.js/).
 
 Houdini is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default. If you need to support older browsers, you can still download the [jQuery version of Houdini on GitHub](https://github.com/cferdinandi/houdini/tree/archive-v2).
-
-### Cutting the Mustard
-
-You should check for `document.querySelector`, `window.addEventListener`, and `document.classList` support before calling `houdini.init()`.
-
-```js
-if (
-	'querySelector' in document &&
-	'addEventListener' in window &&
-	'classList' in document.createElement('_') // If you're not using the polyfill
-) {
-    houdini.init();
-}
-```
 
 
 

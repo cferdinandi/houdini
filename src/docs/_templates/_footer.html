@@ -5,14 +5,7 @@
 		<!-- Javascript -->
 		<script src="dist/js/houdini.js"></script>
 		<script>
-			if (
-				'querySelector' in document &&
-				'addEventListener' in window &&
-				'classList' in document.createElement('_') // If you're not using the polyfill
-			) {
-				houdini.init();
-			}
-
+			houdini.init();
 		</script>
 
 
