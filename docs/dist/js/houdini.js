@@ -1,5 +1,5 @@
 /*!
- * Houdini v8.0.0: A simple collapse-and-expand script
+ * Houdini v8.1.0: A simple collapse-and-expand script
  * (c) 2015 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
@@ -13,7 +13,7 @@
 	} else {
 		root.houdini = factory(root);
 	}
-})(typeof global !== "undefined" ? global : this.window || this.global, function (root) {
+})(typeof global !== 'undefined' ? global : this.window || this.global, function (root) {
 
 	'use strict';
 
@@ -22,6 +22,7 @@
 	//
 
 	var houdini = {}; // Object for public APIs
+	var supports = 'querySelector' in document && 'addEventListener' in root && 'classList' in document.createElement('_'); // Feature test
 	var settings;
 
 	// Default settings
@@ -266,6 +267,9 @@
 	 * @param {Object} options User settings
 	 */
 	houdini.init = function ( options ) {
+
+		// feature test
+		if ( !supports ) return;
 
 		// Destroy any existing initializations
 		houdini.destroy();
