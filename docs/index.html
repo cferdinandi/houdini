@@ -102,15 +102,16 @@
 		</main>
 
 		<!-- Javascript -->
-		<script src="dist/js/classList.js"></script>
 		<script src="dist/js/houdini.js"></script>
 		<script>
-			houdini.init({
-				toggleActiveClass: 'active',
-				contentActiveClass: 'active',
-				initClass: 'js-houdini',
-				callback: function () {}
-			});
+			if (
+				'querySelector' in document &&
+				'addEventListener' in window &&
+				'classList' in document.createElement('_') // If you're not using the polyfill
+			) {
+				houdini.init();
+			}
+
 		</script>
 
 
