@@ -1,17 +1,7 @@
 # Houdini [![Build Status](https://travis-ci.org/cferdinandi/houdini.svg)](https://travis-ci.org/cferdinandi/houdini)
 A simple collapse-and-expand script.
 
-[Download Houdini](https://github.com/cferdinandi/houdini/archive/master.zip) / [View the Demo](http://cferdinandi.github.io/houdini/).
-
-**In This Documentation**
-
-1. [Getting Started](#getting-started)
-2. [Installing with Package Managers](#installing-with-package-managers)
-3. [Working with the Source Files](#working-with-the-source-files)
-3. [Options & Settings](#options-and-settings)
-4. [Browser Compatibility](#browser-compatibility)
-5. [How to Contribute](#how-to-contribute)
-6. [License](#license)
+[Download Houdini](https://github.com/cferdinandi/houdini/archive/master.zip) / [View the Demo](http://cferdinandi.github.io/houdini/)
 
 
 
@@ -23,17 +13,12 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 
 ```html
 <link rel="stylesheet" href="dist/css/houdini.css">
-<script src="dist/js/classList.js"></script>
 <script src="dist/js/houdini.js"></script>
 ```
 
-Houdini is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
-
-The `_config.scss` file the same one used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_houdini.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
-
-Houdini also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends ECMAScript 5 API support to more browsers.
-
 ### 2. Add the markup to your HTML.
+
+Add the `.collapse-toggle` class to your toggle element, and the `.collapse` class to your content. You also need to add the `[data-collapse]` attribute to your toggle element, and ensure that its value matches the selector of the element you want to expand and collapse.
 
 ```html
 <a class="collapse-toggle" data-collapse="#show-me" href="#">
@@ -60,7 +45,7 @@ If you'd prefer to show content by default, include the `.active` class along wi
 </div>
 ```
 
-**[NEW] Using a Checkbox**
+**Using a Checkbox**
 
 ```html
 <form>
@@ -77,7 +62,7 @@ If you'd prefer to show content by default, include the `.active` class along wi
 
 **Accordions**
 
-Houdini now supports expand and collapse accordion groups. Add a `data-group` data attribute to every toggle in the accordion, and make sure they all have the same name. Houdini will sort out the rest.
+Houdini also supports expand and collapse accordion groups. Add a `[data-group]` attribute to every toggle in the accordion, and make sure they all have the same value. Houdini will sort out the rest.
 
 ```html
 <a class="collapse-toggle active" data-collapse="#section1" data-group="accordion" href="#">
@@ -111,13 +96,19 @@ Houdini now supports expand and collapse accordion groups. Add a `data-group` da
 
 ### 3. Initialize Houdini.
 
+In the footer of your page, after the content, initialize Houdini. And that's it, you're done. Nice work!
+
 ```html
 <script>
-	houdini.init();
+	if (
+		'querySelector' in document &&
+		'addEventListener' in window &&
+		'classList' in document.createElement('_')
+	) {
+		houdini.init();
+	}
 </script>
 ```
-
-In the footer of your page, after the content, initialize Houdini. And that's it, you're done. Nice work!
 
 
 
@@ -148,6 +139,7 @@ Make sure these are installed first.
 3. When it's done installing, run one of the task runners to get going:
 	* `gulp` manually compiles files.
 	* `gulp watch` automatically compiles files and applies changes using [LiveReload](http://livereload.com/).
+	* `gulp test` compiles files and runs unit tests.
 
 
 
@@ -161,12 +153,15 @@ You can pass options and callbacks into Houdini through the `init()` function:
 
 ```javascript
 houdini.init({
+	selector: '[data-collapse]', // Collapse toggle selector
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active content elements
 	initClass: 'js-houdini', // Class added to `<html>` element when initiated
 	callback: function ( toggle, contentID ) {} // Function that's run after content is expanded or collapsed
 });
 ```
+
+***Note:*** *If you change the `selector`, you still need to include the `[data-collapse]` attribute in order to pass in the selector for the collapse content.*
 
 ### Use Houdini events in your own scripts
 
@@ -202,9 +197,23 @@ houdini.destroy();
 
 ## Browser Compatibility
 
-Houdini works in all modern browsers, and IE 9 and above.
+Houdini works in all modern browsers, and IE 10 and above. You can push browser support back to IE 9 with the [classList.js polyfill](https://github.com/eligrey/classList.js/).
 
 Houdini is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default. If you need to support older browsers, you can still download the [jQuery version of Houdini on GitHub](https://github.com/cferdinandi/houdini/tree/archive-v2).
+
+### Cutting the Mustard
+
+You should check for `document.querySelector`, `window.addEventListener`, and `document.classList` support before calling `houdini.init()`.
+
+```js
+if (
+	'querySelector' in document &&
+	'addEventListener' in window &&
+	'classList' in document.createElement('_') // If you're not using the polyfill
+) {
+    houdini.init();
+}
+```
 
 
 
