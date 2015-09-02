@@ -1,10 +1,8 @@
-/**
- * Houdini v7.0.0
- * A simple collapse-and-expand script., by Chris Ferdinandi.
+/*!
+ * Houdini v8.0.0: A simple collapse-and-expand script
+ * (c) 2015 Chris Ferdinandi
+ * MIT License
  * http://github.com/cferdinandi/houdini
- * 
- * Free to use under the MIT License.
- * http://gomakethings.com/mit/
  */
 
 (function (root, factory) {
@@ -24,11 +22,11 @@
 	//
 
 	var houdini = {}; // Object for public APIs
-	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
 	var settings;
 
 	// Default settings
 	var defaults = {
+		selector: '[data-collapse]',
 		toggleActiveClass: 'active',
 		contentActiveClass: 'active',
 		initClass: 'js-houdini',
@@ -116,7 +114,6 @@
 
 		// Variables
 		var firstChar = selector.charAt(0);
-		var supports = 'classList' in document.documentElement;
 		var attribute, value;
 
 		// If selector is a data attribute, split attribute from value
@@ -135,14 +132,8 @@
 
 			// If selector is a class
 			if ( firstChar === '.' ) {
-				if ( supports ) {
-					if ( elem.classList.contains( selector.substr(1) ) ) {
-						return elem;
-					}
-				} else {
-					if ( new RegExp('(^|\\s)' + selector.substr(1) + '(\\s|$)').test( elem.className ) ) {
-						return elem;
-					}
+				if ( elem.classList.contains( selector.substr(1) ) ) {
+					return elem;
 				}
 			}
 
@@ -248,7 +239,7 @@
 	 * @private
 	 */
 	var eventHandler = function (event) {
-		var toggle = getClosest(event.target, '[data-collapse]');
+		var toggle = getClosest(event.target, settings.selector);
 		if ( toggle ) {
 			if ( toggle.tagName.toLowerCase() === 'a' || toggle.tagName.toLowerCase() === 'button' ) {
 				event.preventDefault();
@@ -275,9 +266,6 @@
 	 * @param {Object} options User settings
 	 */
 	houdini.init = function ( options ) {
-
-		// feature test
-		if ( !supports ) return;
 
 		// Destroy any existing initializations
 		houdini.destroy();
