@@ -1,6 +1,6 @@
 /*!
- * Houdini v8.1.0: A simple collapse-and-expand script
- * (c) 2015 Chris Ferdinandi
+ * Houdini v8.2.0: A simple collapse-and-expand script
+ * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
  */
@@ -189,6 +189,11 @@
 		}
 	};
 
+	var bringFocus = function ( content, activeClass ) {
+		if ( !content.classList.contains( activeClass ) ) return;
+		content.focus();
+	};
+
 	/**
 	 * Close all content areas in an expand/collapse group
 	 * @private
@@ -230,6 +235,7 @@
 		toggle.classList.toggle( settings.toggleActiveClass );// Change text on collapse toggle
 		content.classList.toggle( settings.contentActiveClass ); // Collapse or expand content area
 		stopVideos( content, settings.contentActiveClass ); // If content area is closed, stop playing any videos
+		bringFocus( content, settings.contentActiveClass ); // If content area is open, bring focus
 
 		settings.callback( toggle, contentID ); // Run callbacks after toggling content
 
@@ -251,12 +257,47 @@
 	};
 
 	/**
+	 * Add a11y attributes to the DOM
+	 * @param {boolean} remove If true, remove a11y attributes from the DOM
+	 */
+	var addAttributes = function ( remove ) {
+
+		// Get all toggles
+		var toggles = document.querySelectorAll( settings.selector );
+
+		// For each toggle
+		forEach(toggles, function (toggle) {
+
+			// Get the target content area
+			var content = document.querySelector( toggle.getAttribute( 'data-collapse' ) );
+
+			// Remove attributes
+			if ( remove ) {
+				toggle.removeAttribute( 'aria-hidden' );
+				if ( content ) {
+					content.removeAttribute( 'tabindex' );
+				}
+				return;
+			}
+
+			// Add attributes
+			toggle.setAttribute( 'aria-hidden', 'true' );
+			if ( content ) {
+				content.setAttribute( 'tabindex', '-1' );
+			}
+
+		});
+
+	};
+
+	/**
 	 * Destroy the current initialization.
 	 * @public
 	 */
 	houdini.destroy = function () {
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
+		addAttributes(true);
 		document.removeEventListener('click', eventHandler, false);
 		settings = null;
 	};
@@ -279,6 +320,9 @@
 
 		// Add class to HTML element to activate conditional CSS
 		document.documentElement.classList.add( settings.initClass );
+
+		// Add attributes
+		addAttributes();
 
 		// Listen for all click events
 		document.addEventListener('click', eventHandler, false);
