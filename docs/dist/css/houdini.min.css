@@ -1,7 +1,2 @@
-/*! Houdini v8.1.0 | (c) 2015 Chris Ferdinandi | MIT License | http://github.com/cferdinandi/houdini */
-/*!
- * Houdini v8.1.0: A simple collapse-and-expand script
- * (c) 2015 Chris Ferdinandi
- * MIT License
- * http://github.com/cferdinandi/houdini
- */.collapse-toggle{display:none;visibility:hidden}.js-houdini .collapse-toggle{display:inline;visibility:visible;cursor:pointer}.active .collapse-text-show,.collapse-text-hide{display:none;visibility:hidden}.active .collapse-text-hide{display:inline;visibility:visible}.js-houdini .collapse{max-height:0;overflow:hidden;opacity:0;-webkit-transition:opacity .35s ease;transition:opacity .35s ease}.js-houdini .collapse.active{max-height:9999em;opacity:1}
+/*! Houdini v8.2.0 | (c) 2016 Chris Ferdinandi | MIT License | http://github.com/cferdinandi/houdini */
+.collapse-toggle{display:none;visibility:hidden}.js-houdini .collapse-toggle{cursor:pointer;display:inline-block;visibility:visible}.active .collapse-text-show,.collapse-text-hide{display:none;visibility:hidden}.active .collapse-text-hide{display:inline-block;visibility:visible}.js-houdini .collapse:focus{outline:none}

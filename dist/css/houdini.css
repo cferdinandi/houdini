@@ -1,57 +1,46 @@
 /*!
- * Houdini v8.1.0: A simple collapse-and-expand script
- * (c) 2015 Chris Ferdinandi
+ * Houdini v8.2.0: A simple collapse-and-expand script
+ * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
  */
 
-/*  Hide the collapse and expand link or button by default */
-/* line 2, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+/**
+ * Collapse toggle
+ */
+/* line 4, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .collapse-toggle {
   display: none;
   visibility: hidden;
 }
 
-/*  If JavaScript is enabled, show the collapse and expand link or button */
 /* line 8, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .js-houdini .collapse-toggle {
-  display: inline;
-  visibility: visible;
   cursor: pointer;
+  display: inline-block;
+  visibility: visible;
 }
 
-/*  When expanded, hide "show" text.
- *  When collapsed, hide "hide" text. */
-/* line 17, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+/**
+ * Show/hide text
+ */
+/* line 19, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .active .collapse-text-show,
 .collapse-text-hide {
   display: none;
   visibility: hidden;
 }
 
-/*  When expanded, show "hide" text. */
-/* line 23, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+/* line 25, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .active .collapse-text-hide {
-  display: inline;
+  display: inline-block;
   visibility: visible;
 }
 
-/* If JavaScript is enabled, hide the collapsed element */
-/* line 29, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
-.js-houdini .collapse {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  /*  Add animation when content expands and collapses */
-  -webkit-transition: opacity 0.35s ease;
-          transition: opacity 0.35s ease;
-}
-
-/*  When collapsed element has the .active class, show it
- *  Uses max-height instead of display: none to allow for
- *  CSS3 animations, which don't work on display values. */
-/* line 40, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
-.js-houdini .collapse.active {
-  max-height: 9999em;
-  opacity: 1;
+/**
+ * The content
+ */
+/* line 41, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+.js-houdini .collapse:focus {
+  outline: none;
 }
