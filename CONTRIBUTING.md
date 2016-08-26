@@ -14,7 +14,7 @@ If no existing issue exists, go ahead and create one. **Please be sure to includ
 
 ## Asking a question
 
-Before asking, please **make sure the bug hasn't already been reported** by searching GitHub's issues section.
+Before asking, please **make sure the question hasn't already been asked** by searching GitHub's issues section.
 
 ## Submitting a Pull Request
 
@@ -28,6 +28,6 @@ Please make sure your code meets the following code standards:
 
 Before submitting, make sure that you've:
 
-- Update the version number using semantic versioning.
+- Updated the version number using semantic versioning.
 - Made your changes in the `src` folder.
 - Run the Gulp build to compile, minify, and update version numbers t0 the `dist` folder. If you cannot do this, please note this in the Pull Request.
