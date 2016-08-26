@@ -1,5 +1,5 @@
 /*!
- * Houdini v8.2.0: A simple collapse-and-expand script
+ * Houdini v8.2.1: A simple collapse-and-expand script
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
