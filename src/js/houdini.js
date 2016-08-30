@@ -337,7 +337,7 @@
 		// Variables
 		var localSettings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var content = document.querySelector( escapeCharacters( contentID ) ); // Get content area
-		var group = toggle && toggle.hasAttribute( 'data-group') ? document.querySelectorAll('[data-group="' + toggle.getAttribute( 'data-group') + '"]') : [];
+		var group = toggle && toggle.hasAttribute( 'data-group') ? document.querySelectorAll('[data-group="' + toggle.getAttribute( 'data-group') + '"]') : null;
 
 		// Sanity check
 		if ( !content ) return;
@@ -356,12 +356,9 @@
 		content.removeAttribute( 'data-houdini-no-focus' );
 
 		// Run callbacks after toggling content
-		settings.callbackOpen( content, toggle );
+		localSettings.callbackOpen( content, toggle );
 
 	};
-
-	// @todo switch to openContent and closeContent methods for cleaner structure. This is a fucking mess.
-	// Use drop.js and modals.js as reference points
 
 	/**
 	 * Handle toggle click events
@@ -388,6 +385,10 @@
 
 	};
 
+	/**
+	 * Handle content focus events
+	 * @private
+	 */
 	var focusHandler = function (event) {
 
 		// Variables
@@ -395,7 +396,7 @@
 		var content = getClosest( target, settings.selectorContent );
 
 		// Only run if content exists and isn't open already
-		if ( !content || content.classList.contains( settings.contentActiveClass ) || content.getAttribute( 'data-state' ) === 'open' ) return;
+		if ( !content || content.classList.contains( settings.contentActiveClass ) ) return;
 
 		// Open the collapsed element
 		var toggle = document.querySelector( 'a[href*="#' + content.id + '"]' );
@@ -412,7 +413,7 @@
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
 		document.removeEventListener('click', clickHandler, false);
-		document.removeEventListener('focusin', focusHandler, false);
+		document.removeEventListener('focus', focusHandler, true);
 		settings = null;
 	};
 
