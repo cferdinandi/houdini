@@ -9,14 +9,14 @@ describe('Houdini', function () {
 	 */
 	var injectElem = function () {
 		var elem =
-			'<a class="collapse-toggle" data-collapse="#content1" data-group="accordion" href="#">' +
+			'<a class="collapse-toggle" data-collapse data-group="accordion" href="#content1">' +
 				'<span class="collapse-text-show">Show +</span>' +
 				'<span class="collapse-text-hide">Hide -</span>' +
 			'</a>' +
 			'<div class="collapse" id="content1">' +
 				'<p>Content</p>' +
 			'</div>' +
-			'<a class="collapse-toggle" data-collapse="#content2" data-group="accordion" href="#">' +
+			'<a class="collapse-toggle" data-collapse data-group="accordion" href="#content2">' +
 				'<span class="collapse-text-show">Show +</span>' +
 				'<span class="collapse-text-hide">Hide -</span>' +
 			'</a>' +
@@ -109,10 +109,10 @@ describe('Houdini', function () {
 				toggleActiveClass: 'toggle-active',
 				contentActiveClass: 'content-active',
 				initClass: 'js-test',
-				callback: function () { document.documentElement.classList.add('callback'); }
+				callbackOpen: function () { document.documentElement.classList.add('callback'); }
 			});
 			toggle = document.querySelector('[data-collapse]');
-			content = document.querySelector( toggle.getAttribute('data-collapse') );
+			content = document.querySelector( toggle.hash );
 			doc = document.documentElement;
 		});
 
@@ -141,7 +141,7 @@ describe('Houdini', function () {
 			injectElem();
 			houdini.init();
 			toggle = document.querySelector('[data-collapse]');
-			content = document.querySelector( toggle.getAttribute('data-collapse') );
+			content = document.querySelector( toggle.hash );
 		});
 
 		it('Toggle and content should have ".active" class on click', function () {
@@ -209,25 +209,24 @@ describe('Houdini', function () {
 
 	describe('Should toggle from public API', function () {
 
-		var toggle, contentID, content;
+		var toggle, content;
 
 		beforeEach(function () {
 			injectElem();
 			toggle = document.querySelector('[data-collapse]');
-			contentID = toggle.getAttribute('data-collapse');
-			content = document.querySelector( contentID );
-			houdini.toggleContent(toggle, contentID, null, null);
+			content = document.querySelector( toggle.hash );
+			houdini.openContent(toggle.hash, toggle);
 		});
 
-		it('Toggle and content should have an active class', function () {
+		it('Toggle and content should have an active class if opened', function () {
 			expect(toggle.classList.contains('active')).toBe(true);
 			expect(content.classList.contains('active')).toBe(true);
 		});
 
-		it('Toggle and content should not have an active class if toggled again', function () {
+		it('Toggle and content should not have an active class if closed again', function () {
 			expect(toggle.classList.contains('active')).toBe(true);
 			expect(content.classList.contains('active')).toBe(true);
-			houdini.toggleContent(toggle, contentID, null, null);
+			houdini.closeContent(toggle.hash, toggle);
 			expect(toggle.classList.contains('active')).toBe(false);
 			expect(content.classList.contains('active')).toBe(false);
 		});
@@ -242,7 +241,7 @@ describe('Houdini', function () {
 			injectElem();
 			houdini.init();
 			toggle = document.querySelector('[data-collapse]');
-			content = document.querySelector( toggle.getAttribute('data-collapse') );
+			content = document.querySelector( toggle.hash );
 			doc = document.documentElement;
 		});
 
