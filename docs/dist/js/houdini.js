@@ -1,5 +1,5 @@
 /*!
- * Houdini v8.2.1: A simple collapse-and-expand script
+ * Houdini v9.0.0: A simple collapse-and-expand script
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
@@ -27,11 +27,14 @@
 
 	// Default settings
 	var defaults = {
-		selector: '[data-collapse]',
+		selectorToggle: '[data-collapse]',
+		selectorContent: '.collapse',
 		toggleActiveClass: 'active',
 		contentActiveClass: 'active',
 		initClass: 'js-houdini',
-		callback: function () {}
+		stopVideo: true,
+		callbackOpen: function () {},
+		callbackClose: function () {}
 	};
 
 
@@ -170,123 +173,241 @@
 	};
 
 	/**
+	 * Escape special characters for use with querySelector
+	 * @public
+	 * @param {String} id The anchor ID to escape
+	 * @author Mathias Bynens
+	 * @link https://github.com/mathiasbynens/CSS.escape
+	 */
+	var escapeCharacters = function ( id ) {
+
+		// Remove leading hash
+		if ( id.charAt(0) === '#' ) {
+			id = id.substr(1);
+		}
+
+		var string = String(id);
+		var length = string.length;
+		var index = -1;
+		var codeUnit;
+		var result = '';
+		var firstCodeUnit = string.charCodeAt(0);
+		while (++index < length) {
+			codeUnit = string.charCodeAt(index);
+			// Note: there’s no need to special-case astral symbols, surrogate
+			// pairs, or lone surrogates.
+
+			// If the character is NULL (U+0000), then throw an
+			// `InvalidCharacterError` exception and terminate these steps.
+			if (codeUnit === 0x0000) {
+				throw new InvalidCharacterError(
+					'Invalid character: the input contains U+0000.'
+				);
+			}
+
+			if (
+				// If the character is in the range [\1-\1F] (U+0001 to U+001F) or is
+				// U+007F, […]
+				(codeUnit >= 0x0001 && codeUnit <= 0x001F) || codeUnit == 0x007F ||
+				// If the character is the first character and is in the range [0-9]
+				// (U+0030 to U+0039), […]
+				(index === 0 && codeUnit >= 0x0030 && codeUnit <= 0x0039) ||
+				// If the character is the second character and is in the range [0-9]
+				// (U+0030 to U+0039) and the first character is a `-` (U+002D), […]
+				(
+					index === 1 &&
+					codeUnit >= 0x0030 && codeUnit <= 0x0039 &&
+					firstCodeUnit === 0x002D
+				)
+			) {
+				// http://dev.w3.org/csswg/cssom/#escape-a-character-as-code-point
+				result += '\\' + codeUnit.toString(16) + ' ';
+				continue;
+			}
+
+			// If the character is not handled by one of the above rules and is
+			// greater than or equal to U+0080, is `-` (U+002D) or `_` (U+005F), or
+			// is in one of the ranges [0-9] (U+0030 to U+0039), [A-Z] (U+0041 to
+			// U+005A), or [a-z] (U+0061 to U+007A), […]
+			if (
+				codeUnit >= 0x0080 ||
+				codeUnit === 0x002D ||
+				codeUnit === 0x005F ||
+				codeUnit >= 0x0030 && codeUnit <= 0x0039 ||
+				codeUnit >= 0x0041 && codeUnit <= 0x005A ||
+				codeUnit >= 0x0061 && codeUnit <= 0x007A
+			) {
+				// the character itself
+				result += string.charAt(index);
+				continue;
+			}
+
+			// Otherwise, the escaped character.
+			// http://dev.w3.org/csswg/cssom/#escape-a-character
+			result += '\\' + string.charAt(index);
+
+		}
+
+		return '#' + result;
+
+	};
+
+	/**
 	 * Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
 	 * @private
 	 * @param  {Element} content The content container the video is in
 	 * @param  {String} activeClass The class asigned to expanded content areas
 	 */
-	var stopVideos = function ( content, activeClass ) {
-		if ( !content.classList.contains( activeClass ) ) {
-			var iframe = content.querySelector( 'iframe');
-			var video = content.querySelector( 'video' );
-			if ( iframe ) {
-				var iframeSrc = iframe.src;
-				iframe.src = iframeSrc;
-			}
-			if ( video ) {
-				video.pause();
-			}
+	var stopVideos = function ( content, settings ) {
+
+		// Check if stop video enabled
+		if ( !settings.stopVideo ) return;
+
+		// Only run if content container is open
+		if ( !content.classList.contains( settings.contentActiveClass ) ) return;
+
+		// Check if the video is an iframe or HTML5 video
+		var iframe = content.querySelector( 'iframe');
+		var video = content.querySelector( 'video' );
+
+		// Stop the video
+		if ( iframe ) {
+			var iframeSrc = iframe.src;
+			iframe.src = iframeSrc;
 		}
+		if ( video ) {
+			video.pause();
+		}
+
 	};
 
-	var bringFocus = function ( content, activeClass ) {
-		if ( !content.classList.contains( activeClass ) ) return;
+	var adjustFocus = function ( content, settings ) {
+
+		if ( content.hasAttribute( 'data-houdini-no-focus' ) ) return;
+
+		// If content is closed, remove tabindex
+		if ( !content.classList.contains( settings.contentActiveClass ) ) {
+			if ( content.hasAttribute( 'data-houdini-focused' ) ) {
+				content.removeAttribute( 'tabindex' );
+			}
+			return;
+		}
+
+		// Otherwise, set focus
 		content.focus();
-	};
-
-	/**
-	 * Close all content areas in an expand/collapse group
-	 * @private
-	 * @param  {Element} toggle The element that toggled the expand or collapse
-	 * @param  {Object} settings
-	 */
-	var closeCollapseGroup = function ( toggle, settings ) {
-		if ( !toggle.classList.contains( settings.toggleActiveClass ) && toggle.hasAttribute('data-group') ) {
-
-			// Get all toggles in the group
-			var groupName = toggle.getAttribute('data-group');
-			var group = document.querySelectorAll('[data-group="' + groupName + '"]');
-
-			// Deactivate each toggle and it's content area
-			forEach(group, function (item) {
-				var content = document.querySelector( item.getAttribute('data-collapse') );
-				item.classList.remove( settings.toggleActiveClass );
-				content.classList.remove( settings.contentActiveClass );
-			});
-
+		if ( document.activeElement.id !== content.id ) {
+			content.setAttribute( 'tabindex', '-1' );
+			content.setAttribute( 'data-houdini-focused', true );
+			content.focus();
 		}
+
 	};
 
 	/**
-	 * Toggle the collapse/expand widget
+	 * Open collapsed content
 	 * @public
-	 * @param  {Element} toggle The element that toggled the expand or collapse
-	 * @param  {String} contentID The ID of the content area to expand or collapse
+	 * @param  {String} contentID The ID of the content area to close
+	 * @param  {Element} toggle The element that toggled the close action
 	 * @param  {Object} options
-	 * @param  {Event} event
 	 */
-	houdini.toggleContent = function (toggle, contentID, options) {
+	houdini.closeContent = function ( contentID, toggle, options ) {
 
-		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
-		var content = document.querySelector(contentID); // Get content area
+		// Variables
+		var localSettings = extend( settings || defaults, options || {} );  // Merge user options with defaults
+		var content = document.querySelector( escapeCharacters( contentID ) ); // Get content area
 
-		// Toggle collapse element
-		closeCollapseGroup(toggle, settings); // Close collapse group items
-		toggle.classList.toggle( settings.toggleActiveClass );// Change text on collapse toggle
-		content.classList.toggle( settings.contentActiveClass ); // Collapse or expand content area
-		stopVideos( content, settings.contentActiveClass ); // If content area is closed, stop playing any videos
-		bringFocus( content, settings.contentActiveClass ); // If content area is open, bring focus
+		// Sanity check
+		if ( !content ) return;
 
-		settings.callback( toggle, contentID ); // Run callbacks after toggling content
+		// Toggle the content
+		stopVideos( content, localSettings ); // If content area is closed, stop playing any videos
+		if ( toggle ) {
+			toggle.classList.remove( localSettings.toggleActiveClass );// Change text on collapse toggle
+		}
+		content.classList.remove( localSettings.contentActiveClass ); // Collapse or expand content area
+		adjustFocus( content, localSettings );
+
+		// Run callbacks after toggling content
+		settings.callbackClose( content, toggle );
 
 	};
+
+	/**
+	 * Open collapsed content
+	 * @public
+	 * @param  {String} contentID The ID of the content area to open
+	 * @param  {Element} toggle The element that toggled the open action
+	 * @param  {Object} options
+	 */
+	houdini.openContent = function ( contentID, toggle, options ) {
+
+		// Variables
+		var localSettings = extend( settings || defaults, options || {} );  // Merge user options with defaults
+		var content = document.querySelector( escapeCharacters( contentID ) ); // Get content area
+		var group = toggle && toggle.hasAttribute( 'data-group') ? document.querySelectorAll('[data-group="' + toggle.getAttribute( 'data-group') + '"]') : [];
+
+		// Sanity check
+		if ( !content ) return;
+
+		// If a group, close all other content areas
+		forEach(group, function (item) {
+			houdini.closeContent( item.hash, item );
+		});
+
+		// Open the content
+		if ( toggle ) {
+			toggle.classList.add( localSettings.toggleActiveClass ); // Change text on collapse toggle
+		}
+		content.classList.add( localSettings.contentActiveClass ); // Collapse or expand content area
+		adjustFocus( content, localSettings );
+		content.removeAttribute( 'data-houdini-no-focus' );
+
+		// Run callbacks after toggling content
+		settings.callbackOpen( content, toggle );
+
+	};
+
+	// @todo switch to openContent and closeContent methods for cleaner structure. This is a fucking mess.
+	// Use drop.js and modals.js as reference points
 
 	/**
 	 * Handle toggle click events
 	 * @private
 	 */
-	var eventHandler = function (event) {
-		var toggle = getClosest(event.target, settings.selector);
-		if ( toggle ) {
-			if ( toggle.tagName.toLowerCase() === 'a' || toggle.tagName.toLowerCase() === 'button' ) {
-				event.preventDefault();
-			}
-			var contentID = toggle.hasAttribute('data-collapse') ? toggle.getAttribute('data-collapse') : toggle.parentNode.getAttribute('data-collapse');
-			houdini.toggleContent( toggle, contentID, settings );
+	var clickHandler = function (event) {
+
+		// Check if a toggle was clicked
+		var toggle = getClosest(event.target, settings.selectorToggle);
+
+		// Don't run if there's no toggle
+		if ( !toggle || toggle.tagName.toLowerCase() !== 'a' ) return;
+
+		// Don't run if toggle link points to another page
+		if ( toggle.hostname !== root.location.hostname || toggle.pathname !== root.location.pathname || !/#/.test(toggle.href) ) return;
+
+		// Toggle the content
+		event.preventDefault();
+		if ( toggle.classList.contains( settings.toggleActiveClass ) ) {
+			houdini.closeContent( toggle.hash, toggle, settings );
+			return;
 		}
+		houdini.openContent( toggle.hash, toggle );
+
 	};
 
-	/**
-	 * Add a11y attributes to the DOM
-	 * @param {boolean} remove If true, remove a11y attributes from the DOM
-	 */
-	var addAttributes = function ( remove ) {
+	var focusHandler = function (event) {
 
-		// Get all toggles
-		var toggles = document.querySelectorAll( settings.selector );
+		// Variables
+		var target = event.target;
+		var content = getClosest( target, settings.selectorContent );
 
-		// For each toggle
-		forEach(toggles, function (toggle) {
+		// Only run if content exists and isn't open already
+		if ( !content || content.classList.contains( settings.contentActiveClass ) || content.getAttribute( 'data-state' ) === 'open' ) return;
 
-			// Get the target content area
-			var content = document.querySelector( toggle.getAttribute( 'data-collapse' ) );
-
-			// Remove attributes
-			if ( remove ) {
-				toggle.removeAttribute( 'aria-hidden' );
-				if ( content ) {
-					content.removeAttribute( 'tabindex' );
-				}
-				return;
-			}
-
-			// Add attributes
-			toggle.setAttribute( 'aria-hidden', 'true' );
-			if ( content ) {
-				content.setAttribute( 'tabindex', '-1' );
-			}
-
-		});
+		// Open the collapsed element
+		var toggle = document.querySelector( 'a[href*="#' + content.id + '"]' );
+		content.setAttribute( 'data-houdini-no-focus', true );
+		houdini.openContent( content.id, toggle );
 
 	};
 
@@ -297,8 +418,8 @@
 	houdini.destroy = function () {
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
-		addAttributes(true);
-		document.removeEventListener('click', eventHandler, false);
+		document.removeEventListener('click', clickHandler, false);
+		document.removeEventListener('focusin', focusHandler, false);
 		settings = null;
 	};
 
@@ -321,11 +442,9 @@
 		// Add class to HTML element to activate conditional CSS
 		document.documentElement.classList.add( settings.initClass );
 
-		// Add attributes
-		addAttributes();
-
 		// Listen for all click events
-		document.addEventListener('click', eventHandler, false);
+		document.addEventListener('click', clickHandler, false);
+		document.addEventListener('focus', focusHandler, true);
 
 	};
 

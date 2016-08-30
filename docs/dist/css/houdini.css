@@ -1,5 +1,5 @@
 /*!
- * Houdini v8.2.1: A simple collapse-and-expand script
+ * Houdini v9.0.0: A simple collapse-and-expand script
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
@@ -10,29 +10,21 @@
  */
 /* line 4, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .collapse-toggle {
-  display: none;
-  visibility: hidden;
-}
-
-/* line 8, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
-.js-houdini .collapse-toggle {
   cursor: pointer;
-  display: inline-block;
-  visibility: visible;
 }
 
 /**
  * Show/hide text
  */
-/* line 19, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
-.active .collapse-text-show,
+/* line 13, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+.js-houdini .active .collapse-text-show,
 .collapse-text-hide {
   display: none;
   visibility: hidden;
 }
 
-/* line 25, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
-.active .collapse-text-hide {
+/* line 19, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+.js-houdini .active .collapse-text-hide {
   display: inline-block;
   visibility: visible;
 }
@@ -40,7 +32,7 @@
 /**
  * The content
  */
-/* line 34, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+/* line 28, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .js-houdini .collapse {
   border: 0;
   clip: rect(0 0 0 0);
@@ -52,7 +44,7 @@
   width: 1px;
 }
 
-/* line 44, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+/* line 38, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .js-houdini .collapse.active {
   clip: auto;
   height: auto;
@@ -62,7 +54,7 @@
   width: auto;
 }
 
-/* line 53, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
+/* line 47, /Users/cferdinandi/Sites/houdini/src/sass/components/_houdini.scss */
 .js-houdini .collapse:focus {
   outline: none;
 }

@@ -18,10 +18,10 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 
 ### 2. Add the markup to your HTML.
 
-Add the `.collapse-toggle` class to your toggle element, and the `.collapse` class to your content. You also need to add the `[data-collapse]` attribute to your toggle element, and ensure that its value matches the selector of the element you want to expand and collapse.
+Add the `.collapse-toggle` class to your toggle element, and the `.collapse` class to your content. You also need to add the `[data-collapse]` attribute to your toggle element, and provide an `href` that matches the `id` of the content you want to expand-and-collapse.
 
 ```html
-<a class="collapse-toggle" data-collapse="#show-me" href="#">
+<a class="collapse-toggle" data-collapse href="#show-me">
 	<span class="collapse-text-show">Show +</span>
 	<span class="collapse-text-hide">Hide -</span>
 </a>
@@ -35,34 +35,18 @@ Add the `.collapse-toggle` class to your toggle element, and the `.collapse` cla
 If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
 
 ```html
-<button class="collapse-toggle active" data-collapse="#hide-me">
-	<span class="collapse-text-show">Show</span>
-	<span class="collapse-text-hide">Hide</span>
-</button>
-
+<a class="collapse-toggle active" data-collapse href="#hide-me">
+	<span class="collapse-text-show">Show +</span>
+	<span class="collapse-text-hide">Hide -</span>
+</a>
 <div class="collapse active" id="hide-me">
 	<p>Hide me!</p>
 </div>
 ```
 
-**Using a Checkbox**
-
-```html
-<form>
-	<label>
-		<input type="checkbox" data-collapse="#checkbox-content">
-		Reveal the content
-	</label>
-</form>
-
-<div class="collapse" id="checkbox-content">
-	All is revealed!
-</div>
-```
-
 **Accordions**
 
-Houdini also supports expand and collapse accordion groups. Add a `[data-group]` attribute to every toggle in the accordion, and make sure they all have the same value. Houdini will sort out the rest.
+Houdini also supports expand-and-collapse accordion groups. Add a `[data-group]` attribute to every toggle in the accordion, and make sure they all have the same value. Houdini will sort out the rest.
 
 ```html
 <a class="collapse-toggle active" data-collapse="#section1" data-group="accordion" href="#">
@@ -118,7 +102,7 @@ You can install Houdini with your favorite package manager.
 
 ## Working with the Source Files
 
-If you would prefer, you can work with the development code in the `src` directory using the included [Gulp build system](http://gulpjs.com/). This compiles, lints, and minifies code, and runs unit tests. It's the same build system that's used by [Kraken](http://cferdinandi.github.io/kraken/), so it includes some unnecessary tasks and Sass variables but can be dropped right in to the boilerplate without any configuration.
+If you would prefer, you can work with the development code in the `src` directory using the included [Gulp build system](http://gulpjs.com/). This compiles, lints, and minifies code, and runs unit tests.
 
 ### Dependencies
 Make sure these are installed first.
@@ -147,37 +131,55 @@ You can pass options and callbacks into Houdini through the `init()` function:
 
 ```javascript
 houdini.init({
-	selector: '[data-collapse]', // Collapse toggle selector
+	selectorToggle: '[data-collapse]', // Collapse toggle selector
+	selectorContent: '.collapse', // Collapse content selector
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active content elements
 	initClass: 'js-houdini', // Class added to `<html>` element when initiated
-	callback: function ( toggle, contentID ) {} // Function that's run after content is expanded or collapsed
+	stopVideo: true, // If true, stop any videos that are playing when content is collapsed
+	callbackOpen: function ( content, toggle ) {}, // Function that's run after content is expanded
+	callbackClose: function ( content, toggle ) {} // Function that's run after content is collapse
 });
 ```
-
-***Note:*** *If you change the `selector`, you still need to include the `[data-collapse]` attribute in order to pass in the selector for the collapse content.*
 
 ### Use Houdini events in your own scripts
 
 You can also call the Houdini toggle event in your own scripts.
 
-#### toggleContent()
-Expand or collapse a content area.
+#### openContent()
+Expand a closed content area.
 
 ```javascript
-houdini.toggleContent(
-	toggle, // Node that toggles the expand and collapse action. ex. document.querySelector('#toggle')
-	contentID, // The ID of the content area to expand or collapse. ex. '#content'
-	options, // Classes and callbacks. Same options as those passed into the init() function.
-	event // Optional, if a DOM event was triggered.
+houdini.openContent(
+	contentID, // The ID of the content area to expand. ex. '#content'
+	toggle, // Node that toggles the expand and collapse action. ex. document.querySelector('#toggle') [optional]
+	options // Classes and callbacks. Same options as those passed into the init() function. [optional]
 );
 ```
 
-**Example**
+**Examples**
 
 ```javascript
-var toggle = document.querySelector('[data-collapse="#show-me"]');
-houdini.toggleContent( toggle, '#show-me' );
+houdini.openContent( '#show-me' );
+houdini.openContent( '#show-me-too', document.querySelector( 'a[href*="#show-me-too"]' ) );
+```
+
+#### closeContent()
+Expand a closed content area.
+
+```javascript
+houdini.closeContent(
+	contentID, // The ID of the content area to collapse. ex. '#content'
+	toggle, // Node that toggles the expand and collapse action. ex. document.querySelector('#toggle') [optional]
+	options // Classes and callbacks. Same options as those passed into the init() function. [optional]
+);
+```
+
+**Examples**
+
+```javascript
+houdini.closeContent( '#hide-me' );
+houdini.closeContent( '#hide-me-too', document.querySelector( 'a[href*="#show-me-too"]' ) );
 ```
 
 #### destroy()
@@ -199,7 +201,7 @@ Houdini is built with modern JavaScript APIs, and uses progressive enhancement. 
 
 ## How to Contribute
 
-In lieu of a formal style guide, take care to maintain the existing coding style. Please apply fixes to both the development and production code. Don't forget to update the version number, and when applicable, the documentation.
+Please review the  [contributing guidelines](CONTRIBUTING.md).
 
 
 
