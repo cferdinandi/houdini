@@ -16,7 +16,7 @@
 
 	var houdini = {}; // Object for public APIs
 	var supports = 'querySelector' in document && 'addEventListener' in root && 'classList' in document.createElement('_'); // Feature test
-	var settings;
+	var settings, collapse;
 
 	// Default settings
 	var defaults = {
@@ -367,27 +367,59 @@
 	};
 
 	/**
+	 * Handle has change event
+	 * @private
+	 */
+	var hashChangeHandler = function (event) {
+
+		// Get hash from URL
+		var hash = root.location.hash;
+
+		// If clicked collapse is cached, reset it's ID
+		if ( collapse ) {
+			collapse.id = collapse.getAttribute( 'data-collapse-id' );
+			collapse = null;
+		}
+
+		// If there's a URL hash, open the content with matching ID
+		if ( !hash ) return;
+		var toggle = document.querySelector( settings.selectorToggle + '[href*="' + hash + '"]' );
+		houdini.openContent( hash, toggle );
+
+	};
+
+	/**
 	 * Handle toggle click events
 	 * @private
 	 */
 	var clickHandler = function (event) {
 
+		// Don't run if right-click or command/control + click
+		if ( event.button !== 0 || event.metaKey || event.ctrlKey ) return;
+
 		// Check if a toggle was clicked
-		var toggle = getClosest(event.target, settings.selectorToggle);
+		var toggle = getClosest( event.target, settings.selectorToggle );
+		if ( !toggle || !toggle.hash ) return;
 
-		// Don't run if there's no toggle
-		if ( !toggle || toggle.tagName.toLowerCase() !== 'a' ) return;
-
-		// Don't run if toggle link points to another page
-		if ( toggle.hostname !== root.location.hostname || toggle.pathname !== root.location.pathname || !/#/.test(toggle.href) ) return;
-
-		// Toggle the content
-		event.preventDefault();
+		// If the tab is already open, close it
 		if ( toggle.classList.contains( settings.toggleActiveClass ) ) {
-			houdini.closeContent( toggle.hash, toggle, settings );
+			event.preventDefault();
+			houdini.closeContent( toggle.hash, toggle );
 			return;
 		}
-		houdini.openContent( toggle.hash, toggle );
+
+		// Get the collapse content
+		collapse = document.querySelector( toggle.hash );
+
+		// If tab content exists, save the ID as a data attribute and remove it (prevents scroll jump)
+		if ( !collapse ) return;
+		collapse.setAttribute( 'data-collapse-id', collapse.id );
+		collapse.id = '';
+
+		// If no hash change event will happen, fire manually
+		if ( toggle.hash === root.location.hash ) {
+			hashChangeHandler();
+		}
 
 	};
 
@@ -398,16 +430,25 @@
 	var focusHandler = function (event) {
 
 		// Variables
-		var target = event.target;
-		var content = getClosest( target, settings.selectorContent );
+		collapse = getClosest( event.target, settings.selectorContent );
 
 		// Only run if content exists and isn't open already
-		if ( !content || content.classList.contains( settings.contentActiveClass ) ) return;
+		if ( !collapse || collapse.classList.contains( settings.contentActiveClass ) ) return;
 
-		// Open the collapsed element
-		var toggle = document.querySelector( 'a[href*="#' + content.id + '"]' );
-		content.setAttribute( 'data-houdini-no-focus', true );
-		houdini.openContent( content.id, toggle );
+		// Save the ID as a data attribute and remove it (prevents scroll jump)
+		var hash = collapse.id;
+		collapse.setAttribute( 'data-collapse-id', hash );
+		collapse.setAttribute( 'data-houdini-no-focus', true );
+		collapse.id = '';
+
+		// If no hash change event will happen, fire manually
+		if ( hash === root.location.hash.substring(1) ) {
+			hashChangeHandler();
+			return;
+		}
+
+		// Otherwise, update the hash
+		root.location.hash = hash;
 
 	};
 
@@ -420,7 +461,9 @@
 		document.documentElement.classList.remove( settings.initClass );
 		document.removeEventListener('click', clickHandler, false);
 		document.removeEventListener('focus', focusHandler, true);
+		root.removeEventListener('hashchange', hashChangeHandler, false);
 		settings = null;
+		collapse = null;
 	};
 
 	/**
@@ -445,6 +488,10 @@
 		// Listen for all click events
 		document.addEventListener('click', clickHandler, false);
 		document.addEventListener('focus', focusHandler, true);
+		root.addEventListener('hashchange', hashChangeHandler, false);
+
+		// If URL has a hash, activate hashed content by default
+		hashChangeHandler();
 
 	};
 
