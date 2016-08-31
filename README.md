@@ -1,5 +1,7 @@
 # Houdini [![Build Status](https://travis-ci.org/cferdinandi/houdini.svg)](https://travis-ci.org/cferdinandi/houdini)
-A simple collapse-and-expand script.
+A simple collapse-and-expand and accordion script.
+
+Supports deep linking to a specific collapsed content via anchor links (ex. http://some-url.com#contentID). Browser back button can be used to navigate back through content.
 
 [Download Houdini](https://github.com/cferdinandi/houdini/archive/master.zip) / [View the Demo](http://cferdinandi.github.io/houdini/)
 
