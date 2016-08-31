@@ -274,6 +274,12 @@
 
 	};
 
+	/**
+	 * Add focus to content
+	 * @private
+	 * @param  {node}   content  The content to bring into focus
+	 * @param  {object} settings Options
+	 */
 	var adjustFocus = function ( content, settings ) {
 
 		if ( content.hasAttribute( 'data-houdini-no-focus' ) ) return;
@@ -337,7 +343,7 @@
 		// Variables
 		var localSettings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var content = document.querySelector( escapeCharacters( contentID ) ); // Get content area
-		var group = toggle && toggle.hasAttribute( 'data-group') ? document.querySelectorAll('[data-group="' + toggle.getAttribute( 'data-group') + '"]') : null;
+		var group = toggle && toggle.hasAttribute( 'data-group') ? document.querySelectorAll('[data-group="' + toggle.getAttribute( 'data-group') + '"]') : [];
 
 		// Sanity check
 		if ( !content ) return;
