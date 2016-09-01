@@ -51,7 +51,7 @@ If you'd prefer to show content by default, include the `.active` class along wi
 Houdini also supports expand-and-collapse accordion groups. Add a `[data-group]` attribute to every toggle in the accordion, and make sure they all have the same value. Houdini will sort out the rest.
 
 ```html
-<a class="collapse-toggle active" data-collapse="#section1" data-group="accordion" href="#">
+<a class="collapse-toggle active" data-collapse data-group="accordion" href="#section1">
 	Section 1
 	<span class="collapse-text-show">+</span>
 	<span class="collapse-text-hide">-</span>
@@ -60,7 +60,7 @@ Houdini also supports expand-and-collapse accordion groups. Add a `[data-group]`
 	<h3>Section 1</h3>
 	<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.</p>
 </div>
-<a class="collapse-toggle" data-collapse="#section2" data-group="accordion" href="#">
+<a class="collapse-toggle" data-collapse data-group="accordion" href="#section2">
 	Section 2
 	<span class="collapse-text-show">+</span>
 	<span class="collapse-text-hide">-</span>
@@ -69,7 +69,7 @@ Houdini also supports expand-and-collapse accordion groups. Add a `[data-group]`
 	<h3>Section 2</h3>
 	<p>Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz.</p>
 </div>
-<a class="collapse-toggle" data-collapse="#section3" data-group="accordion" href="#">
+<a class="collapse-toggle" data-collapse data-group="accordion" href="#section3">
 	Section 3
 	<span class="collapse-text-show">+</span>
 	<span class="collapse-text-hide">-</span>
