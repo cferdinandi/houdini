@@ -418,6 +418,7 @@
 
 		// If no hash change event will happen, fire manually
 		if ( toggle.hash === root.location.hash ) {
+			event.preventDefault();
 			hashChangeHandler();
 		}
 

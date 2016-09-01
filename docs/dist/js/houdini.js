@@ -1,5 +1,5 @@
 /*!
- * Houdini v9.1.1: A simple collapse-and-expand script
+ * Houdini v9.1.2: A simple collapse-and-expand script
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
@@ -425,6 +425,7 @@
 
 		// If no hash change event will happen, fire manually
 		if ( toggle.hash === root.location.hash ) {
+			event.preventDefault();
 			hashChangeHandler();
 		}
 
