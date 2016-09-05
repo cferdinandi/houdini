@@ -1,5 +1,5 @@
 /*!
- * Houdini v9.1.2: A simple collapse-and-expand script
+ * Houdini v9.1.3: A simple collapse-and-expand script
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
@@ -299,13 +299,20 @@
 			return;
 		}
 
-		// Otherwise, set focus
+		// Get current position on the page
+		var position = {
+			x: root.pageXOffset,
+			y: root.pageYOffset
+		};
+
+		// Set focus and reset position to account for page jump on focus
 		content.focus();
 		if ( document.activeElement.id !== content.id ) {
 			content.setAttribute( 'tabindex', '-1' );
 			content.setAttribute( 'data-houdini-focused', true );
 			content.focus();
 		}
+		root.scrollTo( position.x, position.y );
 
 	};
 
