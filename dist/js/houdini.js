@@ -1,5 +1,5 @@
 /*!
- * Houdini v9.1.3: A simple collapse-and-expand script
+ * Houdini v9.2.0: A simple collapse-and-expand script
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
@@ -13,7 +13,7 @@
 	} else {
 		root.houdini = factory(root);
 	}
-})(typeof global !== 'undefined' ? global : this.window || this.global, function (root) {
+})(typeof global !== 'undefined' ? global : this.window || this.global, (function (root) {
 
 	'use strict';
 
@@ -363,9 +363,9 @@
 		if ( !content ) return;
 
 		// If a group, close all other content areas
-		forEach(group, function (item) {
+		forEach(group, (function (item) {
 			houdini.closeContent( item.hash, item );
-		});
+		}));
 
 		// Open the content
 		if ( toggle ) {
@@ -517,4 +517,4 @@
 
 	return houdini;
 
-});
+}));
