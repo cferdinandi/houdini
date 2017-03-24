@@ -1,6 +1,6 @@
 /*!
- * Houdini v9.3.0: A simple collapse-and-expand script
- * (c) 2016 Chris Ferdinandi
+ * Houdini v9.4.0: A simple collapse-and-expand script
+ * (c) 2017 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
  */
@@ -286,6 +286,25 @@
 	};
 
 	/**
+	 * Instantiate and dispatch a custom event
+	 * @private
+	 * @param  {String} name Name of the custom event
+	 * @param  {Element} target DOM element that will be available as event.target
+	 * @param  {Object} detail Object that will be available as event.detail
+	 */
+	var dispatchEvent = function(name, target, detail) {
+		// IE doesn't support CustomEvent
+		if ( typeof window.CustomEvent !== "function" ) return;
+
+		var event = new CustomEvent(name, {
+			detail: detail,
+			bubbles: true,
+			cancelable: true
+		});
+		target.dispatchEvent(event);
+	};
+
+	/**
 	 * Open collapsed content
 	 * @public
 	 * @param  {String} contentID The ID of the content area to close
@@ -301,6 +320,9 @@
 		// Sanity check
 		if ( !content ) return;
 
+		// Dispatch 'before close' event
+		dispatchEvent('close.houdini', content, { toggle: toggle });
+
 		// Toggle the content
 		stopVideos( content, localSettings ); // If content area is closed, stop playing any videos
 		if ( toggle ) {
@@ -310,7 +332,10 @@
 		adjustFocus( content, localSettings );
 
 		// Run callbacks after toggling content
-		settings.callbackClose( content, toggle );
+		localSettings.callbackClose( content, toggle );
+
+		// Dispatch 'after closed' event
+		dispatchEvent('closed.houdini', content, { toggle: toggle });
 
 	};
 
@@ -336,6 +361,9 @@
 			houdini.closeContent( item.hash, item );
 		}));
 
+		// Dispatch 'before open' event
+		dispatchEvent('open.houdini', content, { toggle: toggle });
+
 		// Open the content
 		if ( toggle ) {
 			toggle.classList.add( localSettings.toggleActiveClass ); // Change text on collapse toggle
@@ -346,6 +374,9 @@
 
 		// Run callbacks after toggling content
 		localSettings.callbackOpen( content, toggle );
+
+		// Dispatch 'after open' event
+		dispatchEvent('opened.houdini', content, { toggle: toggle });
 
 	};
 
