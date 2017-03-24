@@ -143,6 +143,25 @@ houdini.init({
 });
 ```
 
+### Event interface
+
+Houdini will dispatch several events as the user interacts with the collapsible content.
+
+- `open.houdini`: Dispatched before an element is expanded.
+- `opened.houdini`: Dispatched after an element is expanded (equivalent to the `callbackOpen` setting).
+- `close.houdini`: Dispatched before an element is collapsed.
+- `closed.houdini`: Dispatched after an element is collapsed (equivalent to the `callbackClose` setting).
+
+You can attach event handlers to any of these events. Your handler function can get all the required information from the single `event` parameter:
+
+```javascript
+document.addEventListener('open.houdini', function (event) {
+	var content = event.target;
+	var toggle = event.detail.toggle;
+	console.log('Content:', content, 'Toggle:': toggle);
+});
+```
+
 ### Use Houdini events in your own scripts
 
 You can also call the Houdini toggle event in your own scripts.
@@ -195,6 +214,8 @@ houdini.destroy();
 ## Browser Compatibility
 
 Houdini works in all modern browsers, and IE 10 and above. You can push browser support back to IE 9 with the [classList.js polyfill](https://github.com/eligrey/classList.js/).
+
+The event interface will not work out of the box in any version of IE, but you can easily add support by using a [CustomEvent polyfill](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill).
 
 Houdini is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default. If you need to support older browsers, you can still download the [jQuery version of Houdini on GitHub](https://github.com/cferdinandi/houdini/tree/archive-v2).
 
