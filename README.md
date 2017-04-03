@@ -6,6 +6,13 @@ Supports deep linking to a specific collapsed content via anchor links (ex. http
 [Download Houdini](https://github.com/cferdinandi/houdini/archive/master.zip) / [View the Demo](http://cferdinandi.github.io/houdini/)
 
 
+<hr>
+
+### Want to learn how to write your own vanilla JS plugins? Check out ["The Vanilla JS Guidebook"](https://gomakethings.com/vanilla-js-guidebook/) and level-up as a web developer. 🚀
+
+<hr>
+
+
 
 ## Getting Started
 
