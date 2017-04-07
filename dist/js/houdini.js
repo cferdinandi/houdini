@@ -1,5 +1,5 @@
 /*!
- * Houdini v9.3.0: A simple collapse-and-expand script
+ * Houdini v9.4.0: A simple collapse-and-expand script
  * (c) 2017 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
