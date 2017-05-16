@@ -1,5 +1,5 @@
 /*!
- * Houdini v9.3.0: A simple collapse-and-expand script
+ * Houdini v9.3.1: A simple collapse-and-expand script
  * (c) 2017 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/houdini
@@ -367,6 +367,7 @@
 		// If there's a URL hash, open the content with matching ID
 		if ( !hash ) return;
 		var toggle = document.querySelector( settings.selectorToggle + '[href*="' + hash + '"]' );
+		if ( !toggle ) return;
 		houdini.openContent( hash, toggle );
 
 	};

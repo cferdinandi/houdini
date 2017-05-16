@@ -360,6 +360,7 @@
 		// If there's a URL hash, open the content with matching ID
 		if ( !hash ) return;
 		var toggle = document.querySelector( settings.selectorToggle + '[href*="' + hash + '"]' );
+		if ( !toggle ) return;
 		houdini.openContent( hash, toggle );
 
 	};
