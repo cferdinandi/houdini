@@ -103,7 +103,7 @@ In the footer of your page, after the content, initialize Houdini. And that's it
 
 You can install Houdini with your favorite package manager.
 
-* **NPM:** `npm install cferdinandi/houdini`
+* **NPM:** `npm install houdinijs`
 * **Bower:** `bower install https://github.com/cferdinandi/houdini.git`
 * **Component:** `component install cferdinandi/houdini`
 
