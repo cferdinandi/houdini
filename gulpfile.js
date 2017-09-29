@@ -9,7 +9,7 @@ var settings = {
 	images: false,		// Turn on/off image tasks
 	static: false,		// Turn on/off static file copying
 	docs: true,			// Turn on/off documentation generation
-	cacheBust: true		// Turn on/off cache busting (adds a version number to minified files)
+	cacheBust: false	// Turn on/off cache busting (adds a version number to minified files)
 };
 
 

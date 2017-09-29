@@ -101,11 +101,11 @@ In the footer of your page, after the content, initialize Houdini. And that's it
 
 ## Installing with Package Managers
 
-You can install Houdini with your favorite package manager.
+You can install Houdini with your favorite package manager or module loader directly from  NPM.
 
-* **NPM:** `npm install cferdinandi/houdini`
-* **Bower:** `bower install https://github.com/cferdinandi/houdini.git`
-* **Component:** `component install cferdinandi/houdini`
+```
+npm install houdinijs
+```
 
 
 
@@ -207,9 +207,9 @@ Houdini is built with modern JavaScript APIs, and uses progressive enhancement. 
 
 
 
-## How to Contribute
+## Support
 
-Please review the  [contributing guidelines](CONTRIBUTING.md).
+Please review the [support guidelines](SUPPORT.md).
 
 
 
