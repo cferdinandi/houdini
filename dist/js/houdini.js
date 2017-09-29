@@ -1,10 +1,4 @@
-/*!
- * Houdini v9.4.0: A simple collapse-and-expand script
- * (c) 2017 Chris Ferdinandi
- * MIT License
- * http://github.com/cferdinandi/houdini
- */
-
+/*! houdinijs v9.4.1 | (c) 2017 Chris Ferdinandi | MIT License | http://github.com/cferdinandi/houdini */
 (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
 		define([], factory(root));
@@ -310,7 +304,7 @@
 		adjustFocus( content, localSettings );
 
 		// Run callbacks after toggling content
-		settings.callbackClose( content, toggle );
+		localSettings.callbackClose( content, toggle );
 
 	};
 

@@ -303,7 +303,7 @@
 		adjustFocus( content, localSettings );
 
 		// Run callbacks after toggling content
-		settings.callbackClose( content, toggle );
+		localSettings.callbackClose( content, toggle );
 
 	};
 
