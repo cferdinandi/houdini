@@ -81,7 +81,7 @@ var paths = {
 		output: 'dist/'
 	},
 	docs: {
-		input: 'src/docs/**',
+		input: 'src/docs/*.{html,md,markdown}',
 		output: 'docs/',
 		templates: 'src/docs/_templates/',
 		assets: 'src/docs/assets/**'
@@ -221,6 +221,17 @@ gulp.task('build:docs', ['compile', 'clean:docs'], function() {
 
 	return gulp.src(paths.docs.input)
 		.pipe(plumber())
+		.pipe(fileinclude({
+			prefix: '@@',
+			basepath: '@file'
+		}))
+		.pipe(tap(function (file, t) {
+			if ( /\.md|\.markdown/.test(file.path) ) {
+				return t.through(markdown);
+			}
+		}))
+		.pipe(header(fs.readFileSync(paths.docs.templates + '/_header.html', 'utf8')))
+		.pipe(footer(fs.readFileSync(paths.docs.templates + '/_footer.html', 'utf8')))
 		.pipe(gulp.dest(paths.docs.output));
 });
 
