@@ -1,6 +1,6 @@
 # Bugs, Questions, and Feature Requests
 
-You can ask questions and get help from a community of developers on [GitHub Issues](https://github.com/cferdinandi/smooth-scroll/issues).
+You can ask questions and get help from a community of developers on [GitHub Issues](https://github.com/cferdinandi/houdini/issues).
 
 **Before posting, do a search to make sure your issue or question hasn't already been reported or discussed.** If no matching issue exists, go ahead and create one. Please be sure to include all of the following:
 
