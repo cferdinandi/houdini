@@ -84,7 +84,7 @@ In the footer of your page, after the content, initialize Houdini by passing in 
 </script>
 ```
 
-[Here's a simple demo you can play with.](@todo)
+[Here's a simple demo you can play with.](https://codepen.io/cferdinandi/pen/JeByZQ)
 
 
 
@@ -169,7 +169,11 @@ var accordion = new Houdini('[data-houdini-group]', {
 
 ## Demos
 
-*Coming soon...*
+- [Basic Demo](https://codepen.io/cferdinandi/pen/JeByZQ)
+- [Button after the content](https://codepen.io/cferdinandi/pen/yQqoRE)
+- [Accordion](https://codepen.io/cferdinandi/pen/PxBKxp)
+- [Accordion with only one open content area](https://codepen.io/cferdinandi/pen/NEBvew)
+- [Accordion with datalist](https://codepen.io/cferdinandi/pen/LXBjaE)
 
 
 
