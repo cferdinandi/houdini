@@ -3,7 +3,7 @@ A simple, accessible show-and-hide/accordion script.
 
 Houdini progressively enhances your markup when it loads. You provide the content, and Houdini layers in the toggle buttons, ARIA attributes, and interactivity for you.
 
-[Getting Started](#getting-started) | [Accordions](#accordions) | [Expanded by Default](#expanded-by-default) | [Demos](#demos) | [Options & Settings](#options-and-settings) | [What's New?](#whats-new) | [Browser Compatibility](#browser-compatibility) | [License](#license)
+[Getting Started](#getting-started) | [Accordions](#accordions) | [Demos](#demos) | [Options & Settings](#options-and-settings) | [What's New?](#whats-new) | [Browser Compatibility](#browser-compatibility) | [License](#license)
 
 
 <hr>
