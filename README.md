@@ -335,6 +335,7 @@ disclosure.destroy();
 - Supports multiple instantiations at once.
 - Better accessibility and semantics.
 - Automatically progressively enhances your markup for you.
+- Deprecated callbacks in favor of custom events.
 
 ### Migrating to Houdini 10 from Older Versions
 
@@ -344,6 +345,7 @@ The entire markup and initialization process has changed in Houdini 10. To migra
 - Switch the `.active` to `.is-expanded` for content you want expanded by default.
 - Accordions should use a semantic heading/content relational structure instead of anchor links.
 - Instantiate Houdini with `new Houdini()` instead of `houdini.init()`.
+- Move any callbacks to custom event listeners.
 
 
 

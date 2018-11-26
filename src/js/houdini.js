@@ -80,7 +80,7 @@
 			detail: details
 		});
 		if (details.content) {
-			content.dispatchEvent(event);
+			details.content.dispatchEvent(event);
 		} else {
 			document.dispatchEvent(event);
 		}
@@ -105,7 +105,7 @@
 		// Create the icon
 		var icon = '';
 		if (settings.icon) {
-			icon = 
+			icon =
 				'<span' +
 					' class="' + settings.iconClass + '"' +
 					' ' + settings.iconAttribute +
