@@ -1,14 +1,14 @@
 # Houdini [![Build Status](https://travis-ci.org/cferdinandi/houdini.svg)](https://travis-ci.org/cferdinandi/houdini)
-A simple collapse-and-expand and accordion script.
+A simple, accessible show-and-hide/accordion script.
 
-Supports deep linking to a specific collapsed content via anchor links (ex. http://some-url.com#contentID). Browser back button can be used to navigate back through content.
+Houdini progressively enhances your markup when it loads. You provide the content, and Houdini layers in the toggle buttons, ARIA attributes, and interactivity for you.
 
-[Download Houdini](https://github.com/cferdinandi/houdini/archive/master.zip) / [View the Demo](http://cferdinandi.github.io/houdini/)
+[Getting Started](#getting-started) | [Accordions](#accordions) | [Expanded by Default](#expanded-by-default) | [Demos](#demos) | [Options & Settings](#options-and-settings) | [What's New?](#whats-new) | [Browser Compatibility](#browser-compatibility) | [License](#license)
 
 
 <hr>
 
-### Want to learn how to write your own vanilla JS plugins? Check out ["The Vanilla JS Guidebook"](https://gomakethings.com/vanilla-js-guidebook/) and level-up as a web developer. 🚀
+### Want to learn how to write your own vanilla JS plugins? Check out my [Vanilla JS Pocket Guides](https://vanillajsguides.com/) or join the [Vanilla JS Academy](https://vanillajsacademy.com) and level-up as a web developer. 🚀
 
 <hr>
 
@@ -20,112 +20,156 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 
 ### 1. Include Houdini on your site.
 
+Houdini has two required files: JavaScript and CSS.
+
+There are two versions of the Houdini JavaScript file: the standalone version, and one that comes preloaded with polyfills for `matches()`, `classList`, and `CustomEvent()`, which are only supported in newer browsers.
+
+If you're including your own polyfills or don't want to enable this feature for older browsers, use the standalone version. Otherwise, use the version with polyfills.
+
+**Direct Download**
+
+You can [download the files directly from GitHub](https://github.com/cferdinandi/houdini/archive/master.zip).
+
 ```html
-<link rel="stylesheet" href="dist/css/houdini.css">
-<script src="dist/js/houdini.js"></script>
+<link rel="stylesheet" type="text/css" href="/path/to/houdini.min.css">
+<script src="path/to/houdini.polyfills.min.js"></script>
+```
+
+**CDN**
+
+You can also use the [jsDelivr CDN](https://cdn.jsdelivr.net/gh/cferdinandi/houdini/dist/). I recommend linking to a specific version number or version range to prevent major updates from breaking your site. Houdini uses semantic versioning.
+
+```html
+<!-- Always get the latest version -->
+<!-- Not recommended for production sites! -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cferdinandi/houdini/dist/css/houdini.min.js">
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini/dist/js/houdini.polyfills.min.js"></script>
+
+<!-- Get minor updates and patch fixes within a major version -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10/dist/css/houdini.min.js">
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10/dist/js/houdini.polyfills.min.js"></script>
+
+<!-- Get patch fixes within a minor version -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10.0/dist/css/houdini.min.js">
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10.0/dist/js/houdini.polyfills.min.js"></script>
+
+<!-- Get a specific version -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10.0.0/dist/css/houdini.min.js">
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10.0.0/dist/js/houdini.polyfills.min.js"></script>
 ```
 
 ### 2. Add the markup to your HTML.
 
-Add the `.collapse-toggle` class to your toggle element, and the `.collapse` class to your content. You also need to add the `[data-collapse]` attribute to your toggle element, and provide an `href` that matches the `id` of the content you want to expand-and-collapse.
+Wrap your content in a `div` element and assign it a unique ID.
+
+It should also have a selector. The example below uses the `[data-houdini]` attribute.
+
+You *don't* need to add a button to toggle visibility. Houdini will handle that and add any required ARIA attributes automatically when it loads.
 
 ```html
-<a class="collapse-toggle" data-collapse href="#show-me">
-	<span class="collapse-text-show">Show +</span>
-	<span class="collapse-text-hide">Hide -</span>
-</a>
-<div class="collapse" id="show-me">
+<div data-houdini id="show-me">
 	<p>Now you see me, now you don't.</p>
 </div>
 ```
 
-**Expanded by Default**
-
-If you'd prefer to show content by default, include the `.active` class along with the `.collapse` and `.collapse-toggle` classes.
-
-```html
-<a class="collapse-toggle active" data-collapse href="#hide-me">
-	<span class="collapse-text-show">Show +</span>
-	<span class="collapse-text-hide">Hide -</span>
-</a>
-<div class="collapse active" id="hide-me">
-	<p>Hide me!</p>
-</div>
-```
-
-**Accordions**
-
-Houdini also supports expand-and-collapse accordion groups. Add a `[data-group]` attribute to every toggle in the accordion, and make sure they all have the same value. Houdini will sort out the rest.
-
-```html
-<a class="collapse-toggle active" data-collapse data-group="accordion" href="#section1">
-	Section 1
-	<span class="collapse-text-show">+</span>
-	<span class="collapse-text-hide">-</span>
-</a>
-<div class="collapse active" id="section1">
-	<h3>Section 1</h3>
-	<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.</p>
-</div>
-<a class="collapse-toggle" data-collapse data-group="accordion" href="#section2">
-	Section 2
-	<span class="collapse-text-show">+</span>
-	<span class="collapse-text-hide">-</span>
-</a>
-<div class="collapse" id="section2">
-	<h3>Section 2</h3>
-	<p>Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz.</p>
-</div>
-<a class="collapse-toggle" data-collapse data-group="accordion" href="#section3">
-	Section 3
-	<span class="collapse-text-show">+</span>
-	<span class="collapse-text-hide">-</span>
-</a>
-<div class="collapse" id="section3">
-	<h3>Section 3</h3>
-	<p>Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack!" my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls.</p>
-</div>
-```
+*__Note:__ The ID can serve as the selector. However, if you'll be including multiple disclosures with the same options and settings, it's better to use a shared selector like a class or data attribute for all of them.*
 
 ### 3. Initialize Houdini.
 
-In the footer of your page, after the content, initialize Houdini. And that's it, you're done. Nice work!
+In the footer of your page, after the content, initialize Houdini by passing in the selector for your disclosure component(s). And that's it, you're done. Nice work!
 
 ```html
 <script>
-	houdini.init();
+	var disclosure = new Houdini('[data-houdini]');
 </script>
 ```
 
+[Here's a simple demo you can play with.](@todo)
 
 
-## Installing with Package Managers
 
-You can install Houdini with your favorite package manager or module loader directly from  NPM.
+## Accordions
 
+Houdini also supports accordion groups.
+
+### Accordion Markup
+
+For semantic reasons, these should have a heading/content relationship. You can use heading elements, data lists, and more.
+
+The heading should have a `[data-houdini-toggle]` attribute, with a value equal to the ID of the content it toggles.
+
+```html
+<h2 data-houdini-toggle="yo-ho-ho">Yo, ho ho!</h2>
+<div data-houdini-group id="yo-ho-ho">Yo, ho ho and a bottle of rum!</div>
+
+<h2 data-houdini-toggle="ahoy">Ahoy, there!</h2>
+<div data-houdini-group id="ahoy">Ahoy there, matey!</div>
 ```
-npm install houdinijs
+
+### Accordion Initialization
+
+Initialize an accordion by passing in the `isAccordion` option with a value of `true`.
+
+```js
+var accordion = new Houdini('[data-houdini-group]', {
+	isAccordion: true
+});
+```
+
+If opening one accordion section should close any others in the group that are open, also include the `collapseOthers` option, with a value of `true`.
+
+It's recommended that you give each group a unique selector if using this option.
+
+```js
+var accordion = new Houdini('[data-houdini-group="pirates"]', {
+	isAccordion: true,
+	collapseOthers: true
+});
+```
+
+
+## Expanded by Default
+
+If you want specific disclosures or accordions to be expanded by default, add the `.is-expanded` class to your markup.
+
+**Expanded Disclosure**
+
+```html
+<div data-houdini class="is-expanded" id="show-me">
+	<p>Now you see me, now you don't.</p>
+</div>
+```
+
+**Expanded Accordion**
+
+```html
+<h2 data-houdini-toggle="yo-ho-ho">Yo, ho ho!</h2>
+<div data-houdini-group class="is-expanded" id="yo-ho-ho">Yo, ho ho and a bottle of rum!</div>
+
+<h2 data-houdini-toggle="ahoy">Ahoy, there!</h2>
+<div data-houdini-group id="ahoy">Ahoy there, matey!</div>
+```
+
+To expand all items by default, pass in the `expanded` option with a value of `true`.
+
+```js
+// Disclosure expanded by default
+var disclosure = new Houdini('[data-houdini]', {
+	expanded: true
+});
+
+// Accordions expanded by default
+var accordion = new Houdini('[data-houdini-group]', {
+	isAccordion: true,
+	expanded: true
+});
 ```
 
 
 
-## Working with the Source Files
+## Demos
 
-If you would prefer, you can work with the development code in the `src` directory using the included [Gulp build system](http://gulpjs.com/).
-
-### Dependencies
-Make sure these are installed first.
-
-* [Node.js](http://nodejs.org)
-* [Gulp](http://gulpjs.com) `sudo npm install -g gulp`
-
-### Quick Start
-
-1. In bash/terminal/command line, `cd` into your project directory.
-2. Run `npm install` to install required files.
-3. When it's done installing, run one of the task runners to get going:
-	* `gulp` manually compiles files.
-	* `gulp watch` automatically compiles files and applies changes using [LiveReload](http://livereload.com/).
+*Coming soon...*
 
 
 
@@ -138,78 +182,178 @@ Houdini includes smart defaults and works right out of the box. But if you want 
 You can pass options and callbacks into Houdini through the `init()` function:
 
 ```javascript
-houdini.init({
-	selectorToggle: '[data-collapse]', // Collapse toggle selector
-	selectorContent: '.collapse', // Collapse content selector
-	toggleActiveClass: 'active', // Class added to active toggle elements
-	contentActiveClass: 'active', // Class added to active content elements
-	initClass: 'js-houdini', // Class added to `<html>` element when initiated
-	stopVideo: true, // If true, stop any videos that are playing when content is collapsed
-	callbackOpen: function ( content, toggle ) {}, // Function that's run after content is expanded
-	callbackClose: function ( content, toggle ) {} // Function that's run after content is collapse
+var disclosure = new Houdini('[data-houdini]', {
+
+	// Content
+	contentClass: 'houdini', // The class to add to content
+	expanded: false, // If true, content is expanded by default
+	expandedClass: 'is-expanded', // The class to apply to expanded content
+
+	// Toggle Buttons
+	btnAfter: false, // If true, load toggle button after the content
+	btnClass: 'houdini-toggle', // The class to add to toggle buttons
+	btnAttribute: 'data-houdini-toggle', // The data attribute to use for toggle buttons
+	btnShow: 'Show More', // The text for "Show More" buttons
+	btnHide: 'Show Less', // The text for "Show Less" buttons
+
+	// Accordion
+	isAccordion: false, // If true, treat as an accordion
+	collapseOthers: false, // If true, only allow on open piece of content at a time
+	headingClass: 'houdini-heading', // The class to add to the heading element
+	icon: true, // If true, include an expand/collapse icon
+	iconClass: 'houdini-toggle-icon', // The class to use for the expand/collapse icon
+	iconAttribute: 'data-houdini-icon', // The data attribute to use for the expand/collapse icon
+	iconShow: '+', // The icon to expand an accordion
+	iconHide: '&ndash;', // The icon to collapse an accordion
+
+	// Custom Events
+	emitEvents: true // If true, emit custom events
+
 });
 ```
 
-### Use Houdini events in your own scripts
+### Custom Events
 
-You can also call the Houdini toggle event in your own scripts.
+Houdini emits five custom events:
 
-#### openContent()
-Expand a closed content area.
+- `houdiniExpand` is emitted on a content element after it's expanded.
+- `houdiniCollapse` is emitted on a content element after it's collapsed.
+- `houdiniInitialize` is emitted on the `document` when the script is initialized, but before the DOM is setup.
+- `houdiniSetup` is emitted on the `document` after the DOM is setup.
+- `houdiniDestroy` is emitted on the `document` after an initialization is destroyed.
 
-```javascript
-houdini.openContent(
-	contentID, // The ID of the content area to expand. ex. '#content'
-	toggle, // Node that toggles the expand and collapse action. ex. document.querySelector('#toggle') [optional]
-	options // Classes and callbacks. Same options as those passed into the init() function. [optional]
-);
+On the `houdiniExpand` and `houdiniCollapse` event, the `event.detail` object includes the content and button. For the `houdiniInitialize`, `houdiniSetup`, and `houdiniDestroy` event, it includes the `settings` object.
+
+All five events bubble, and can be captured with event delegation.
+
+```js
+// Log scroll events
+var logHoudiniEvent = function (event) {
+
+	// The event type
+	console.log('type:', event.type);
+
+	// The content being expanded or collapsed
+	console.log('content:', event.detail.content);
+
+	// The button for the content
+	console.log('button:', event.detail.button);
+
+};
+
+// Listen for scroll events
+document.addEventListener('houdiniExpand', logHoudiniEvent, false);
+document.addEventListener('houdiniCollapse', logHoudiniEvent, false);
 ```
 
-**Examples**
+### Methods
+
+You can also call Houdini's methods in your own scripts.
+
+#### toggle()
+Toggle the visibility of a content area. Accepts an element or selector string as an argument. Can be the toggle *or* content.
 
 ```javascript
-houdini.openContent( '#show-me' );
-houdini.openContent( '#show-me-too', document.querySelector( 'a[href*="#show-me-too"]' ) );
+var disclosure = new Houdini();
+
+// Selector string
+disclosure.toggle('#yo-ho-ho');
+
+// Content element
+var content = document.querySelector('#yo-ho-ho');
+disclosure.toggle(content);
+
+// Button element
+var btn = document.querySelector('[data-houdini-toggle="yo-ho-ho"]');
+disclosure.toggle(btn);
 ```
 
-#### closeContent()
-Expand a closed content area.
+#### expand()
+Expand a content area. Accepts an element or selector string as an argument. Can be the toggle *or* content.
 
 ```javascript
-houdini.closeContent(
-	contentID, // The ID of the content area to collapse. ex. '#content'
-	toggle, // Node that toggles the expand and collapse action. ex. document.querySelector('#toggle') [optional]
-	options // Classes and callbacks. Same options as those passed into the init() function. [optional]
-);
+var disclosure = new Houdini();
+
+// Selector string
+disclosure.expand('#yo-ho-ho');
+
+// Content element
+var content = document.querySelector('#yo-ho-ho');
+disclosure.expand(content);
+
+// Button element
+var btn = document.querySelector('[data-houdini-toggle="yo-ho-ho"]');
+disclosure.expand(btn);
 ```
 
-**Examples**
+#### collapse()
+Collapse a content area. Accepts an element or selector string as an argument. Can be the toggle *or* content.
 
 ```javascript
-houdini.closeContent( '#hide-me' );
-houdini.closeContent( '#hide-me-too', document.querySelector( 'a[href*="#show-me-too"]' ) );
+var disclosure = new Houdini();
+
+// Selector string
+disclosure.collapse('#yo-ho-ho');
+
+// Content element
+var content = document.querySelector('#yo-ho-ho');
+disclosure.collapse(content);
+
+// Button element
+var btn = document.querySelector('[data-houdini-toggle="yo-ho-ho"]');
+disclosure.collapse(btn);
+```
+
+#### setup()
+Adds the required markup to the DOM. This runs automatically when you initialize Houdini, but if you add new elements to the DOM later, you should run it again.
+
+```js
+var disclosure = new Houdini('[data-houdini]');
+
+// Some time later...
+disclosure.setup();
 ```
 
 #### destroy()
-Destroy the current `houdini.init()`. This is called automatically during the init function to remove any existing initializations.
+Destroy an instantiation of Houdini and restore the markup to its original state.
 
-```javascript
-houdini.destroy();
+```js
+var disclosure = new Houdini('[data-houdini]');
+
+// Some time later...
+disclosure.destroy();
 ```
+
+
+
+## What's New?
+
+- Supports multiple instantiations at once.
+- Better accessibility and semantics.
+- Automatically progressively enhances your markup for you.
+
+### Migrating to Houdini 10 from Older Versions
+
+The entire markup and initialization process has changed in Houdini 10. To migrate:
+
+- Remove existing toggle buttons from your markup.
+- Switch the `.active` to `.is-expanded` for content you want expanded by default.
+- Accordions should use a semantic heading/content relational structure instead of anchor links.
+- Instantiate Houdini with `new Houdini()` instead of `houdini.init()`.
 
 
 
 ## Browser Compatibility
 
-Houdini works in all modern browsers, and IE 10 and above. You can push browser support back to IE 9 with the [classList.js polyfill](https://github.com/eligrey/classList.js/).
+Houdini works in all modern browsers, and IE 9 and above.
 
-Houdini is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default. If you need to support older browsers, you can still download the [jQuery version of Houdini on GitHub](https://github.com/cferdinandi/houdini/tree/archive-v2).
+Houdini is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all of your content will be displayed as-is.
 
+### Polyfills
 
+Support back to IE9 requires polyfills for `matches()`, `classList`, and `CustomEvent()`. Without them, support starts with Edge.
 
-## Support
-
-Please review the [support guidelines](SUPPORT.md).
+Use the included polyfills version of Houdini, or include your own.
 
 
 

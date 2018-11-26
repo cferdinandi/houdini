@@ -5,7 +5,18 @@
 		<!-- Javascript -->
 		<script src="dist/js/houdini.js"></script>
 		<script>
-			houdini.init();
+			var showHideButton = new Houdini('[data-houdini]', {
+				btnAfter: true
+			});
+
+			var accordion = new Houdini('[data-houdini-group="pirates"]', {
+				isAccordion: true,
+				collapseOthers: true
+			});
+
+			var datalist = new Houdini('[data-houdini-dl] dd', {
+				isAccordion: true
+			});
 		</script>
 
 

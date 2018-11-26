@@ -4,12 +4,13 @@
 
 var settings = {
 	scripts: true,		// Turn on/off script tasks
+	polyfills: true,	// Turn on/off polyfill tasks
 	styles: true,		// Turn on/off style tasks
 	svgs: false,		// Turn on/off SVG tasks
 	images: false,		// Turn on/off image tasks
 	static: false,		// Turn on/off static file copying
 	docs: true,			// Turn on/off documentation generation
-	cacheBust: false	// Turn on/off cache busting (adds a version number to minified files)
+	cacheBust: false,	// Turn on/off cache busting (adds a version number to minified files)
 };
 
 
@@ -47,6 +48,7 @@ var minify = settings.styles ? require('gulp-cssnano') : null;
 
 // SVGs
 var svgmin = settings.svgs ? require('gulp-svgmin') : null;
+var svgstore = settings.svgs ? require('gulp-svgstore') : null;
 
 // Docs
 var markdown = settings.docs ? require('gulp-markdown') : null;
@@ -62,6 +64,7 @@ var paths = {
 	output: 'dist/',
 	scripts: {
 		input: 'src/js/*',
+		polyfills: '!src/js/*.polyfill.js',
 		output: 'dist/js/'
 	},
 	styles: {
@@ -77,7 +80,7 @@ var paths = {
 		output: 'dist/img/'
 	},
 	static: {
-		input: 'src/static/*/**',
+		input: 'src/static/*',
 		output: 'dist/'
 	},
 	docs: {
@@ -112,26 +115,31 @@ var banner = {
 
 
 /**
+ * File Version
+ */
+
+var fileVersion = settings.cacheBust ? '.' + package.version : '';
+
+
+/**
  * Gulp Tasks
  */
+
+var jsTasks = lazypipe()
+	.pipe(header, banner.full, { package : package })
+	.pipe(optimizejs)
+	.pipe(gulp.dest, paths.scripts.output)
+	.pipe(rename, { suffix: '.min' + fileVersion })
+	.pipe(uglify)
+	.pipe(optimizejs)
+	.pipe(header, banner.min, { package : package })
+	.pipe(gulp.dest, paths.scripts.output);
 
 // Lint, minify, and concatenate scripts
 gulp.task('build:scripts', ['clean:dist'], function() {
 	if ( !settings.scripts ) return;
 
-	var fileVersion = settings.cacheBust ? '.' + package.version : '';
-
-	var jsTasks = lazypipe()
-		.pipe(header, banner.min, { package : package })
-		.pipe(optimizejs)
-		.pipe(gulp.dest, paths.scripts.output)
-		.pipe(rename, { suffix: '.min' + fileVersion })
-		.pipe(uglify, {output: {comments: /^!/}})
-		.pipe(optimizejs)
-		// .pipe(header, banner.min, { package : package })
-		.pipe(gulp.dest, paths.scripts.output);
-
-	return gulp.src(paths.scripts.input)
+	return gulp.src([paths.scripts.input, paths.scripts.polyfills])
 		.pipe(plumber())
 		.pipe(tap(function (file, t) {
 			if ( file.isDirectory() ) {
@@ -144,17 +152,28 @@ gulp.task('build:scripts', ['clean:dist'], function() {
 		.pipe(jsTasks());
 });
 
+// Create scripts with polyfills
+gulp.task('build:polyfills', ['clean:dist'], function() {
+	if ( !settings.polyfills ) return;
+
+	return gulp.src(paths.scripts.input)
+		.pipe(plumber())
+		.pipe(concat(package.name + '.js'))
+		.pipe(rename({
+			suffix: ".polyfills"
+		}))
+		.pipe(jsTasks());
+});
+
 // Process, lint, and minify Sass files
 gulp.task('build:styles', ['clean:dist'], function() {
 	if ( !settings.styles ) return;
-
-	var fileVersion = settings.cacheBust ? '.' + package.version : '';
 
 	return gulp.src(paths.styles.input)
 		.pipe(plumber())
 		.pipe(sass({
 			outputStyle: 'expanded',
-			sourceComments: true
+			sourceComments: false
 		}))
 		.pipe(flatten())
 		.pipe(prefix({
@@ -162,11 +181,15 @@ gulp.task('build:styles', ['clean:dist'], function() {
 			cascade: true,
 			remove: true
 		}))
-		.pipe(header(banner.min, { package : package }))
+		.pipe(header(banner.full, { package : package }))
 		.pipe(gulp.dest(paths.styles.output))
 		.pipe(rename({ suffix: '.min' + fileVersion }))
-		.pipe(minify())
-		// .pipe(header(banner.min, { package : package }))
+		.pipe(minify({
+			discardComments: {
+				removeAll: true
+			}
+		}))
+		.pipe(header(banner.min, { package : package }))
 		.pipe(gulp.dest(paths.styles.output));
 });
 
@@ -176,6 +199,19 @@ gulp.task('build:svgs', ['clean:dist'], function () {
 
 	return gulp.src(paths.svgs.input)
 		.pipe(plumber())
+		.pipe(tap(function (file, t) {
+			if ( file.isDirectory() ) {
+				var name = file.relative + '.svg';
+				return gulp.src(file.path + '/*.svg')
+					.pipe(svgmin())
+					.pipe(svgstore({
+						fileName: name,
+						prefix: 'icon-',
+						inlineSvg: true
+					}))
+					.pipe(gulp.dest(paths.svgs.output));
+			}
+		}))
 		.pipe(svgmin())
 		.pipe(gulp.dest(paths.svgs.output));
 });
@@ -283,6 +319,7 @@ gulp.task('compile', [
 	'lint:scripts',
 	'clean:dist',
 	'build:scripts',
+	'build:polyfills',
 	'build:styles',
 	'build:images',
 	'build:static',

@@ -1,46 +1,50 @@
-/*! houdinijs v9.4.2 | (c) 2017 Chris Ferdinandi | MIT License | http://github.com/cferdinandi/houdini */
-/**
- * Show/hide text
+/*!
+ * houdinijs v9.4.2: A simple collapse-and-expand script
+ * (c) 2018 Chris Ferdinandi
+ * MIT License
+ * http://github.com/cferdinandi/houdini
  */
-/* line 4, src/sass/components/_houdini.scss */
-.js-houdini .active > .collapse-text-show,
-.collapse-text-hide {
+
+/**
+ * Hide content
+ */
+.houdini {
   display: none;
   visibility: hidden;
+  /**
+	 * Remove focus styles from content
+	 * @type {String}
+	 */
+  /**
+	 * Show expanded content
+	 */
 }
 
-/* line 10, src/sass/components/_houdini.scss */
-.js-houdini .active > .collapse-text-hide {
-  display: inline-block;
+.houdini[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.houdini.is-expanded {
+  display: block;
   visibility: visible;
 }
 
 /**
- * The content
+ * Remove button appearance from heading buttons
  */
-/* line 19, src/sass/components/_houdini.scss */
-.js-houdini .collapse {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
+.houdini-heading .houdini-toggle {
+  background: inherit;
+  border: none;
+  display: block;
+  font: inherit;
   padding: 0;
-  position: absolute;
-  width: 1px;
+  text-align: inherit;
+  width: 100%;
 }
 
-/* line 29, src/sass/components/_houdini.scss */
-.js-houdini .collapse.active {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  width: auto;
-}
-
-/* line 38, src/sass/components/_houdini.scss */
-.js-houdini .collapse:focus {
-  outline: none;
+/**
+ * Style icon
+ */
+.houdini-toggle-icon {
+  padding: 0 0.5em;
 }

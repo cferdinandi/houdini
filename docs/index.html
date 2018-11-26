@@ -29,64 +29,57 @@
 			</nav>
 
 			<section>
-<div class="collapse" id="show-me">
-    Now you see me, now you don&#39;t.
+<h2 id="show-hide-buttons">Show/Hide Buttons</h2>
+<div data-houdini id="show-me">
+    <p>Now you see me, now you don&#39;t.</p>
 </div>
-
-<p>
-    <a class="collapse-toggle" data-collapse href="#show-me">
-        <span class="collapse-text-show">Show +</span>
-        <span class="collapse-text-hide">Hide -</span>
-    </a>
-</p>
 
 
 <h2 id="accordions">Accordions</h2>
-<div>
-    <p class="no-margin-bottom">
-        <a class="collapse-toggle active" data-collapse data-group="accordion" href="#section1">
-            Section 1
-            <span class="collapse-text-show">+</span>
-            <span class="collapse-text-hide">-</span>
-        </a>
-    </p>
-    <div class="collapse active" id="section1">
-        <h3>Section 1</h3>
-        <p>The quick, brown fox jumps over a lazy dog. <a href="#">DJs flock by when MTV</a> ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.</p>
-    </div>
-    <p class="no-margin-bottom">
-        <a class="collapse-toggle" data-collapse data-group="accordion" href="#section2">
-            Section 2
-            <span class="collapse-text-show">+</span>
-            <span class="collapse-text-hide">-</span>
-        </a>
-    </p>
-    <div class="collapse" id="section2">
-        <h3>Section 2</h3>
-        <p>Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz.</p>
-    </div>
-    <p class="no-margin-bottom">
-        <a class="collapse-toggle" data-collapse data-group="accordion" href="#section3">
-            Section 3
-            <span class="collapse-text-show">+</span>
-            <span class="collapse-text-hide">-</span>
-        </a>
-    </p>
-    <div class="collapse" id="section3">
-        <h3>Section 3</h3>
-        <p>Quick, Baz, get my woven flax jodhpurs! &quot;Now fax quiz Jack!&quot; my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls.</p>
-    </div>
+<p><h3 data-houdini-toggle="yo-ho-ho">Yo, ho ho</h3></p>
+<div data-houdini-group="pirates" id="yo-ho-ho" class="is-expanded">
+    <p>Spanker sloop pink piracy Sink me. Boatswain overhaul mizzenmast ahoy bucko. Holystone mizzen Spanish Main yo-ho-ho long clothes.</p>
 </div>
 
-<p><br><br><br></p>
+<p><h3 data-houdini-toggle="jack-ketch">Jack Ketch</h3></p>
+<div data-houdini-group="pirates" id="jack-ketch">
+    <p>Rope&#39;s end lee Jack Ketch reef sails Pieces of Eight. Wench lugger quarter ye Buccaneer. No prey, no pay aye heave to fire in the hole keelhaul.</p>
+</div>
 
+<p><h3 data-houdini-toggle="buccaneer">Buccaneer</h3></p>
+<div data-houdini-group="pirates" id="buccaneer">
+    <p>Me fire ship main sheet gabion Buccaneer. Skysail galleon topsail blow the man down landlubber or just lubber. Swing the lead boom capstan nipper sutler.</p>
+</div>
+
+<h2 id="accordions-with-datalists">Accordions with Datalists</h2>
+<dl data-houdini-dl>
+    <dt data-houdini-toggle="yo-ho-ho-dl">Yo, ho ho</dt>
+    <dd id="yo-ho-ho-dl">Spanker sloop pink piracy Sink me. Boatswain overhaul mizzenmast ahoy bucko. Holystone mizzen Spanish Main yo-ho-ho long clothes.</dd>
+
+    <dt data-houdini-toggle="jack-ketch-dl">Jack Ketch</dt>
+    <dd id="jack-ketch-dl">Rope&#39;s end lee Jack Ketch reef sails Pieces of Eight. Wench lugger quarter ye Buccaneer. No prey, no pay aye heave to fire in the hole keelhaul.</dd>
+
+    <dt data-houdini-toggle="buccaneer-dl">Buccaneer</dt>
+    <dd id="buccaneer-dl">Me fire ship main sheet gabion Buccaneer. Skysail galleon topsail blow the man down landlubber or just lubber. Swing the lead boom capstan nipper sutler.</dd>
+</dl>
 			</section>
 		</main>
 
 		<!-- Javascript -->
 		<script src="dist/js/houdini.js"></script>
 		<script>
-			houdini.init();
+			var showHideButton = new Houdini('[data-houdini]', {
+				btnAfter: true
+			});
+
+			var accordion = new Houdini('[data-houdini-group="pirates"]', {
+				isAccordion: true,
+				collapseOthers: true
+			});
+
+			var datalist = new Houdini('[data-houdini-dl] dd', {
+				isAccordion: true
+			});
 		</script>
 
 

@@ -1,1 +1,43 @@
-@import	"components/houdini";
+/**
+ * Hide content
+ */
+.houdini {
+	display: none;
+	visibility: hidden;
+
+	/**
+	 * Remove focus styles from content
+	 * @type {String}
+	 */
+	&[tabindex="-1"]:focus {
+		outline: none;
+	}
+
+	/**
+	 * Show expanded content
+	 */
+	&.is-expanded {
+		display: block;
+		visibility: visible;
+	}
+}
+
+/**
+ * Remove button appearance from heading buttons
+ */
+.houdini-heading .houdini-toggle {
+	background: inherit;
+	border: none;
+	display: block;
+	font: inherit;
+	padding: 0;
+	text-align: inherit;
+	width: 100%;
+}
+
+/**
+ * Style icon
+ */
+.houdini-toggle-icon {
+	padding: 0 0.5em;
+}
