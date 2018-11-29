@@ -1,81 +1,14 @@
-/*!
- * houdinijs v10.0.1: A simple collapse-and-expand script
- * (c) 2018 Chris Ferdinandi
- * MIT License
- * http://github.com/cferdinandi/houdini
- */
-
-/**
- * CustomEvent() polyfill
- * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
- */
-(function () {
-
-	if (typeof window.CustomEvent === "function") return false;
-
-	function CustomEvent(event, params) {
-		params = params || { bubbles: false, cancelable: false, detail: undefined };
-		var evt = document.createEvent('CustomEvent');
-		evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-		return evt;
-	}
-
-	CustomEvent.prototype = window.Event.prototype;
-
-	window.CustomEvent = CustomEvent;
-})();
-/**
- * Element.matches() polyfill (simple version)
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
- */
-if (!Element.prototype.matches) {
-	Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
-}
-/**
- * requestAnimationFrame() polyfill
- * By Erik Möller. Fixes from Paul Irish and Tino Zijdel.
- * @link http://paulirish.com/2011/requestanimationframe-for-smart-animating/
- * @link http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
- * @license MIT
- */
-(function() {
-	var lastTime = 0;
-	var vendors = ['ms', 'moz', 'webkit', 'o'];
-	for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-		window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-		window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] ||
-		                              window[vendors[x]+'CancelRequestAnimationFrame'];
-	}
-
-	if (!window.requestAnimationFrame) {
-		window.requestAnimationFrame = function(callback, element) {
-			var currTime = new Date().getTime();
-			var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-			var id = window.setTimeout((function() { callback(currTime + timeToCall); }),
-				timeToCall);
-			lastTime = currTime + timeToCall;
-			return id;
-		};
-	}
-
-	if (!window.cancelAnimationFrame) {
-		window.cancelAnimationFrame = function(id) {
-			clearTimeout(id);
-		};
-	}
-}());
-
 (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
-		define([], (function () {
+		define([], function () {
 			return factory(root);
-		}));
+		});
 	} else if ( typeof exports === 'object' ) {
 		module.exports = factory(root);
 	} else {
 		root.Houdini = factory(root);
 	}
-})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, (function (window) {
+})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function (window) {
 
 	'use strict';
 
@@ -94,21 +27,24 @@ if (!Element.prototype.matches) {
 		btnAfter: false,
 		btnClass: 'houdini-toggle',
 		btnAttribute: 'data-houdini-toggle',
-		btnShow: 'Show More',
-		btnHide: 'Show Less',
+		btnTextAttribute: 'data-houdini-button',
+		btnLabelAttribute: 'data-houdini-label',
+		btnPreExisting: 'data-houdini-button-preexisting',
 
 		// Accordion
 		isAccordion: false,
 		collapseOthers: false,
 		headingClass: 'houdini-heading',
-		icon: true,
+
+		// Icons
+		icon: -1,
 		iconClass: 'houdini-toggle-icon',
 		iconAttribute: 'data-houdini-icon',
 		iconShow: '+',
 		iconHide: '&ndash;',
 
 		// Custom Events
-		emitEvents: true // Emit custom events
+		emitEvents: true
 
 	};
 
@@ -124,12 +60,12 @@ if (!Element.prototype.matches) {
 	 */
 	var extend = function () {
 		var merged = {};
-		Array.prototype.forEach.call(arguments, (function (obj) {
+		Array.prototype.forEach.call(arguments, function (obj) {
 			for (var key in obj) {
 				if (!obj.hasOwnProperty(key)) return;
 				merged[key] = obj[key];
 			}
-		}));
+		});
 		return merged;
 	};
 
@@ -187,12 +123,30 @@ if (!Element.prototype.matches) {
 				' class="' + settings.btnClass + '"' +
 				' ' + settings.btnAttribute + '="' + elem.id + '"' +
 				' aria-expanded="' + (isExpanded ? true : false) + '"' +
-				' aria-controls="' + elem.id + '"' +
 			'>' +
 				heading.innerHTML +
 				icon +
 			'</button>';
 
+		return heading;
+
+	};
+
+	/**
+	 * Get a preexisting button for the content
+	 * @param  {Node}   elem     The disclosure content
+	 * @param  {Object} settings The settings object
+	 * @return {Node}            The preexisting button
+	 */
+	var getExistingBtn = function (elem, settings) {
+		var btn = document.querySelector('[' + settings.btnAttribute + '="' + elem.id + '"]');
+		if (!btn) return;
+		btn.removeAttribute('hidden');
+		if (btn.tagName.toLowerCase() === 'a') {
+			btn.setAttribute('role', 'button');
+		}
+		btn.setAttribute(settings.btnPreexisting, 'true');
+		return btn;
 	};
 
 	/**
@@ -202,20 +156,50 @@ if (!Element.prototype.matches) {
 	 */
 	var addNewBtn = function (elem, settings) {
 
+		// Variables
+		var text = elem.getAttribute(settings.btnTextAttribute);
+		var isExpanded = elem.classList.contains(settings.expandedClass);
+		var label = elem.getAttribute(settings.btnLabelAttribute);
+
 		// Create the button
-		var btn = document.createElement('button');
+		var existingBtn = getExistingBtn(elem, settings);
+		var btn = existingBtn ? existingBtn : document.createElement('button');
+
+		// Add button text
+		if (!existingBtn) {
+			// btn.textContent = text && text.length > 0 ? text : settings.btnText; // @todo
+			if (!text || text.length < 1) return;
+			btn.textContent = text;
+		}
 
 		// Add selectors and labels
 		btn.setAttribute(settings.btnAttribute, elem.id);
 		btn.className = settings.btnClass;
-		btn.textContent = settings.expanded ? settings.btnHide : settings.btnShow;
+
+		// Add an icon
+		var icon = '';
+		if (settings.icon) {
+			btn.innerHTML +=
+				'<span' +
+					' class="' + settings.iconClass + '"' +
+					' ' + settings.iconAttribute +
+				'>' +
+					(isExpanded ? settings.iconHide : settings.iconShow) +
+				'</span>';
+		}
 
 		// Add a11y attributes
-		btn.setAttribute('aria-expanded', elem.classList.contains(settings.expandedClass));
-		btn.setAttribute('aria-controls', elem.id);
+		btn.setAttribute('aria-expanded', isExpanded);
+		if (label) {
+			btn.setAttribute('aria-label', label);
+		}
 
 		// Inject into the DOM
-		elem.parentNode.insertBefore(btn, settings.btnAfter ? elem.nextSibling : elem);
+		if (!existingBtn) {
+			elem.parentNode.insertBefore(btn, settings.btnAfter ? elem.nextSibling : elem);
+		}
+
+		return btn;
 
 	};
 
@@ -226,10 +210,9 @@ if (!Element.prototype.matches) {
 	 */
 	var createBtn = function (elem, settings) {
 		if (settings.isAccordion) {
-			wrapInBtn(elem, settings);
-		} else {
-			addNewBtn(elem, settings);
+			return wrapInBtn(elem, settings);
 		}
+		return addNewBtn(elem, settings);
 	};
 
 	/**
@@ -265,6 +248,10 @@ if (!Element.prototype.matches) {
 	var removeNewBtn = function (elem, settings) {
 		var btn = document.querySelector('[' + settings.btnAttribute + '="' + elem.id + '"]');
 		if (!btn) return;
+		if (btn.hasAttribute(settings.btnPreexisting)) {
+			btn.setAttribute('hidden', 'hidden');
+			return;
+		}
 		btn.parentNode.removeChild(btn);
 	};
 
@@ -290,18 +277,12 @@ if (!Element.prototype.matches) {
 
 		// Update a11y attributes
 		btn.setAttribute('aria-expanded', 'false');
+		btn.removeAttribute('aria-controls');
 
-		// Accordion icons
-		if (settings.isAccordion) {
-			var icon = btn.querySelector('[' + settings.iconAttribute + ']');
-			if (icon) {
-				icon.innerHTML = settings.iconShow;
-			}
-		}
-
-		// Simple disclosures
-		else {
-			btn.textContent = settings.btnShow;
+		// Toggle icons
+		var icon = btn.querySelector('[' + settings.iconAttribute + ']');
+		if (icon) {
+			icon.innerHTML = settings.iconShow;
 		}
 
 	};
@@ -341,10 +322,10 @@ if (!Element.prototype.matches) {
 		if (!settings.isAccordion || !settings.collapseOthers) return;
 
 		// Close open content areas
-		Array.prototype.forEach.call(document.querySelectorAll(selector + '.' + settings.expandedClass), (function (content) {
-			var btn = document.querySelector('[aria-controls="' + content.id + '"]');
+		Array.prototype.forEach.call(document.querySelectorAll(selector + '.' + settings.expandedClass), function (content) {
+			var btn = document.querySelector('[' + settings.btnAttribute + '="' + content.id + '"]');
 			collapseContent(btn, content, settings);
-		}));
+		});
 
 	};
 
@@ -353,19 +334,16 @@ if (!Element.prototype.matches) {
 	 * @param  {Node} btn        The button
 	 * @param  {Object} settings The settings object
 	 */
-	var expandBtn = function (btn, settings) {
+	var expandBtn = function (btn, target, settings) {
 
-		// Accordion icons
-		if (settings.isAccordion) {
-			var icon = btn.querySelector('[' + settings.iconAttribute + ']');
-			if (icon) {
-				icon.innerHTML = settings.iconHide;
-			}
-		}
+		// Update a11y attributes
+		btn.setAttribute('aria-expanded', true);
+		btn.setAttribute('aria-controls', target.id);
 
-		// Simple disclosures
-		else {
-			btn.textContent = settings.btnHide;
+		// Toggle icons
+		var icon = btn.querySelector('[' + settings.iconAttribute + ']');
+		if (icon) {
+			icon.innerHTML = settings.iconHide;
 		}
 
 	};
@@ -379,10 +357,7 @@ if (!Element.prototype.matches) {
 	var expandContent = function (btn, target, settings) {
 
 		// Update button text
-		expandBtn(btn, settings);
-
-		// Update a11y attributes
-		btn.setAttribute('aria-expanded', true);
+		expandBtn(btn, target, settings);
 
 		// Expand content
 		target.classList.add(settings.expandedClass);
@@ -408,12 +383,18 @@ if (!Element.prototype.matches) {
 	 * @param  {Object} settings The settings object
 	 * @return {[type]}          [description]
 	 */
-	var toggleContent = function (btn, selector, settings) {
+	var toggleContent = function (btn, selector, settings, event) {
 
 		// Variables
 		var isExpanded = btn.getAttribute('aria-expanded');
-		var target = document.querySelector('#' + btn.getAttribute('aria-controls'));
+		var target = document.querySelector('#' + btn.getAttribute(settings.btnAttribute));
 		if (!target || !target.matches(selector)) return;
+
+		// Prevent default click event
+		// For links or buttons inside a form
+		if (event) {
+			event.preventDefault();
+		}
 
 		// Toggle content visibility
 		// Must explicitly specify true here and use type coercion because value returned is a string
@@ -456,7 +437,7 @@ if (!Element.prototype.matches) {
 	 * @param  {String}      selector The selector for this instantiation
 	 * @return {Node}                 The button element
 	 */
-	var getBtn = function (target, selector) {
+	var getBtn = function (target, selector, settings) {
 
 		var btn;
 
@@ -467,7 +448,7 @@ if (!Element.prototype.matches) {
 
 		// If content area instead of button
 		if (btn && btn.matches(selector)) {
-			btn = document.querySelector('[aria-controls="' + btn.id + '"]');
+			btn = document.querySelector('[' + settings.btnAttribute + '="' + btn.id + '"]');
 		}
 
 		return btn;
@@ -480,7 +461,7 @@ if (!Element.prototype.matches) {
 	 * @param  {Object} settings The settings object
 	 */
 	var teardown = function (selector, settings) {
-		Array.prototype.forEach.call(document.querySelectorAll(selector), (function (content) {
+		Array.prototype.forEach.call(document.querySelectorAll(selector), function (content) {
 
 			// Remove the toggle button
 			removeBtn(content, settings);
@@ -495,7 +476,7 @@ if (!Element.prototype.matches) {
 				content.classList.add(settings.expandedClass);
 			}
 
-		}));
+		});
 	};
 
 
@@ -522,7 +503,7 @@ if (!Element.prototype.matches) {
 		 * @param  {String|Node} target The content or button to toggle
 		 */
 		publicAPIs.toggle = function (target) {
-			toggleContent(getBtn(target, selector), selector, settings);
+			toggleContent(getBtn(target, selector, settings), selector, settings);
 		};
 
 		/**
@@ -530,7 +511,7 @@ if (!Element.prototype.matches) {
 		 * @param  {String|Node} target The content or button to toggle
 		 */
 		publicAPIs.expand = function (target) {
-			expandContent(getBtn(target, selector), getContent(target, settings.btnAttribute), settings);
+			expandContent(getBtn(target, selector, settings), getContent(target, settings.btnAttribute), settings);
 		};
 
 		/**
@@ -538,7 +519,7 @@ if (!Element.prototype.matches) {
 		 * @param  {String|Node} target The content or button to toggle
 		 */
 		publicAPIs.collapse = function (target) {
-			var btn = getBtn(target, selector);
+			var btn = getBtn(target, selector, settings);
 			var content = getContent(target, settings.btnAttribute);
 			collapseOthers(btn, content, selector, settings);
 			collapseContent(btn, content, settings);
@@ -550,10 +531,13 @@ if (!Element.prototype.matches) {
 		publicAPIs.setup = function () {
 
 			// Add markup
-			Array.prototype.forEach.call(document.querySelectorAll(selector), (function (content) {
+			Array.prototype.forEach.call(document.querySelectorAll(selector), function (content) {
 
 				// If already setup, bail
 				if (content.classList.contains(settings.contentClass)) return;
+
+				// Create the toggle button
+				if (!createBtn(content, settings)) return;
 
 				// Add the content class
 				content.classList.add(settings.contentClass);
@@ -573,10 +557,7 @@ if (!Element.prototype.matches) {
 					content.classList.add(settings.expandedClass);
 				}
 
-				// Create the toggle button
-				createBtn(content, settings);
-
-			}));
+			});
 
 			// Emit event
 			emitEvent('houdiniSetup', settings, {
@@ -591,10 +572,11 @@ if (!Element.prototype.matches) {
 		var clickHandler = function (event) {
 
 			// Only run if clicked element matches our selector
-			if (!event.target.matches('[' + settings.btnAttribute + ']')) return;
+			var toggle = event.target.closest('[' + settings.btnAttribute + ']');
+			if (!toggle) return;
 
 			// Show/hide content
-			toggleContent(event.target, selector, settings);
+			toggleContent(toggle, selector, settings, event);
 
 		};
 
@@ -616,8 +598,11 @@ if (!Element.prototype.matches) {
 		var init = function () {
 
 			// Merge user options into defaults
-			settings = extend (defaults, options || {});
+			settings = extend(defaults, options || {});
 			settings.expandedOnInit = [];
+			if (settings.icon < 0) {
+				settings.icon = settings.isAccordion;
+			}
 
 			// Setup the DOM
 			publicAPIs.setup();
@@ -647,4 +632,4 @@ if (!Element.prototype.matches) {
 
 	return Constructor;
 
-}));
+});

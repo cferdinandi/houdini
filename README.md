@@ -22,7 +22,7 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 
 Houdini has two required files: JavaScript and CSS.
 
-There are two versions of the Houdini JavaScript file: the standalone version, and one that comes preloaded with polyfills for `matches()`, `classList`, and `CustomEvent()`, which are only supported in newer browsers.
+There are two versions of the Houdini JavaScript file: the standalone version, and one that comes preloaded with polyfills for `matches()`, `closest()`, `classList`, and `CustomEvent()`, which are only supported in newer browsers.
 
 If you're including your own polyfills or don't want to enable this feature for older browsers, use the standalone version. Otherwise, use the version with polyfills.
 
@@ -47,27 +47,25 @@ You can also use the [jsDelivr CDN](https://cdn.jsdelivr.net/gh/cferdinandi/houd
 
 <!-- Get minor updates and patch fixes within a major version -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10/dist/css/houdini.min.js">
-<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10/dist/js/houdini.polyfills.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@11/dist/js/houdini.polyfills.min.js"></script>
 
 <!-- Get patch fixes within a minor version -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10.0/dist/css/houdini.min.js">
-<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10.0/dist/js/houdini.polyfills.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@11.0/dist/js/houdini.polyfills.min.js"></script>
 
 <!-- Get a specific version -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10.0.0/dist/css/houdini.min.js">
-<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@10.0.0/dist/js/houdini.polyfills.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@11.0.0/dist/js/houdini.polyfills.min.js"></script>
 ```
 
 ### 2. Add the markup to your HTML.
 
-Wrap your content in a `div` element and assign it a unique ID.
-
-It should also have a selector. The example below uses the `[data-houdini]` attribute.
-
-You *don't* need to add a button to toggle visibility. Houdini will handle that and add any required ARIA attributes automatically when it loads.
+1. Wrap your content in a `div` element and assign it a unique ID.
+2. Add a selector (the example below uses the `[data-houdini]` attribute, but this could be a class or ID instead).
+3. Add a `[data-houdini-button]` attribute with the text you want for your button. Houdini will create the button and add any required ARIA attributes automatically when it loads.
 
 ```html
-<div data-houdini id="show-me">
+<div data-houdini data-houdini-button="Show More" id="show-me">
 	<p>Now you see me, now you don't.</p>
 </div>
 ```
@@ -128,7 +126,24 @@ var accordion = new Houdini('[data-houdini-group="pirates"]', {
 ```
 
 
-## Expanded by Default
+
+## Demos
+
+- [Basic Demo](https://codepen.io/cferdinandi/pen/JeByZQ)
+- [Button after the content](https://codepen.io/cferdinandi/pen/yQqoRE)
+- [Adding extra info for screen readers](https://codepen.io/cferdinandi/pen/bQQXjG)
+- [Using your own button](https://codepen.io/cferdinandi/pen/jQQgKb)
+- [Accordion](https://codepen.io/cferdinandi/pen/PxBKxp)
+- [Accordion with only one open content area](https://codepen.io/cferdinandi/pen/NEBvew)
+- [Accordion with datalist](https://codepen.io/cferdinandi/pen/LXBjaE)
+
+
+
+## Options and Settings
+
+Houdini includes smart defaults and works right out of the box. But if you want to customize things, it also has a robust API that provides multiple ways for you to adjust the default options and settings.
+
+### Expanded by Default
 
 If you want specific disclosures or accordions to be expanded by default, add the `.is-expanded` class to your markup.
 
@@ -165,46 +180,57 @@ var accordion = new Houdini('[data-houdini-group]', {
 });
 ```
 
+### Extra Info for Screen Readers
 
+If you want to add extra information to your button for screen reader users, include the `[data-houdini-label]` attribute. This will add an `aria-label` to the button.
 
-## Demos
+```html
+<div data-houdini data-houdini-button="Show More" data-houdini-label="Show more about pirates" id="show-me">
+	<p>Now you see me, now you don't.</p>
+</div>
+```
 
-- [Basic Demo](https://codepen.io/cferdinandi/pen/JeByZQ)
-- [Button after the content](https://codepen.io/cferdinandi/pen/yQqoRE)
-- [Accordion](https://codepen.io/cferdinandi/pen/PxBKxp)
-- [Accordion with only one open content area](https://codepen.io/cferdinandi/pen/NEBvew)
-- [Accordion with datalist](https://codepen.io/cferdinandi/pen/LXBjaE)
+### Using Your Own Buttons
 
+If you want to have more control over the toggle buttons, you can include your own instead.
 
+Make sure your button has a `[data-houdini-toggle]` attribute with a value that matches the ID of the content it's supposed to toggle. You should also add the `[hidden]` attribute to hide the button until the script loads (Houdini will make it visible automatically).
 
-## Options and Settings
+```html
+<button data-houdini-toggle="show-me-too" aria-label="Show more about pirates, too" hidden>
+	Show me, too
+</button>
+```
 
-Houdini includes smart defaults and works right out of the box. But if you want to customize things, it also has a robust API that provides multiple ways for you to adjust the default options and settings.
+*__Note:__ You DO NOT need to include the `[data-houdini-button]` or `[data-houdini-label]` attributes, since you're creating your own button and can add that content directly.*
 
 ### Global Settings
 
-You can pass options and callbacks into Houdini through the `init()` function:
+You can override the default settings by passing in user options as a second argument when initializing.
 
 ```javascript
 var disclosure = new Houdini('[data-houdini]', {
 
 	// Content
-	contentClass: 'houdini', // The class to add to content
-	expanded: false, // If true, content is expanded by default
-	expandedClass: 'is-expanded', // The class to apply to expanded content
+	contentClass: 'houdini',
+	expanded: false,
+	expandedClass: 'is-expanded',
 
 	// Toggle Buttons
 	btnAfter: false, // If true, load toggle button after the content
 	btnClass: 'houdini-toggle', // The class to add to toggle buttons
 	btnAttribute: 'data-houdini-toggle', // The data attribute to use for toggle buttons
-	btnShow: 'Show More', // The text for "Show More" buttons
-	btnHide: 'Show Less', // The text for "Show Less" buttons
+	btnTextAttribute: 'data-houdini-button', // The data attribute for the button text
+	btnLabelAttribute: 'data-houdini-label', // The data attribute for aria-label text
+	btnPreExisting: 'data-houdini-button-preexisting', // The data attribute added to pre-existing buttons
 
 	// Accordion
 	isAccordion: false, // If true, treat as an accordion
 	collapseOthers: false, // If true, only allow on open piece of content at a time
 	headingClass: 'houdini-heading', // The class to add to the heading element
-	icon: true, // If true, include an expand/collapse icon
+
+	// Icons
+	icon: -1, // If true, include an expand/collapse icon
 	iconClass: 'houdini-toggle-icon', // The class to use for the expand/collapse icon
 	iconAttribute: 'data-houdini-icon', // The data attribute to use for the expand/collapse icon
 	iconShow: '+', // The icon to expand an accordion
@@ -337,6 +363,13 @@ disclosure.destroy();
 - Automatically progressively enhances your markup for you.
 - Deprecated callbacks in favor of custom events.
 
+### Migrating to Houdini 11 from Houdini 10
+
+Based on feedback from accessibility experts, Houdini no longer supports changing button text or using the same text for all buttons.
+
+- Every content area now needs a `[data-houdini-button]` attribute or a `button` element with a `[data-houdini-toggle]` attribute that matches the content ID.
+- The `btnShow` and `btnHide` options no longer exist.
+
 ### Migrating to Houdini 10 from Older Versions
 
 The entire markup and initialization process has changed in Houdini 10. To migrate:
@@ -349,6 +382,12 @@ The entire markup and initialization process has changed in Houdini 10. To migra
 
 
 
+## Kudos 👏
+
+Major kudos to [Scott O'Hara](https://www.scottohara.me/) for walking me through the nuances of accordion accessibility and giving me tons of feedback along the way.
+
+
+
 ## Browser Compatibility
 
 Houdini works in all modern browsers, and IE 9 and above.
@@ -357,7 +396,7 @@ Houdini is built with modern JavaScript APIs, and uses progressive enhancement. 
 
 ### Polyfills
 
-Support back to IE9 requires polyfills for `matches()`, `classList`, and `CustomEvent()`. Without them, support starts with Edge.
+Support back to IE9 requires polyfills for `matches()`, `closest()`, `classList`, and `CustomEvent()`. Without them, support starts with Edge.
 
 Use the included polyfills version of Houdini, or include your own.
 
