@@ -10,7 +10,8 @@ var settings = {
 	styles: true,
 	svgs: false,
 	copy: true,
-	reload: true
+	reload: true,
+	test: false
 };
 
 
@@ -38,7 +39,9 @@ var paths = {
 		input: 'src/copy/*',
 		output: 'dist/'
 	},
-	reload: './dist/'
+	reload: './dist/',
+	tests: 'tests/spec/tests.js',
+	test: 'test/karma.conf.js'
 };
 
 
@@ -82,7 +85,7 @@ var package = require('./package.json');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
+var uglify = require('gulp-terser');
 var optimizejs = require('gulp-optimize-js');
 
 // Styles
@@ -95,6 +98,9 @@ var svgmin = require('gulp-svgmin');
 
 // BrowserSync
 var browserSync = require('browser-sync');
+
+// Testing
+var Server = require('karma').Server;
 
 
 /**
@@ -288,6 +294,27 @@ var watchSource = function (done) {
 	done();
 };
 
+// Test scripts
+var testScripts = function (done) {
+
+	// Make sure this feature is activated before running
+	if (!settings.test) return done();
+
+	// src(paths.tests)
+	// 	.pipe(jasmine())
+
+	setTimeout(function () {
+
+		new Server({
+			configFile: __dirname + '/' + paths.test,
+			// files: __dirname + '/' + paths.scripts.output + '**/*.js',
+			singleRun: true
+		}, done).start();
+
+	}, 100);
+
+};
+
 
 /**
  * Export Tasks
@@ -303,7 +330,14 @@ exports.default = series(
 		buildStyles,
 		buildSVGs,
 		copyFiles
-	)
+	),
+	testScripts
+);
+
+// Run tests
+// gulp test
+exports.test = series(
+	testScripts
 );
 
 // Watch and reload

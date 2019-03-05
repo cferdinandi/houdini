@@ -13,7 +13,7 @@
 		"url": "http://github.com/cferdinandi/houdini"
 	},
 	"devDependencies": {
-		"gulp": "next",
+		"gulp": "4.0.0",
 		"del": "3.0.0",
 		"lazypipe": "1.0.1",
 		"gulp-flatmap": "1.0.2",
@@ -23,12 +23,18 @@
 		"gulp-jshint": "2.1.0",
 		"jshint-stylish": "2.2.1",
 		"gulp-concat": "2.6.1",
-		"gulp-uglify": "3.0.1",
+		"gulp-terser": "1.1.7",
 		"gulp-optimize-js": "1.1.0",
 		"gulp-sass": "4.0.2",
 		"gulp-cssnano": "2.1.3",
 		"gulp-autoprefixer": "6.0.0",
 		"gulp-svgmin": "2.1.0",
-		"browser-sync": "2.26.3"
+		"browser-sync": "2.26.3",
+		"phantomjs-prebuilt": "2.1.16",
+		"karma": "4.0.0",
+		"karma-phantomjs-launcher": "1.0.4",
+		"karma-spec-reporter": "0.0.32",
+		"karma-jasmine": "2.0.1",
+		"karma-coverage": "1.1.2"
 	}
 }

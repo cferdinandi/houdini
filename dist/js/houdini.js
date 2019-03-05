@@ -24,7 +24,7 @@
 	// Variables
 	//
 
-	var defaults = {
+	let defaults = {
 
 		// Content
 		contentClass: 'houdini',
@@ -153,7 +153,7 @@
 		if (btn.tagName.toLowerCase() === 'a') {
 			btn.setAttribute('role', 'button');
 		}
-		btn.setAttribute(settings.btnPreexisting, 'true');
+		btn.setAttribute(settings.btnPreExisting, 'true');
 		return btn;
 	};
 
@@ -256,7 +256,7 @@
 	var removeNewBtn = function (elem, settings) {
 		var btn = document.querySelector('[' + settings.btnAttribute + '="' + elem.id + '"]');
 		if (!btn) return;
-		if (btn.hasAttribute(settings.btnPreexisting)) {
+		if (btn.hasAttribute(settings.btnPreExisting)) {
 			btn.setAttribute('hidden', 'hidden');
 			return;
 		}
