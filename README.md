@@ -208,7 +208,7 @@ Make sure your button has a `[data-houdini-toggle]` attribute with a value that 
 
 ### Options and Settings
 
-You can override the default settings by passing in user options as a second argument when initializing.
+You can override the default settings by passing in user options as a second argument when instantiating.
 
 ```javascript
 var disclosure = new Houdini('[data-houdini]', {
