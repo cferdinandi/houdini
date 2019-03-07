@@ -3,7 +3,9 @@ A simple, accessible show-and-hide/accordion script.
 
 Houdini progressively enhances your markup when it loads. You provide the content, and Houdini layers in the toggle buttons, ARIA attributes, and interactivity for you.
 
-[Getting Started](#getting-started) | [Accordions](#accordions) | [Demos](#demos) | [Options & Settings](#options-and-settings) | [What's New?](#whats-new) | [Browser Compatibility](#browser-compatibility) | [License](#license)
+**[View the Demo on CodePen &rarr;](https://codepen.io/cferdinandi/pen/JeByZQ)**
+
+[Getting Started](#getting-started) | [Accordions](#accordions) | [Demos](#demos) | [API](#api) | [What's New?](#whats-new) | [Browser Compatibility](#browser-compatibility) | [License](#license)
 
 
 <hr>
@@ -139,7 +141,7 @@ var accordion = new Houdini('[data-houdini-group="pirates"]', {
 
 
 
-## Options and Settings
+## API
 
 Houdini includes smart defaults and works right out of the box. But if you want to customize things, it also has a robust API that provides multiple ways for you to adjust the default options and settings.
 
@@ -204,7 +206,7 @@ Make sure your button has a `[data-houdini-toggle]` attribute with a value that 
 
 *__Note:__ You DO NOT need to include the `[data-houdini-button]` or `[data-houdini-label]` attributes, since you're creating your own button and can add that content directly.*
 
-### Global Settings
+### Options and Settings
 
 You can override the default settings by passing in user options as a second argument when initializing.
 
@@ -222,7 +224,7 @@ var disclosure = new Houdini('[data-houdini]', {
 	btnAttribute: 'data-houdini-toggle', // The data attribute to use for toggle buttons
 	btnTextAttribute: 'data-houdini-button', // The data attribute for the button text
 	btnLabelAttribute: 'data-houdini-label', // The data attribute for aria-label text
-	btnPreExisting: 'data-houdini-button-preexisting', // The data attribute added to pre-existing buttons
+	btnPreexisting: 'data-houdini-button-preexisting', // The data attribute added to pre-existing buttons
 
 	// Accordion
 	isAccordion: false, // If true, treat as an accordion

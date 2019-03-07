@@ -3,7 +3,6 @@
  */
 .houdini {
 	display: none;
-	visibility: hidden;
 
 	/**
 	 * Remove focus styles from content
@@ -18,7 +17,6 @@
 	 */
 	&.is-expanded {
 		display: block;
-		visibility: visible;
 	}
 }
 

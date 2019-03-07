@@ -1,5 +1,5 @@
 /*!
- * houdinijs v11.0.0
+ * houdinijs v11.0.1
  * A simple collapse-and-expand script
  * (c) 2019 Chris Ferdinandi
  * MIT License
@@ -9,10 +9,8 @@
 /**
  * Hide content
  */
-/* line 4, src/sass/houdini.scss */
 .houdini {
   display: none;
-  visibility: hidden;
   /**
 	 * Remove focus styles from content
 	 * @type {String}
@@ -22,21 +20,17 @@
 	 */
 }
 
-/* line 12, src/sass/houdini.scss */
 .houdini[tabindex="-1"]:focus {
   outline: none;
 }
 
-/* line 19, src/sass/houdini.scss */
 .houdini.is-expanded {
   display: block;
-  visibility: visible;
 }
 
 /**
  * Remove button appearance from heading buttons
  */
-/* line 28, src/sass/houdini.scss */
 .houdini-heading .houdini-toggle {
   background: inherit;
   border: none;
@@ -50,7 +44,6 @@
 /**
  * Style icon
  */
-/* line 41, src/sass/houdini.scss */
 .houdini-toggle-icon {
   padding: 0 0.5em;
 }

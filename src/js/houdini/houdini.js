@@ -29,7 +29,7 @@
 		btnAttribute: 'data-houdini-toggle',
 		btnTextAttribute: 'data-houdini-button',
 		btnLabelAttribute: 'data-houdini-label',
-		btnPreExisting: 'data-houdini-button-preexisting',
+		bntPreexisting: 'data-houdini-button-preexisting',
 
 		// Accordion
 		isAccordion: false,

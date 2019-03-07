@@ -82,7 +82,7 @@ var package = require('./package.json');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
+var uglify = require('gulp-terser');
 var optimizejs = require('gulp-optimize-js');
 
 // Styles
@@ -203,7 +203,7 @@ var buildStyles = function (done) {
 	src(paths.styles.input)
 		.pipe(sass({
 			outputStyle: 'expanded',
-			sourceComments: true
+			sourceComments: false
 		}))
 		.pipe(prefix({
 			browsers: ['last 2 version', '> 0.25%'],

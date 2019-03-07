@@ -1,5 +1,5 @@
 /*!
- * houdinijs v11.0.0
+ * houdinijs v11.0.1
  * A simple collapse-and-expand script
  * (c) 2019 Chris Ferdinandi
  * MIT License
@@ -116,7 +116,7 @@ if (!Element.prototype.matches) {
 		btnAttribute: 'data-houdini-toggle',
 		btnTextAttribute: 'data-houdini-button',
 		btnLabelAttribute: 'data-houdini-label',
-		btnPreExisting: 'data-houdini-button-preexisting',
+		bntPreexisting: 'data-houdini-button-preexisting',
 
 		// Accordion
 		isAccordion: false,
