@@ -60,6 +60,14 @@ You can also use the [jsDelivr CDN](https://cdn.jsdelivr.net/gh/cferdinandi/houd
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/houdini@11.0.0/dist/js/houdini.polyfills.min.js"></script>
 ```
 
+**NPM**
+
+You can also use NPM (or your favorite package manager).
+
+```bash
+npm install houdinijs
+```
+
 ### 2. Add the markup to your HTML.
 
 1. Wrap your content in a `div` element and assign it a unique ID.
