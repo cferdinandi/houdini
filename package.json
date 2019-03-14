@@ -1,6 +1,6 @@
 {
 	"name": "houdinijs",
-	"version": "11.0.1",
+	"version": "11.0.2",
 	"description": "A simple collapse-and-expand script",
 	"main": "./dist/js/houdini.js",
 	"author": {

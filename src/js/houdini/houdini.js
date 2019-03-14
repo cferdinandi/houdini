@@ -415,7 +415,7 @@
 	 */
 	var getContent = function (target, att) {
 
-		var content;
+		var content = target;
 
 		// If selector string instead of element
 		if (typeof target === 'string') {
@@ -439,7 +439,7 @@
 	 */
 	var getBtn = function (target, selector, settings) {
 
-		var btn;
+		var btn = target;
 
 		// If selector string instead of element
 		if (typeof target === 'string') {

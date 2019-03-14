@@ -1,5 +1,5 @@
 /*!
- * houdinijs v11.0.1
+ * houdinijs v11.0.2
  * A simple collapse-and-expand script
  * (c) 2019 Chris Ferdinandi
  * MIT License
@@ -502,7 +502,7 @@ if (!Element.prototype.matches) {
 	 */
 	var getContent = function (target, att) {
 
-		var content;
+		var content = target;
 
 		// If selector string instead of element
 		if (typeof target === 'string') {
@@ -526,7 +526,7 @@ if (!Element.prototype.matches) {
 	 */
 	var getBtn = function (target, selector, settings) {
 
-		var btn;
+		var btn = target;
 
 		// If selector string instead of element
 		if (typeof target === 'string') {
