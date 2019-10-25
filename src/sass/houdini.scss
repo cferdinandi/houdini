@@ -18,6 +18,13 @@
 	&.is-expanded {
 		display: block;
 	}
+
+	/**
+	 * show content when printing
+	 */
+	@media print {
+		display: block;
+	}
 }
 
 /**
