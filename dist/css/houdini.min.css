@@ -1,2 +1,2 @@
 /*! houdinijs v11.0.2 | (c) 2019 Chris Ferdinandi | MIT License | http://github.com/cferdinandi/houdini */
-.houdini{display:none}.houdini[tabindex="-1"]:focus{outline:none}.houdini.is-expanded{display:block}@media print{.houdini{display:block}}.houdini-heading .houdini-toggle{background:inherit;border:none;display:block;font:inherit;padding:0;text-align:inherit;width:100%}.houdini-toggle-icon{padding:0 .5em}
+.houdini{display:none}.houdini[tabindex="-1"]:focus{outline:none}.houdini.is-expanded{display:block}@media print{.houdini{display:block}}.houdini-heading .houdini-toggle{background:inherit;border:none;display:block;font:inherit;padding:0;text-align:inherit;width:100%}.houdini-toggle-icon{padding:0 .5em}@media print{.houdini-toggle[aria-label]{display:none}}

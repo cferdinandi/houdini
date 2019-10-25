@@ -56,3 +56,9 @@
 .houdini-toggle-icon {
   padding: 0 0.5em;
 }
+
+@media print {
+  .houdini-toggle[aria-label] {
+    display: none;
+  }
+}

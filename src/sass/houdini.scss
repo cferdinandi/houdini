@@ -46,3 +46,13 @@
 .houdini-toggle-icon {
 	padding: 0 0.5em;
 }
+
+/**
+ * Hide generated buttons on print view
+ * By using [aria-label] buttons inside a [data-houdini-toggle] won't be hidden
+ */
+.houdini-toggle[aria-label] {
+	@media print {
+		display: none;
+	}
+}
