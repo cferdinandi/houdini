@@ -18,6 +18,9 @@
   /**
 	 * Show expanded content
 	 */
+  /**
+	 * show content when printing
+	 */
 }
 
 .houdini[tabindex="-1"]:focus {
@@ -26,6 +29,12 @@
 
 .houdini.is-expanded {
   display: block;
+}
+
+@media print {
+  .houdini {
+    display: block;
+  }
 }
 
 /**
@@ -46,4 +55,10 @@
  */
 .houdini-toggle-icon {
   padding: 0 0.5em;
+}
+
+@media print {
+  .houdini-toggle[aria-label] {
+    display: none;
+  }
 }
