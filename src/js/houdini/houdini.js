@@ -174,7 +174,7 @@
 
 		// Add selectors and labels
 		btn.setAttribute(settings.btnAttribute, elem.id);
-		btn.className = settings.btnClass;
+		btn.className += ' ' + settings.btnClass;
 
 		// Add an icon
 		var icon = '';

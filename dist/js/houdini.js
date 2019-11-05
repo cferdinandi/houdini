@@ -1,5 +1,5 @@
 /*!
- * houdinijs v11.0.3
+ * houdinijs v11.0.4
  * A simple collapse-and-expand script
  * (c) 2019 Chris Ferdinandi
  * MIT License
@@ -182,7 +182,7 @@
 
 		// Add selectors and labels
 		btn.setAttribute(settings.btnAttribute, elem.id);
-		btn.className = settings.btnClass;
+		btn.className += ' ' + settings.btnClass;
 
 		// Add an icon
 		var icon = '';
